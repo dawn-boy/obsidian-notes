@@ -57,7 +57,7 @@ git remote add repo_name repo_url
 git push -u repo_name branch_name (first time)
 git push (other times)
 ```
-# Branch
+# ==Branch==
 ##  creating new branch
 ```git
 git branch branch_name
