@@ -1,72 +1,72 @@
 # ==Starting==:
 ## version Check
-```git
+```shell
 git --version
 ```
 ## config
-```git
+```sh
 git config --global user.name "Depredox"
 git config --global user.email "deprecatorp@gmail.com"
 ```
 ## initialize the repo
-```git
+```sh
 git init 
 ```
 ## to change repo name
-```git
+```sh
 git branch -m "repo_name"
 ```
 
 # ==Staging==:
 ## add local files to repo
-```git
+```sh
 git add file_name
 ```
 ## add all files to repo
-```git
+```sh
 git add --all
 ```
 ## check status
-```git
+```sh
 git status
 ```
 ## short status
-```git
+```sh
 git status --short
 ```
 
 # ==Committing==:
 ## commit with message
-```git
+```sh
 git commit -m "message"
 ```
 ## commiting a file Directly without add
-```git
+```sh
 git commit file_name -m message
 ```
 ## view commit history
-```git
+```sh
 git log
 ```
 ## add remote repo
-```git
+```sh
 git remote add repo_name repo_url
 ```
 ## pushing to remote repo (will create branch if it doesn't exist.)
-```git
+```sh
 git push -u repo_name branch_name (first time)
 git push (other times)
 ```
 # ==Branch==
 ##  creating new branch
-```git
+```sh
 git branch branch_name
 ```
 ## change branch 
-```git
+```sh
 git checkout branch_name
 ```
 ## create a new branch and change to it
-```git
+```sh
 git checkout -b new_branch_name
 ```

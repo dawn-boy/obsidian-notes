@@ -87,6 +87,40 @@ which yields the plain message.
 ### Optimal Asymmetric Encryption Padding (OAEP)
 Plain RSA encoding isn't secure as different messages will be encrypted using the same public key ***e***.
 So OAEP adds **nonce** and **padding** to the message before its RSA encrypted and removes it before decrypting.
+***
+## OpenSSL
+#### to generate a private_public_key
+```sh
+openssl genrsa -out priv_pub.key 1024
+```
+#### to view the generated key
+```sh
+openssl rsa -text -in priv_pub.key
+```
+#### to pull out public key out of the generated key pair
+```sh
+openssl rsa -in priv_pub.key -pubout -out pub.key
+```
+#### to view the public key
+```sh
+openssl rsa -text -pubin -in pub.key
+```
+#### to encrypt something
+```sh
+openssl pkeyutl -encrypt -pubin -inkey pub.key -in text -out encrypted_text
+```
+#### to decrypt that samething
+```sh
+openssl pkeyutl -decrypt -inkey priv.key -in encrypted_text -out text
+```
+#### to encode something
+```sh
+openssl base64 -e -in text -out encoded_text
+```
+#### to decode that samething
+```sh
+openssl base64 -d -in encoded_text -out text
+```
 
 ---
 ## Ransomware Code
@@ -234,12 +268,43 @@ $$ Sign(pKey, Certificate) = Encrypt(pKey, Hash(Certificate)) = SignedCertificat
 
 *Then we recompute the hash for the plain-text Message/Certificate. 
 If the decrypted hash is the same as the recomputed hash, then the data is authentic.*
+***
+## openssl
+#### to create a parameters.pem file
+```sh
+openssl genpkey -genparam -algorithm DH -out parameters.pem
+```
+#### to view the parameters.pem file
+```sh
+openssl pkeyparam -in parameters.pem -text
+```
+#### to create a pub_priv.key pair from the parameters.pem file
+```sh
+openssl genpkey -paramfile parameters.pem -out pub_priv.key
+```
+#### to pull out public key from pub_priv.key file
+```sh
+openssl pkey -in pub_priv.key -pubout -out pub.key
+```
+#### to view the public key
+```sh
+openssl pkey -pubin -in pub.key -text
+```
+#### to derive the shared key from a pub_priv.key and a peer.key
+```sh
+openssl pkeyutl -derive -inkey pub_priv.key -peerkey else_pub.key -out shared_key.bin
+```
+#### to view the shared.key
+```sh
+xxd shared_key.bin
+```
+#### to encrypt a message with the shared.key
+```sh
+openssl enc -aes-256-ctr -pbkdf2 -e -a -in text -out encrypted_text -pass file:shared_key.bin
+```
+#### to decrypt that message with the shared.key
+```sh
+openssl enc -aes-256-ctr -pbkdf2 -d -a -in encrypted_text -out text -pass file:shared_key.bin
+```
 
-
-
-
-
-
-
-
-
+***
