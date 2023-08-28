@@ -1,3 +1,4 @@
+# Tier 0
 ## Meow
 ***Telnet*** is a service for remote access of a locally connected pc (with a vpn if it's far-away) and it runs on ***==port 23==***
 
@@ -21,3 +22,16 @@ vuln:
 sometimes misconfigured smb servers may allow for guest auth or anonymous logins without any passwords!
 ***
 ## Redeemer
+Redis (Remote Dictionary Server), runs at port 6379, is an in-memory open source advanced noSQL key-value data storage. It's frequently used database is stored in ram for faster access and obviously this service is for the servers.
+After a successful connection,
+info --> gives full info of the server
+select 0 --> selects the db0 database
+keys * --> gets all the existing keys 
+get key_name --> gets the corresponding key's value
+
+vuln:
+misconfigured ones.
+***
+***
+# Tier 1
+
