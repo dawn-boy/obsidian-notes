@@ -70,3 +70,12 @@ git checkout branch_name
 ```sh
 git checkout -b new_branch_name
 ```
+# ==Pull==
+## pull a remote branch to update your local repo
+```sh
+git pull repo_name branch_name
+```
+## rebase your local repo
+```sh
+git pull repo_name branch_name --rebase
+```

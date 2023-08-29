@@ -269,6 +269,28 @@ $$ Sign(pKey, Certificate) = Encrypt(pKey, Hash(Certificate)) = SignedCertificat
 *Then we recompute the hash for the plain-text Message/Certificate. 
 If the decrypted hash is the same as the recomputed hash, then the data is authentic.*
 ***
+## Diffie-Hellman key exchange
+
+Before Alice and Bob can exchange data securely, they have to make sure each other have the same symmetric key for ciphering. Sending the symmetric key itself over the internet is obviously not secure and if that's your solution you got a lot to improve on, dottir.
+Now let the protocol begin.
+
+- Firstly, Alice and Bob will share their generator G,
+$$ G^i \in (G^1,G^2,G^3,G^4,...,G^n)$$
+- Alice and Bob will have computed their own private keys (A for Alice and B for Bob) and would've kept it secret,
+$$ \Rightarrow A,B $$
+- Now, they'll raise their respective private keys to the common generator G and obtain their respective public keys, a for Alice and b for Bob
+$$ a = G^A , b = G^B $$
+- Time to share their public keys and nonce with each other, Alice gets Bob's public key and his nonce and Bob get's Alice public key and her nonce
+$$ Alice \Leftarrow (b,nonce_b) $$
+$$ (a,nonce_a) \Rightarrow Bob $$
+- Once again, they'll raise their private keys but this time to each other's public key to obtain a shared key.
+$$ b^A = (G^B)^A = G^{BA} \implies S$$
+$$ a^B = (G^A)^B = G^{AB} \implies S$$
+- now now, shared key is not a symmetric key at least not quite yet, we have to use HKDF - HMAC Key Derivation Function to obtain our ALL MIGHTY SYMMETRIC KEY K<subscript>s</subscript>.
+$$ K_s = HKDF(S,nonce_a,nonce_b) $$
+- Happy Ciphering with the Symmetric key K<subscript>s</subscript>
+
+***
 ## openssl
 #### to create a parameters.pem file
 ```sh
@@ -308,3 +330,4 @@ openssl enc -aes-256-ctr -pbkdf2 -d -a -in encrypted_text -out text -pass file:s
 ```
 
 ***
+
