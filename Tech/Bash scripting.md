@@ -111,7 +111,7 @@ $? --> holds the exit status of the script.
 var_name='string'
 echo $var_name
 ```
-mind you, the spaces.
+mind you, the spaces after and before the equal to sign.
 ## arrays
 ```bash
 arrays=(element1 element2 "element3 uh with a space" element4 element5)
