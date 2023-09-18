@@ -1,4 +1,4 @@
-Bash (Bourne again shell) resides at /bin/bash. It's a scripting language meaning it doesn't have to compile to run.
+Bash (Bourne again shell) resides at /bin/bash. It's a scripting language meaning it doesn't need to compile to run.
 #### Ways to run the script
 - bash script.sh (arguments)
 - ./script.sh --> needs to have the execute bit turned on for script.sh
@@ -109,6 +109,7 @@ $? --> holds the exit status of the script.
 ## variable
 ```sh
 var_name='string'
+var_name=$another_var
 echo $var_name
 ```
 mind you, the spaces after and before the equal to sign.
