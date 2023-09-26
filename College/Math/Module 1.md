@@ -159,6 +159,7 @@ $$ A^T = -\overline{A} $$
 - if A is Hermitian Matrix then iA is Skew-Hermitian Matrix
 - Eigen values of Hermitian Matrix = real numbers
 - Eigen values of Skew-Hermitian Matrix = imaginary or zero
+- Eigen values of a unitary Matrix is always 1
 ## Unitary Matrix
 A Matrix A is said to be unitary matrix if it satisfies,
 $$ A^{-1} = (\overline{A})^T = A^* $$
