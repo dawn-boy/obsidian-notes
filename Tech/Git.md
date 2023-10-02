@@ -79,3 +79,7 @@ git pull repo_name branch_name
 ```sh
 git pull repo_name branch_name --rebase
 ```
+## to show git tags
+```sh
+git show tag_name
+```
