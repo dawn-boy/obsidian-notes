@@ -283,5 +283,25 @@ div {
 	align-items: center;
 	align-items: flex-start;
 	align-items: flex-end;
+
+	/* For Individual elements */
+	align-self: flex-start;
+	align-content: flex-start;
+
+	flex-basis: 400px;
+}
+```
+
+## Media Queries
+```css
+@media (width: 400px){
+	div{
+		color: blue;
+	}
+@media (min-width: 400px){
+	div{
+		color: pink;
+	}
+}
 }
 ```
