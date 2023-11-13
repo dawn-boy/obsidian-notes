@@ -113,7 +113,6 @@ Intended to represent the function in it's Sum of Products form
 - Quad (4) --> 2 literals
 - Pair (2)   --> 3 literals
 - Cell (1)    --> 4 literals
-
 ### Example
 
 $$ 00 = \overline{AB} $$
@@ -128,6 +127,8 @@ $$ = \overline{BD} $$
 
 #### Binary to Gray code 
 ==11011==
+
+
 
 - write the M.S.B directly,
 $$ = 1  $$
@@ -195,7 +196,7 @@ $$ = \overline{B}(A\overline{C} + \overline{A}C) + B(AC + \overline{AC}) $$
 Now, 
 $$ A\overline{C} + \overline{A}C = A \oplus C $$
 and,
-$$ AC + \overline{AC} = A \overline{\oplus} C$$
+$$ AC + \overline{AC} = \overline{A {\oplus} C}$$
 so this can collectively be written as,
 $$ Y = \overline{B}(A \oplus C) + B(\overline{A \oplus C}) $$
 $$ \implies B \oplus A \oplus C = A \oplus B \oplus C $$
@@ -217,7 +218,6 @@ $$ Borrow = \overline{A}B $$
 # Full Subtractor
 - 3 inputs, 2 outputs, Difference and Borrow
 ## Truthtable
-
 | A   | B   | C   | Difference | Borrow |
 | --- | --- | --- | ---------- | ------ |
 | 0   | 0   | 0   | 0          | 0      |

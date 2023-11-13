@@ -305,3 +305,19 @@ div {
 }
 }
 ```
+---
+# Flex
+```css
+
+/* Initiates Flex Protocols */
+display: flex;
+
+/* If the Screen shrinks, then the contents will either shrink with it or just go past the border */
+flex-shrink: 1;
+/*Allowed to grow and fill the screen if the value is 1 */
+flex-grow: 1;
+
+/* Wraps the elements one below another when the screen size gets smaller */
+flex-wrap: wrap;
+
+```
