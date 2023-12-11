@@ -321,3 +321,28 @@ flex-grow: 1;
 flex-wrap: wrap;
 
 ```
+***
+# bootstrap
+inside the head, gets all the css goodies
+```html
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+```
+
+## how to use them;
+```html
+<p class='class_name_in_the_css'></p>
+```
+## containers
+```css
+.container{
+/* these are used to make the website more responsive */
+}
+.container{
+/* Full width container that spans it's contents all the way till the edges of the screen */
+}
+.container-sm{}
+.container-md{}
+.container-lg{}
+.container-xl{}
+```
+``
