@@ -142,7 +142,7 @@ $$ \frac{dB}{dS} = \tau $$
 - reciprocal of curvature is radius of curvature, $$ \rho = \frac{1}{\kappa} $$
 - reciprocal of torsion is radius of torsion,$$ \sigma = \frac{1}{\tau} $$
 - $$ \kappa = \frac{|r'(t) \times r''(t)|}{|r'(t)|^3} $$
-- $$ \tau = \frac{(r'(t) \times r''(t)) \bullet r'''(t) }{|r'(t) \times r''(t)|^3} $$
+- $$ \tau = \frac{(r'(t) \times r''(t)) \bullet r'''(t) }{|r'(t) \times r''(t)|^2} $$
 - Torsion of a Plane Curve is 0
 
 ## Angle between the vectors
@@ -213,3 +213,4 @@ $$ \int{u \;dv } = uv - \int{v \;du} $$
 # Bernollins Formula 
 $$ \int{u \;dv} = uv_1 +u'v_2 + u''v_3 - u'''v_4 $$
 differentiate until there's only constant left in u term.
+Differentiating u and integrating v
