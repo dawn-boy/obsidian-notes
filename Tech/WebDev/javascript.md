@@ -16,3 +16,22 @@ let isCap = true, isCap = false;
 var num = 3;
 ```
 
+# string methods
+```js
+let string = "HelloThere";
+
+string.toUpperCase();
+string.toLowerCase();
+string.trim();
+string.indexOf(wordToSearch);
+string.slice(startIndex, endIndex);
+string.replace(whatToReplace, whatToReplaceWith); //replaces only the first occ
+string.repeat(timesToRepeat)
+
+//formated string
+
+let genName = "Kenobi";
+"Hello There! general ${genName}";
+
+
+```
