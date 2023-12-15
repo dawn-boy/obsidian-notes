@@ -305,3 +305,44 @@ div {
 }
 }
 ```
+---
+# Flex
+```css
+
+/* Initiates Flex Protocols */
+display: flex;
+
+/* If the Screen shrinks, then the contents will either shrink with it or just go past the border */
+flex-shrink: 1;
+/*Allowed to grow and fill the screen if the value is 1 */
+flex-grow: 1;
+
+/* Wraps the elements one below another when the screen size gets smaller */
+flex-wrap: wrap;
+
+```
+***
+# bootstrap
+inside the head, gets all the css goodies
+```html
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+```
+
+## how to use them;
+```html
+<p class='class_name_in_the_css'></p>
+```
+## containers
+```css
+.container{
+/* these are used to make the website more responsive */
+}
+.container{
+/* Full width container that spans it's contents all the way till the edges of the screen */
+}
+.container-sm{}
+.container-md{}
+.container-lg{}
+.container-xl{}
+```
+``
