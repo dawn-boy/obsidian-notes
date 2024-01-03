@@ -29,9 +29,19 @@ string.replace(whatToReplace, whatToReplaceWith); //replaces only the first occ
 string.repeat(timesToRepeat)
 
 //formated string
-
 let genName = "Kenobi";
 "Hello There! general ${genName}";
+```
 
-
+# control statements
+```js
+if (condition){
+	statements;
+}
+else if (condition){
+	statements;
+}
+else{
+	statements;
+}
 ```
