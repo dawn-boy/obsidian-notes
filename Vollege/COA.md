@@ -225,3 +225,4 @@ forms a link for data to move throughout the net
 - physical layer
 	contains the actual wires, cables, circuitry and the logic that supports features required for transmission. Carries 20 bits at a time called PHIT (physical unit).
 	It has 84 individual links and each path has 20 links. A pair of 2 links makes a path. Additionally, it has a clock link.
+

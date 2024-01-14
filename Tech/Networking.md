@@ -56,6 +56,7 @@ A set of standards used for routing and addressing each packets as they travel b
 	- eg. Authentication, reconnection, setting checkpoint during a data transfer, so If a session is interrupted, checkpoints allows us to resume at the last session's checkpoint
 	- sessions include a request and a response 
 	- functions in the layer respond to the requests from the presentation layer and send requests to the transport layer for it's services
+
 4) **Transport layer**
 	- responsible for delivering the data between devices 
 	- handles the speed of data transfer, flow of the transfer, and segmentation.
@@ -92,6 +93,19 @@ Unique set of strings that identifies the location of a device on the internet
 - MAC address
 	- MAC address is a unique alphanumeric identifier that is assigned to each device on the network
 	- when a switch receives a packet, it reads the destination MAC address of the packet and maps it to an available port in the switch. It then logs this information in it's MAC address table
+	
+| Private IP Addresses | Public IP Addresses |
+| ---- | ---- |
+| assigned by network admins | assigned by ISP and IANA |
+| unique only within private networks | unique address globally |
+| no cost to use | costs to lease a public IP address |
+|  |  |
+| Address ranges: | Address ranges: |
+| 9.0.0.0 - 10.255.255.255 | 1.0.0.0 - 9.255.255.255 |
+| 172.16.0.0 - 172.31.255.255 | 11.0.0.0 - 126.255.255.255 |
+| 192.168.0.0 - 192.168.255.255 | 128.0.0.0 - 172.15.255.255 |
+|  | 172.32.0.0 - 192.167.255.255 |
+|  | 192.169.0.0 - 233.255.255.255 |
 # IPv4 packet
 ![[ipv4_header.png]]
 - the size of the whole IPv4 packet ranges from 20 - 65535
@@ -144,50 +158,88 @@ A network protocol is a set of rules used by two or more devices on a network to
 			- first, the device sends a synchronise (SYN) request to a server
 			- second, the server responds with a SYN/ACK packet to acknowledge receipt of the device's request 
 			- finally, the ACK signal sent to the server. A TCP connection is this formed. 
-		In TCP/IP model, the TCP occurs at the transport layer.
+		In TCP/IP model, **the TCP occurs at the transport layer.**
 	- User Datagram Protocol (UDP)
 		1. UDP is a connection-less protocol that does not establish a connection between the devices before a transmission
 		2. This makes it less reliable than TCP, but for faster transmissions, UDP works great
-		In TCP/IP model, the UDP occurs at the transport layer
+		In TCP/IP model, **the UDP occurs at the transport layer**
 	- Hypertext Transfer Protocol (HTTP)
 		1. provides a method of communication between clients and servers.
-		2. HTTP uses port 80
+		2. HTTP uses **port 80**
 		3. HTTP is considered insecure, so it is being replaced by HTTPS which is a secure version
-		In TCP/IP model, The HTTP occurs at the application layer
+		In TCP/IP model, **The HTTP occurs at the application layer**
 	- Domain Name System (DNS)
 		1. Translates internet domain names into IP address
 		2. When a client wishes to access a website domain, a query is sent to the DNS server which looks up the IP address of the corresponding domain
-		3. DNS normally uses port 53, however if the DNS requests are large, it'll switch to using the TCP protocol
-		In TCP/IP model, DNS occurs at the application layer
+		3. DNS normally uses **port 53**, however if the DNS requests are large, it'll switch to using the TCP protocol
+		In TCP/IP model, **DNS occurs at the application layer**
 - management protocols
 	used for monitoring and managing activity on a network. They include protocols for error reporting and optimizing performance on the network.
 	- Simple Network Management Protocol (SNMP)
 		1. Monitors and manages devices on a network 
 		2. SNMP can reset a password on a network device or change it's baseline configuration
 		3. SNMP can also send requests to network devices to report on how much network's bandwidth is being used up.
-		In TCP/IP model, SNMP occurs at the application layer
+		In TCP/IP model, **SNMP occurs at the application layer**
 	- Internet Control Message Protocol (ICMP)
 		1.  ICMP is used by devices to tell each other about data transmission errors across the network 
 		2. Used by receiving device to send a report to the sending device about the data transmission 
 		3. ICMP is commonly used as a quick way to troubleshoot network connectivity and latency by issuing the "ping" command
-		In TCP/IP model, ICMP occurs at the network layer
+		In TCP/IP model, **ICMP occurs at the network layer**
 - security protocols 
 	These protocols ensures that the data is sent and recieved securely over the network. They uses encryption algorithms to achieve this.
 	- Hypertext Transfer Protocol Secure (HTTPS)
 		1. provides a secure method of communication between clients and servers.
 		2. HTTPS is a secure version of HTTP that uses secure sockets layer (SSL)/ transport layer security (TLS) encryption on all transmission
-		3. HTTPS uses the port 443
-		In TCP/IP model, HTTPS occurs at the application layer.
+		3. HTTPS uses the **port 443**
+		In TCP/IP model, **HTTPS occurs at the application layer.**
 	- Secure File Transfer Protocol (SFTP)
 		1. A secure version of FTP that uses secure shell (SSH) to transfer files from one device to another over a network 
-		2. SFTP uses the port 22 through TCP
+		2. SFTP uses the **port 22** through **TCP**
 		3. SSH uses advanced encryption standard (AES) and other types of encryption.
 		4. SFTP is used often with cloud storage. Every time a user uploads or downloads a file from cloud storage, the file is transferred using SFTP
-		In TCP/IP model, SFTP occurs at the application layer 
-
-# Network Address Translation 
+		In TCP/IP model, **SFTP occurs at the application layer** 
+## Network Address Translation (NAT)
 - the devices on a local home network each have a private IP address that they use to communicate with eachother, but inorder for a device with private IP address to communicate with the public internet, they need to have a public IP address otherwise their responses will not be routed correctly.
 - So, Instead of having a dedicated public IP address for each of the devices on the local network, the router can replace a private source IP address with it's public IP address and this process is known as Network Address Translation (NAT)
 - NAT generally requires a firewall or a router to be specifically configured to perform NAT
-- In TCP/IP model, NAT is a part of the internet layer and transport layer.
-- 
+- In TCP/IP model, **NAT is a part of the internet layer and transport layer.**
+## Dynamic Host Configuration Protocol (DHCP)
+- Dynamic host configuration protocol (DHCP) is in the management protocols
+- It is used on a network to configure devices. It assigns a unique IP address and provides the addresses of the appropriate DNS server and default gateway for each device
+- DHCP servers run on **port 67** using **UDP** while DHCP clients operate on **port 68** using **UDP**
+- In TCP/IP model, **DHCP is found at the application layer.**
+## Address Resolution Protocol (ARP)
+- IP address of a device may change but MAC (media access control) address is permanent.
+- ARP translates the IP addresses that are found in data packets into the MAC (media address control) address of the hardware device. 
+- It does this by maintaining an ARP table which contains the IP addresses and it's corresponding MAC (media address control) address of the device in the local network
+- each device in the network performs ARP to keep track of matching IP and MAC addresses in an ARP cache
+- ARP does not have a specific port number
+- In TCP/IP model, **ARP is found at the network access layer**
+## Telnet
+- It allows the device to communicate with another device or server and sends all the information in clear text
+- It uses command line prompts to control another device similar to secure shell (SSH) but telnet is not as secured as SSH
+- Telnet uses the **port 23** using **TCP**
+- In TCP/IP model, **Telnet is found at the application layer**
+## Secure shell (SSH)
+- secure shell protocol (SSH) is used to create a secure connection with a remote system
+- provides an alternative for secure authentication and encrypted communication
+- SSH uses the **port 22** using **TCP**
+- In TCP/IP model, **SSH occurs at the application layer**
+## Post Office Protocol (POP)
+- It is used to manage and retrieve email from a mail server
+- Many organizations have a dedicate mail server that handles incoming and outgoing mail for users on the network. User devices will send requests to the remote mail server an download email messages locally.
+- eg: when an email application is refreshed and your feed gets updated in real-time, POP and IMAP (internet message access protocol) is working behind the curtains
+- Unencrypted plaintext emails use the **port 110** with **TCP**
+- Encrypted emails use the **port 995** with **secure sockets layer/transport layer security (SSL/TLS) over TCP/UDP**
+- While using POP, a mail has to be downloaded before it can be read, and POP do not support syncing emails
+- In TCP/IP model, POP is found at the application layer
+## Internet Message Access Protocol (IMAP)
+- IMAP is used for incoming emails. It downloads the headers of the email but not it's content. The content stays on the mail server which allows users to access their email from multiple devices
+- using IMAP allows users to partially read email before it finishes download and it can sync email. However it is slower than POP3.
+- Unecrypted emails use **port 143** over **TCP**
+- Encrypted emails use **port 993** with **TLS over TCP**
+## Simple Mail Transfer Protocol (SMTP)
+- SMTP is used to transmit and route email from the sender to the recipient's address. 
+- It works with Message Transfer Agent (MTA) software which searches DNS servers to resolve email addresses to IP addresses
+- Unencrypted emails uses **port 25** over **TCP/UDP**. This port is often used for high volume spam (spicy). SMTP helps to filter out spam by limiting the amount of emails a source can send at a time.
+- Encrypted emails uses **port 587** using **TLS** over **TCP/UDP**
