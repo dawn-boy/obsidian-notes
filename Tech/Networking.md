@@ -93,9 +93,7 @@ Unique set of strings that identifies the location of a device on the internet
 	- MAC address is a unique alphanumeric identifier that is assigned to each device on the network
 	- when a switch receives a packet, it reads the destination MAC address of the packet and maps it to an available port in the switch. It then logs this information in it's MAC address table
 # IPv4 packet
-
-<img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/ZlTJLULmT_-iQusFt5gHLA_34841ae20ac344f4a0248aebe8f0d6f1_CS_R-044_Edited_Pv4-packet-header-14-field.png?expiry=1704412800000&hmac=Fpuwa2aJaHH7lKPm2eoANoO4O-PORQPnthmTHmK61qo">
-
+![](../images/ipv4_header.png)
 - the size of the whole IPv4 packet ranges from 20 - 65535
 - the size of the IPv4 header section ranges from 20 - 60 bytes
 	- the first 20 bytes are a fixed set of information like,
@@ -117,4 +115,20 @@ Unique set of strings that identifies the location of a device on the internet
 - Total length
 	- stores the total length of the entire IP packet
 - Identification
-	- for packets larger than 
+	- for packets larger than 65,535 bytes, the packets are fragmented into smaller IP packets. This field provides a unique identifier for all the fragments of the original IP packet so they can be reassembled once they reach their destination system.
+- flags
+	- tells the router whether the original packet has been fragmented and if there are more fragments on the way.
+- fragmentation offset
+	- tells the routing device where in the original packet the fragment belongs.
+- time to live (TTL)
+	- TTL prevents data packets from being transmitted indefinitely by routers. it contains a counter that is set at the source and the counter is decremented by one as it passes through each router along it's path. When the counter reaches zero, the router that's currently holding the packet will discard the packet and return an "ICMP time exceeded" error message to the sender
+- protocol
+	- tells the receiving device which protocol will be used for the data portion of the packet
+- header checksum
+	- contains a checksum that is used to detect corruption of the IP header in transit. Corrupted packets are discarded.
+- source IP address
+	- IPv4 address of the sending device 
+- destination IP address
+	- IPv4 address of the receiving device
+- options
+	- allows for security options to be applied to the packet, if HLEN value is > 5.
