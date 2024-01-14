@@ -132,3 +132,62 @@ Unique set of strings that identifies the location of a device on the internet
 	- IPv4 address of the receiving device
 - options
 	- allows for security options to be applied to the packet, if HLEN value is > 5.
+---
+## network protocol
+A network protocol is a set of rules used by two or more devices on a network to describe the order if delivery and structure of data
+### categories 
+- communication protocols
+	governs the exchange of information in network transmission. They dictate how the data must be transmitted and the timing of the communication. They also include methods to recover data that are lost in transit.
+	- Transmission Control Protocol (TCP)
+		1. TCP allows two devices to form a connection and stream data.
+		2. TCP uses a three-way handshake
+			- first, the device sends a synchronise (SYN) request to a server
+			- second, the server responds with a SYN/ACK packet to acknowledge receipt of the device's request 
+			- finally, the ACK signal sent to the server. A TCP connection is this formed. 
+		In TCP/IP model, the TCP occurs at the transport layer.
+	- User Datagram Protocol (UDP)
+		1. UDP is a connection-less protocol that does not establish a connection between the devices before a transmission
+		2. This makes it less reliable than TCP, but for faster transmissions, UDP works great
+		In TCP/IP model, the UDP occurs at the transport layer
+	- Hypertext Transfer Protocol (HTTP)
+		1. provides a method of communication between clients and servers.
+		2. HTTP uses port 80
+		3. HTTP is considered insecure, so it is being replaced by HTTPS which is a secure version
+		In TCP/IP model, The HTTP occurs at the application layer
+	- Domain Name System (DNS)
+		1. Translates internet domain names into IP address
+		2. When a client wishes to access a website domain, a query is sent to the DNS server which looks up the IP address of the corresponding domain
+		3. DNS normally uses port 53, however if the DNS requests are large, it'll switch to using the TCP protocol
+		In TCP/IP model, DNS occurs at the application layer
+- management protocols
+	used for monitoring and managing activity on a network. They include protocols for error reporting and optimizing performance on the network.
+	- Simple Network Management Protocol (SNMP)
+		1. Monitors and manages devices on a network 
+		2. SNMP can reset a password on a network device or change it's baseline configuration
+		3. SNMP can also send requests to network devices to report on how much network's bandwidth is being used up.
+		In TCP/IP model, SNMP occurs at the application layer
+	- Internet Control Message Protocol (ICMP)
+		1.  ICMP is used by devices to tell each other about data transmission errors across the network 
+		2. Used by receiving device to send a report to the sending device about the data transmission 
+		3. ICMP is commonly used as a quick way to troubleshoot network connectivity and latency by issuing the "ping" command
+		In TCP/IP model, ICMP occurs at the network layer
+- security protocols 
+	These protocols ensures that the data is sent and recieved securely over the network. They uses encryption algorithms to achieve this.
+	- Hypertext Transfer Protocol Secure (HTTPS)
+		1. provides a secure method of communication between clients and servers.
+		2. HTTPS is a secure version of HTTP that uses secure sockets layer (SSL)/ transport layer security (TLS) encryption on all transmission
+		3. HTTPS uses the port 443
+		In TCP/IP model, HTTPS occurs at the application layer.
+	- Secure File Transfer Protocol (SFTP)
+		1. A secure version of FTP that uses secure shell (SSH) to transfer files from one device to another over a network 
+		2. SFTP uses the port 22 through TCP
+		3. SSH uses advanced encryption standard (AES) and other types of encryption.
+		4. SFTP is used often with cloud storage. Every time a user uploads or downloads a file from cloud storage, the file is transferred using SFTP
+		In TCP/IP model, SFTP occurs at the application layer 
+
+# Network Address Translation 
+- the devices on a local home network each have a private IP address that they use to communicate with eachother, but inorder for a device with private IP address to communicate with the public internet, they need to have a public IP address otherwise their responses will not be routed correctly.
+- So, Instead of having a dedicated public IP address for each of the devices on the local network, the router can replace a private source IP address with it's public IP address and this process is known as Network Address Translation (NAT)
+- NAT generally requires a firewall or a router to be specifically configured to perform NAT
+- In TCP/IP model, NAT is a part of the internet layer and transport layer.
+- 
