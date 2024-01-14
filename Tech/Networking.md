@@ -93,7 +93,7 @@ Unique set of strings that identifies the location of a device on the internet
 	- MAC address is a unique alphanumeric identifier that is assigned to each device on the network
 	- when a switch receives a packet, it reads the destination MAC address of the packet and maps it to an available port in the switch. It then logs this information in it's MAC address table
 # IPv4 packet
-![](../images/ipv4_header.png)
+![[ipv4_header.png]]
 - the size of the whole IPv4 packet ranges from 20 - 65535
 - the size of the IPv4 header section ranges from 20 - 60 bytes
 	- the first 20 bytes are a fixed set of information like,
