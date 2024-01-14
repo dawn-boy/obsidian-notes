@@ -32,6 +32,28 @@ string.repeat(timesToRepeat)
 
 let genName = "Kenobi";
 "Hello There! general ${genName}";
+```
 
+# logical operators
+```js
+&& // And
+|| // Or
+! //Not
+```
+
+# arrays
+```js
+let array = ["Hello","There"];
+
+array.push("!"); // adds to the end of list
+array.unshift("Yo") // adds to the start of list
+array.pop(); // deletes the end element
+array.shift(); // deletes the start element
+
+let array3 = array1.concat(array2);
+array.include("Hello"); // true, element "Hello" is in the list
+array.indexOf(element);
+array.reverse(); // in-place and affects original
+arrays.slice(indexNum); // deletes the elements till indexNum and returns rest of the elements
 
 ```
