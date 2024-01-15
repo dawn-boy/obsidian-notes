@@ -232,7 +232,7 @@ A network protocol is a set of rules used by two or more devices on a network to
 - Unencrypted plaintext emails use the **port 110** with **TCP**
 - Encrypted emails use the **port 995** with **secure sockets layer/transport layer security (SSL/TLS) over TCP/UDP**
 - While using POP, a mail has to be downloaded before it can be read, and POP do not support syncing emails
-- In TCP/IP model, POP is found at the application layer
+- In TCP/IP model, **POP is found at the application layer**
 ## Internet Message Access Protocol (IMAP)
 - IMAP is used for incoming emails. It downloads the headers of the email but not it's content. The content stays on the mail server which allows users to access their email from multiple devices
 - using IMAP allows users to partially read email before it finishes download and it can sync email. However it is slower than POP3.
@@ -243,3 +243,34 @@ A network protocol is a set of rules used by two or more devices on a network to
 - It works with Message Transfer Agent (MTA) software which searches DNS servers to resolve email addresses to IP addresses
 - Unencrypted emails uses **port 25** over **TCP/UDP**. This port is often used for high volume spam (spicy). SMTP helps to filter out spam by limiting the amount of emails a source can send at a time.
 - Encrypted emails uses **port 587** using **TLS** over **TCP/UDP**
+
+# wireless protocols
+Wi-FI (wireless fidelity) refers to the set of standards that define communication for wireless LANs. Wi-Fi standards and protocols are based on the 802.11 family of internet communication determined by the Institute of Electrical and Electronics Engineering (IEEE).
+So Wi-Fi might also be referred to as IEEE 802.11
+
+1) Wired Equivalent Privacy (WEP)
+	- wired equivalent privacy is a wireless security protocol that is designed to provide users with the same level of privacy on wireless networks as they have on wired network connections
+	- WEP was developed in 1999 and is the oldest of the wireless security standards
+	- WEP is out of commission nowadays as it is easy to break it's encryption. WEP is a high-risk security protocol
+2) Wi-Fi Protected Access (WPA)
+	- a wireless security protocol for devices to connect to the internet
+	- WPA was developed in 2003 to improve upon WEP, to address the issue WEP had and to replace it. WPA was always intended to be a transitional measure, so backwards compatibility could be established with older hardware
+	- The flaws within WEP were in the protocol itself and how the encryption worked. WPA solved this by using Temporal Key Integrity Protocol (TKIP)
+	- WPA uses a larger secret keys than WEPs which makes it harder to bruteforce
+	- WPA also includes a message integrity check that indulges a message authentication tag with each transmission. If a MITM attack attempts to alter the transmission in any way or resend it another time, WPA's message integrity check will identity the attack and reject the transmission
+	- despite all these security improvements of WPA, it still has vulnerabilities. Attackers can use a key reinstallation attack (KRACK attack) to decrypt the transmission using WPA. Attackers can insert themselves in the WPA authentication handshake proces and insert their own encryption key instead of the dynamic one assigned by WPA. If they set the new keys to all zero, it is as if the transmission is not encrypted at all.
+	- due to WPA's serious vulnerabilities, WPA was replaced with an updated protocol called WPA2 
+3) Wi-Fi Protected Access 2 (WPA2)
+	- The second version of Wi-Fi Protected Access - WPA2 was released in 2004
+	- WPA2 improves upon WPA by using the Advanced Encryption Standard (AESA)
+	- WPA2 also improves on the use of Temporal Key Integrity Protocol (TKIP) by using Counter Mode Cipher Block Chain Message Authentication Code Protocol (CCMP) which provides encapsulation and ensures message authentication and integrity.
+	- Personal
+		WPA2 personal mode is best suited for home networks. It is easy to implement. The global passphrase WPA2 personal version needs to be applied to each individual computers and access points in the network. This makes it ideal of Home networks but unmanageable for organizations
+	- Enterprise
+		WPA2 enterprise mode works best for business applications. It provides the necessary security for the wireless networks in the business settings. The initial setup is more complicated than the WPA2 personal mode, but enterprise mode offers individualized and centralized control over the Wi-Fi access to a business networks. Users never have access to encryption keys, this prevents potential attackers from recovering network keys on individual computers
+	- Because of the strength of WPA2, it is the today's standards for Wi-Fi transmissions but it was still vulnerable to KRACK attacks. So WPA3 was born.
+4) Wi-Fi Protected Access 3 (WPA3)
+	- The Third version of Wi-Fi Protected Access, found in 2018.
+	- WPA3 is a secure protocol and is growing in usage as more WPA3 compatible devices are released
+	- WPA3 addresses the Authentication handshake vulnerability to KRACK attacks. It uses Simultaneous Authentication of Equals (SAE), a password-authenticated, cipher-key sharing agreement. This prevents attackers from downloading data from wireless network connections to their systems to attempt the decode.
+	- WPA3 has also increased encryption to 128-bit encryption. WPA3 enterprise mode offers 192-bit encryption.
