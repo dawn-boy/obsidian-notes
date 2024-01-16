@@ -148,7 +148,7 @@ Unique set of strings that identifies the location of a device on the internet
 	- allows for security options to be applied to the packet, if HLEN value is > 5.
 ---
 ## network protocol
-A network protocol is a set of rules used by two or more devices on a network to describe the order if delivery and structure of data
+A network protocol is a set of rules used by two or more devices on a network to describe the order of delivery and structure of data
 ### categories 
 - communication protocols
 	governs the exchange of information in network transmission. They dictate how the data must be transmitted and the timing of the communication. They also include methods to recover data that are lost in transit.
@@ -181,7 +181,7 @@ A network protocol is a set of rules used by two or more devices on a network to
 		3. SNMP can also send requests to network devices to report on how much network's bandwidth is being used up.
 		In TCP/IP model, **SNMP occurs at the application layer**
 	- Internet Control Message Protocol (ICMP)
-		1.  ICMP is used by devices to tell each other about data transmission errors across the network 
+		1. ICMP is used by devices to tell each other about data transmission errors across the network 
 		2. Used by receiving device to send a report to the sending device about the data transmission 
 		3. ICMP is commonly used as a quick way to troubleshoot network connectivity and latency by issuing the "ping" command
 		In TCP/IP model, **ICMP occurs at the network layer**
@@ -262,7 +262,7 @@ So Wi-Fi might also be referred to as IEEE 802.11
 	- due to WPA's serious vulnerabilities, WPA was replaced with an updated protocol called WPA2 
 3) Wi-Fi Protected Access 2 (WPA2)
 	- The second version of Wi-Fi Protected Access - WPA2 was released in 2004
-	- WPA2 improves upon WPA by using the Advanced Encryption Standard (AESA)
+	- WPA2 improves upon WPA by using the Advanced Encryption Standard (AES)
 	- WPA2 also improves on the use of Temporal Key Integrity Protocol (TKIP) by using Counter Mode Cipher Block Chain Message Authentication Code Protocol (CCMP) which provides encapsulation and ensures message authentication and integrity.
 	- Personal
 		WPA2 personal mode is best suited for home networks. It is easy to implement. The global passphrase WPA2 personal version needs to be applied to each individual computers and access points in the network. This makes it ideal of Home networks but unmanageable for organizations
@@ -274,3 +274,47 @@ So Wi-Fi might also be referred to as IEEE 802.11
 	- WPA3 is a secure protocol and is growing in usage as more WPA3 compatible devices are released
 	- WPA3 addresses the Authentication handshake vulnerability to KRACK attacks. It uses Simultaneous Authentication of Equals (SAE), a password-authenticated, cipher-key sharing agreement. This prevents attackers from downloading data from wireless network connections to their systems to attempt the decode.
 	- WPA3 has also increased encryption to 128-bit encryption. WPA3 enterprise mode offers 192-bit encryption.
+---
+# Firewall
+- a firewall is a network security device that monitors traffic to and from your network. It either allows traffic or blocks it based on a defined set of rules.
+- A firewall can use port filtering, which blocks or allows certain port numbers to limit unwanted communication
+- Stateful firewall keeps track of information passing through it and proactively filters out threats. It analysis the network traffic for characteristics and behaviour that appears suspicious and stops then from entering the network
+- Stateless firewall operates based on predefined rules and does not keep track of information from data packets
+- Next Generation Firewalls (NGFWs) are considered even more secure that Stateful firewall. They perform deep packet inspection, intrusion protection, threat intelligence 
+## hardware firewall
+It inspects each data packet before it's allowed to enter the network
+## software firewall
+- It performs the same function of a hardware firewall except that it's not a physical device, instead it's a software program installed on a computer or a server.
+- it typically costs less than a hardware firewall and it doesn't take any extra space, but because it is a software, it will add some processing burden to the individual computer.
+- organisation might opt for cloud based firewall
+## cloud-based firewall
+Software firewalls that are hosted by a cloud service provider 
+## Virtual Private Network (VPN)
+- a VPN is a network security service that changes your IP address and hides your virtual location so that your data is kept private when you're on a public network
+- VPNs also encrypts and encapsulates the data to preserve confidentiality. Encapsulation is the process of wrapping sensitive data in other data packets
+- encrypted data packets cannot be read by the routers and without the IP and MAC address of the destination, you won't be able to connect to the internet. Encapsulation solves this problem by wrapping the sensitivity data in other data packets that the routers can read. This allows the packets to reach its destination while still encrypts your personal data
+- A VPN also uses an encrypted tunnel which is unhackable without a cryptographic key.
+## network segmentation 
+- A security technique in which the network is divided into segments. Each segments has it's own access permissions and security rules.
+### security zones
+- Security zones are a segment of a network that protects the internal network from the internet. They are a part of the network segmentation.
+- Security zones control who can access different segments of a network. They act as a barrier to internal networks, maintain privacy within corporate groups and prevent issues from spreading to the whole network
+- two types,
+	- uncontrolled zone
+			Any network outside the organization's control
+	- controlled zone
+		- A subnet that protects the internal network from the uncontrolled zone
+		- 3 layers to peel,
+			- Outer layer - Demilitarized zone (DMZ)
+				This layer contains the public facing services that can access the internet. This includes web servers, proxy servers, DNS servers, email and file servers, etc. The DMZ acts as a network perimeter to the internal network. 
+			- Middle layer - Internal network 
+				The internal network hosts private servers and data that the organisation needs to protect.
+			- Inner layer - Restricted layer
+				The restricted zone protects highly confidential data that is only accessible to employees with certain privileges
+		Each layer is protected by a firewall to filter any unwanted traffic.
+		- A firewall
+		- DMZ layer
+		- A firewall
+		- Internal network 
+		- A firewall 
+		- Restricted layer
