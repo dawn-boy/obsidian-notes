@@ -318,3 +318,19 @@ Software firewalls that are hosted by a cloud service provider
 		- Internal network 
 		- A firewall 
 		- Restricted layer
+## subnet
+Subdivision of networks into logical groups
+### CIDR (Classless Inter Domain Routing)
+A method of assigning subnet to IP address to create a network 
+
+## proxy servers
+- A server that fulfills the request of the clients by forwarding them on to other servers
+- secures the internal server by not exposing their IP addresses to the external network
+- proxy servers are kept in the middle between an internal network and the external network. The proxy server keeps track of the frequently requested content by the external clients in it's cache, so minimum contact with the internet network for data reduces any security risks
+- types,
+	1. Forward Proxy server
+		Regulates and restricts a person's access to the internet. The goal is to hide the user's IP address and approve all the outgoing requests from the internal network.
+	2. Reverse Proxy Server
+		Regulates and restricts the internet's access to an internet server. The goal is to accept traffic from the external internet, approve it and then forward it to the internal network 
+	3. Email Proxy Server
+		It filters 
