@@ -341,13 +341,16 @@ Software firewalls that are hosted by a cloud service provider
 		- Internal network 
 		- A firewall 
 		- Restricted layer
-
 ## proxy servers
-- another way to add security to your private network.
+- It's a server that fulfills the request of the clients by forwarding them on to other servers. Another way to add security to your private network
+- secures the internal server by not exposing their IP addresses to the external network
 - Proxy servers utilize Network Address Translation (NAT) to server as a barrier between clients on the network and external threats.
 - Forward proxies handle queries from internal clients when they access resources external to the network.
 - reverse proxies handle requests from external systems to services on the internal network
 - some proxies can also be configured with rules like a firewall
-### email proxy server
-- it filters spam email by verifying whether a sender's address was forged. This reduces the risk of phishing attacks that impersonate people known to the organization
-
+- email proxies filter out spam emails by verifying whether a sender's address was forged. This reduces the risk of phishing attacks that impersonate people known to the organization
+- proxy servers are kept in the middle between an internal network and the external network. The proxy server keeps track of the frequently requested content by the external clients in it's cache, so minimum contact with the internet network for data reduces any security risks
+## subnet
+Subdivision of networks into logical groups
+## CIDR (Classless Inter Domain Routing)
+A method of assigning subnet to IP address to create a network 
