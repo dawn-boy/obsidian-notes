@@ -352,5 +352,5 @@ Software firewalls that are hosted by a cloud service provider
 - proxy servers are kept in the middle between an internal network and the external network. The proxy server keeps track of the frequently requested content by the external clients in it's cache, so minimum contact with the internet network for data reduces any security risks
 ## subnet
 Subdivision of networks into logical groups
-## CIDR (Classless Inter Domain Routing)
+### CIDR (Classless Inter Domain Routing)
 A method of assigning subnet to IP address to create a network 
