@@ -151,6 +151,7 @@ Unique set of strings that identifies the location of a device on the internet
 A network protocol is a set of rules used by two or more devices on a network to describe the order of delivery and structure of data
 ### categories 
 - communication protocols
+	- protocols used to establish connections between servers
 	governs the exchange of information in network transmission. They dictate how the data must be transmitted and the timing of the communication. They also include methods to recover data that are lost in transit.
 	- Transmission Control Protocol (TCP)
 		1. TCP allows two devices to form a connection and stream data.
@@ -174,6 +175,7 @@ A network protocol is a set of rules used by two or more devices on a network to
 		3. DNS normally uses **port 53**, however if the DNS requests are large, it'll switch to using the TCP protocol
 		In TCP/IP model, **DNS occurs at the application layer**
 - management protocols
+	- used to troubleshoot network issues.
 	used for monitoring and managing activity on a network. They include protocols for error reporting and optimizing performance on the network.
 	- Simple Network Management Protocol (SNMP)
 		1. Monitors and manages devices on a network 
@@ -186,6 +188,7 @@ A network protocol is a set of rules used by two or more devices on a network to
 		3. ICMP is commonly used as a quick way to troubleshoot network connectivity and latency by issuing the "ping" command
 		In TCP/IP model, **ICMP occurs at the network layer**
 - security protocols 
+	- provides encryption for the data in transit.
 	These protocols ensures that the data is sent and recieved securely over the network. They uses encryption algorithms to achieve this.
 	- Hypertext Transfer Protocol Secure (HTTPS)
 		1. provides a secure method of communication between clients and servers.
@@ -280,7 +283,7 @@ So Wi-Fi might also be referred to as IEEE 802.11
 - A firewall can use port filtering, which blocks or allows certain port numbers to limit unwanted communication
 - Stateful firewall keeps track of information passing through it and proactively filters out threats. It analysis the network traffic for characteristics and behaviour that appears suspicious and stops then from entering the network
 - Stateless firewall operates based on predefined rules and does not keep track of information from data packets
-- Next Generation Firewalls (NGFWs) are considered even more secure that Stateful firewall. They perform deep packet inspection, intrusion protection, threat intelligence 
+- Next Generation Firewalls (NGFWs) are considered even more secure that Stateful firewall. They perform deep packet inspection, intrusion protection, threat intelligence. These NGFWs are application aware programs and can block based on the application rather than based on IP addresses or ports. They also feature malware sandboxing, network anti-virus, URL and DNS filtering.
 ## hardware firewall
 It inspects each data packet before it's allowed to enter the network
 ## software firewall
@@ -294,6 +297,26 @@ Software firewalls that are hosted by a cloud service provider
 - VPNs also encrypts and encapsulates the data to preserve confidentiality. Encapsulation is the process of wrapping sensitive data in other data packets
 - encrypted data packets cannot be read by the routers and without the IP and MAC address of the destination, you won't be able to connect to the internet. Encapsulation solves this problem by wrapping the sensitivity data in other data packets that the routers can read. This allows the packets to reach its destination while still encrypts your personal data
 - A VPN also uses an encrypted tunnel which is unhackable without a cryptographic key.
+- types,
+	1. Remote access VPNs
+			individuals users use remote access VPNs to establish a connection between a personal device and a VPN server
+	2. Site-to-site VPNs
+			enterprises use this type of VPN to extend their network to other networks and locations. This is particularly useful for organizations that have many offices across the world.
+		- IPSec protocol is commonly used in site-to-site VPNs to create an encrypted tunnel between the primary and remote network
+		- The disadvantage is that it could be complex to comfigure and manage compared to remote VPNs
+### VPN protocols
+- The VPN protocols used by the VPN providers determine how secure the tunnel is formed. It's a set of rules or instructions that will determine how data moves between endpoints. 
+- types, 
+	- WireGuard VPN
+		- WireGuard VPN is a high-speed VPN protocol with advanced encryption. It's simple to set-up and maintain
+		- It can be used for both site-to-site and client-server connections.
+		- WireGuard is relatively newer than IPsec protocol, and it's used a lot than IPSec due to the increased speed
+		- It's also opensource, which makes it easier for debugging and deployment.
+		- It's useful for processes that require faster download speeds 
+	- IPSec VPN
+		- Most VPN providers use IPSec to encrypt and authenticate data packets in order to establish secure, encrypted connections.
+		- A lot older and complex than WireGuard. Many users prefer it due to it's longer history of use, extensive security testing, and widespread adoption.
+
 ## network segmentation 
 - A security technique in which the network is divided into segments. Each segments has it's own access permissions and security rules.
 ### security zones
@@ -318,3 +341,13 @@ Software firewalls that are hosted by a cloud service provider
 		- Internal network 
 		- A firewall 
 		- Restricted layer
+
+## proxy servers
+- another way to add security to your private network.
+- Proxy servers utilize Network Address Translation (NAT) to server as a barrier between clients on the network and external threats.
+- Forward proxies handle queries from internal clients when they access resources external to the network.
+- reverse proxies handle requests from external systems to services on the internal network
+- some proxies can also be configured with rules like a firewall
+### email proxy server
+- it filters spam email by verifying whether a sender's address was forged. This reduces the risk of phishing attacks that impersonate people known to the organization
+
