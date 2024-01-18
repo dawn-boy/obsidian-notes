@@ -83,3 +83,8 @@ git pull repo_name branch_name --rebase
 ```sh
 git show tag_name
 ```
+
+```shell
+EDITOR=nvim git rebase -i HEAD~N
+git show HEAD~N
+```
