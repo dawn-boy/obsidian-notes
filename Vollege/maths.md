@@ -10,3 +10,4 @@ integrating again,
 $$ z + \frac{7x^2}{2} = g(y) + xf(y)$$
 so value of z is,
 $$ z = -\frac{7x^2}{2} + g(y) + xf(y) $$
+
