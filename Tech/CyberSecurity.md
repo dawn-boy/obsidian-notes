@@ -16,3 +16,15 @@ ICMP is network protocol used by devices to tell each other about data transmiss
 A type of Dos attack is performed by repeatedly sending ICMP packets to a network server. This forces the server to send back an ICMP packet and by doing so, the server uses up all the bandwidth for incoming and outgoing traffic and eventually crashes.
 ### Ping of Death
 A type of DoS attack caused when a hacker pings a system by sending it an oversized ICMP packet that is bigger than 64KB.
+
+## TCPDump Flag codes
+Flags [.] -> acknowledges
+Flags [S] -> connection start
+Flags [F] -> connection finish
+Flags [R] -> connection reset 
+Flags [P] -> data push
+
+## Security Information and Event Management (SIEM)
+An application that collects and organizes log data and displays them collectively on a dashboard
+## cloud network 
+A collection of servers or computers that stores resources and data in remote data centers that cen be accessed via the internet
