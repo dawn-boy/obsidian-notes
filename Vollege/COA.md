@@ -84,7 +84,7 @@ a instruction word is 40 bits long.
 	- contains the address of the next instruction 
 	- 16 bit 
 - MAR - memory address register
-	- contains the memory address of the instruction that's is to be written to or from the MBR.
+	- contains the memory address of the instruction that's to be written to or from the MBR.
 - IR - instruction register
 	- contains the 8bit opcode of instruction that's being executed
 - IBR - instruction buffer register
@@ -111,7 +111,7 @@ the process of fetching the instructions from the memory and decoding them for i
 - This is the second phase of the cycle.
 - The CU (control unit) decodes the instruction once it is loaded into the IR (instruction register)
 - the decoding process is based on the opcode bits of the instruction
-	-  0 - 11 bits --> Addressing mode
+	- 0 - 11 bits --> Addressing mode
 	- 12 - 14 bits --> opcodes 
 	- 15 bit --> operand
 ### instruction execution
