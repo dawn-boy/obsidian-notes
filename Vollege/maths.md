@@ -11,9 +11,6 @@ integrating again,
 $$ z + \frac{7x^2}{2} = g(y) + xf(y)$$
 so value of z is,
 $$ z = -\frac{7x^2}{2} + g(y) + xf(y) $$
-
-- a linear PDE is of the form Pp + Qq = R where P, Q, R are the functions of x, y, z which is known as the le grange's linear PDE.
-
 ## Linear PDE
 a linear PDE is of the form Pp + Qq = R, where P, Q, R are functions of x, y, z is known as legrange's linear PDE.
 
@@ -120,9 +117,8 @@ $$\frac{\partial z}{\partial y} = b \implies q = b$$
 
 2) f(p,q,z) = 0
 	then let z = f(u), where u = x + ay be the solution.
-
 	differentiate z w.r.t x,
-	$$\frac{\partial z}{\partial x} = \frac{\partial z}{\partial u} * \frac{\partial u}{\partial x}$$
+	$$\frac{\partial z}{\partial x} = \frac{\partial z}{\partial u} * \frac{\partial u}{\partial x}$$	
 	since u = x + ay and $\frac{\partial u}{\partial x} = 1$
 $$ \frac{\partial z}{\partial x} = \frac{\partial z}{\partial u} * 1 \implies p = \frac{\partial z}{\partial u}$$
 	differentiate z w.r.t y,
@@ -147,10 +143,11 @@ $$ \frac{\partial z}{\partial y} = \frac{\partial z}{\partial u} * a \implies p 
 	finally, find the C.S, S.S, P.S, G.S.
 4) clairant's form
 	then let z = ax + by + f(a,b)
-
 	differentiating z w.r.t x,
+
 $$\frac{\partial z}{\partial x} = a \implies p = a$$
 	differentiating z w.r.t y,
+
 $$\frac{\partial z}{\partial y} = b \implies q = b$$
 	now, substitute the p,q values in z
 	finally, find the C.S, S.S, P.S, G.S.
