@@ -71,7 +71,7 @@ $$ PhysicalAddr = 12345_H $$
 The ALU chip in the BIU calculates the physical address of the next instruction in the main memory 
 - A read signal is sent over the control bus stating that an instruction is needed to be fetched,
 - The physical address is sent through the address bus, 
-- The data is sent back in the data bus (16bits) into the processor'r pre-fetch queue. 
+- The data is sent back in the data bus (16bits) into the processor's pre-fetch queue. 
 - The fetched data is not going to be executed immediately as there's already another instruction that's being executed. This process of fetching instructions in advance is known as pre-fetching.
 - As the EU executes the instructions one by one from the pre-fetch queue, more instructions are added to the queue by BIU.
 - The BIU only refills the pre-fetch queue when 2 bytes are empty. 2 bytes = 16 bits and 8086 is a 16-bit processor, so it's efficient this way.
@@ -381,6 +381,7 @@ In minimum mode, the microprocessor is interfaced with peripherals.
 - when INTR (Interrupt) is enabled then that means there is an interrupt to 8086 from other devices for their service
 - when INTA (Interrupt Acknowledge) is enabled that means the 8086 is ready to provide service for them
 - bus request is made by other devices using HOLD pin and the processor acknowledges them by HLDA (Hold Acknowledge) pin
-
 ### maximum mode
 In maximum mode, the microprocessor is interfaced with co-processors
+## Assembler directives
+a special code placed in the assembly language program to instruct the assembler to perform a specific task or function
