@@ -37,7 +37,45 @@ they select records based on the given matching patters
 - a\_ -> a two letter word that starts with 'a'
 
 ```sql
-SELECT * from table1 WHERE name LIKE '%a'
-SELECT * from table1 WHERE name LIKE '__a'
+SELECT * from table1 WHERE name LIKE '%a';
+SELECT * from table1 WHERE name LIKE '__a';
 ```
 
+## inner join
+Only returns matching values.
+```sql
+SELECT * FROM table1 
+INNER JOIN table2 ON table1.primaryKeyCol = table2.foreignKeyCol;
+```
+## outer join
+#### left join
+returns all records of first table but only the matching columns from the second table.
+```sql
+SELECT * FROM table1 
+LEFT JOIN table2 ON table1.primaryKeyCol = table2.foreignKeyCol;
+```
+#### right join
+returns all records from seconds table but only the rows that match from the first table on a specified column
+```sql
+SELECT * FROM table1
+RIGHT JOIN table2 ON table1.primaryKeyCol = table2.foreignKeyCol;
+```
+#### full outer join
+returns records from all the table
+```sql
+SELECT * FROM table1 
+FULL OUTER JOIN table2 ON table1.primaryKeyCol = table2.foreignKeyCol;
+```
+## aggregate functions
+#### sum()
+```sql
+SELECT count(name) from table1;
+```
+#### avg()
+```sql
+SELECT avg(name) from table1;
+```
+#### sum()
+```sql
+SElECT sum(name) from table1;
+```
