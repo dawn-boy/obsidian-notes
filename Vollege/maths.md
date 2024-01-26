@@ -156,3 +156,181 @@ $$\frac{\partial z}{\partial y} = b \implies q = b$$
 	finally, find the C.S, S.S, P.S, G.S.
 ***
 # module 2
+ ## vectors
+a quantity is said to be a vector if it posses two independent quality, i.e, magnitude and direction.
+
+## group
+a non-empty set S, with binary operation * in (S,\*) is said to be a group if the following property satisfy,
+- closure property
+$$\forall \ a,b \in S \implies a*b \in S$$
+- associative property
+$$\forall \ a,b,c \in S \implies a*(b*c) = (a*b)*c$$
+- identity property
+$$\forall \ a \in S\ , e \in S, such\ that,$$
+$$a*e= a$$
+- inverse property
+$$\forall \ a \in S, a^{-1} \in S, such \ that,$$
+$$a * a^{-1} = e$$
+### abelian group
+a set (S,\*) is said to be an abelian group if it satisfies all the properties that makes it a group and if it satisfies the below property
+- commutative property
+$$\forall \ a,b \in S \implies a*b = b*a$$
+==Note:
+The set can be anything like R(real), Z(integers), N(natural), etc.. and the operations can also be anything like +, \*, etc.
+the properties must adapt to the given operator, 
+eg: commutative property for (S,+) is a+b = b+a, while for (S,\*) is a\*b = b\*a.==
+
+- closed cell 
+	- closure property
+- semigroup 
+	- closure property,
+	- associative property.
+- monoid 
+	- closure property,
+	- associative property
+	- identity property
+- abelian 
+	- closure property
+	- associative property
+	- identity property
+	- inverse property
+	- commutative property
+## vector space
+a non-empty subset V (V,+,\*) is called a real vector space, if V with two binary operations (+,\*) satisfies the following conditions,
+- (V,+) is an abelian group
+- $\alpha(u,v) = \alpha u+\alpha v$ 
+- $(\alpha+\beta)u = \alpha u + \beta u$
+- $(\alpha \beta)u = \alpha(\beta u) = \beta(\alpha u)$
+- $1 * u = u$
+then (V,+,\*) is a real vector space.
+
+### subset of a vector space
+let W be the subset of a vector space (V,+,\*), then W is said to be a subspace of V, if it satisfies the following,
+- W is a non-empty subset of V,
+- $\forall \ u,v \in W \implies u+v \in W$
+- $\forall \ \alpha,\beta \in R,\forall \ u,v \in W,\ \implies \alpha u+\beta v \in W$
+
+if W<sub>1</sub>, W<sub>2</sub> are subspaces of a vector space V, then W<sub>1</sub>$\ \cap$ W<sub>2</sub> is always a subspace of V.
+if W<sub>1</sub>, W<sub>2</sub> are subspaces of a vector space V, then W<sub>1</sub>$\ \cup$ W<sub>2</sub> is a subspace of V, only if W<sub>1</sub> $\subseteq$ W<sub>2</sub> or W<sub>2</sub> $\subseteq$ W<sub>1</sub>
+
+## linear combination
+if $u_1,u_2,\ ... \ , u_n$ are the n vectors of the vector space V, then for any vector v $\in$ V, where $v=\alpha_1u_1+\alpha_2u_2+\ ... \ +\alpha_nu_n$ and $\alpha_1,\alpha_2,\ ... \ ,\alpha_n$ are scalars is called linear combination.
+
+- if all $\alpha_i$ are 0, then the L.C is said to be a trivial L.C.
+	**trivial L.C always gives zero vector.**
+- if all $\alpha_i$ are not 0, then the L.C is said to be a non-trivial L.C
+	**not-trivial L.C may or may not give zero vector.**
+
+### for L.C
+if the $\alpha_i$ values are
+- 0     --> trivial, linearly independent
+- not 0 --> non-trivial, linearly dependent
+### for matrix determinant
+if the determinant values are
+- 0     --> non-trivial, linearly dependent
+- not 0 --> trivial, linearly independent
+
+#### to check if a set of vectors form linearly dependent or linearly independent
+$$(1,0,1)\ (1,1,0) \ (1,-1,1) \ (1,2,-3)$$
+$$\alpha_1(1,0,1) + \alpha_2(1,1,0) + \alpha_3(1,-1,1)+  \alpha_4(1,2,-3) = 0$$
+- multiply all the scalars with the first element in the vector,
+$$\alpha_1+\alpha_2+\alpha_3+\alpha_4 = 0$$
+- now, multiply all the scalars with the second element in the vector,
+$$\alpha_2-\alpha_3+2\alpha_4 = 0$$
+- and, multiply all the scalars with the third element
+$$\alpha_1+\alpha_3-3\alpha_4 = 0$$
+equate and represent all the scalars in terms on one common scalar, like
+$$\alpha_1 = 5\alpha_4$$
+$$\alpha_2 = -4\alpha_4$$
+$$\alpha_3 = -2\alpha_4$$
+$$\alpha_4 = \alpha_4$$
+so, we can do that
+$$(\alpha_1,\alpha_2,\alpha_3,\alpha_4) = (5\alpha_4,-4\alpha_4,-2\alpha_4,\alpha_4) \implies \alpha_4(5,-4,-2,1)$$
+since now $\alpha_4$ values can be anything like 1 or 2 or 0. This example's a linearly dependent vector (linearly dependent vector may or may not have a zero vector)
+
+### span
+a set of vectors that generates the whole vector space.
+### line of vector
+the set of all scalar multiple of V is called the line of a vector V.
+### co-linear
+the two vectors V<sub>1</sub> and V<sub>2</sub> are co-linear if they lie on the same line or vector
+### the plane of vectors
+the two vectors V<sub>1</sub> and V<sub>2</sub> which isn't co-linear. The span of these two vectors is called the plane of these vectors.
+### coplanar
+the vectors are said to be co-planar, if they lie on the same plane.
+### basis
+a subset B of vector space V is set to be basis, if it satisfies,
+- B is L.I set
+- B generates V,that is B is a span of V
+the number of vectors in a basis is called dimension of that vector space. AKA dim(V).
+
+- if dim(V) = n, then the vector space is n-dimensional vector space.
+	 - if dim(V) isn't finite, V is called infinite dimensional vector space.
+
+## linear transformation or linear map
+let u,v be two vector space, then the map
+$$ T: u \to v $$
+is a linear transformation or linear map if it satisfies,
+- $T(u_1+u_2)= T(u_1)+T(u_2)$
+- $T(\alpha u_1)=\alpha T(u_1)$
+### function
+in a mapping, if every element of a domain has a unique image in the co-domain, then that mapping is said to be a function.
+#### one-one function
+a function in which distinct element in the domain has a distinct image in co-domain.
+#### onto function
+a function in which every element of the co-domain has a pre-image in the domain. When all of co-domain is equal to range.
+#### range and kernel
+- in a function, the collection of elements in the co-domain for which there is a pre-image in the domain is called the range. It's a subset of co-domain.
+- in a function, the collection of elements in the domain which has an image in co-domain as 0 is called the kernel.
+
+let u,v be two vector spaces, 
+$$T: u \to v$$
+(read as T is a function from u to v) and (u is domain and v is co-domain)
+then,
+$$range\ of\ T = R(T) = \{T(x)\ |\ x \in u \}$$
+$$kernel\ of\ T = Ker(T) = \{x\ \in u \ |\ T(x) = 0 \}$$
+#### rank and kernel
+- the dimension of range of T is called the rank of T
+	denoted as r(T)
+- the dimension of kernel of T is called the nullity of T
+	denoted as N(T)
+
+### rank-nullity theorem
+let u,v be two vector space,
+$$T: u \to v$$
+then, 
+$$dim(u) = dim(R(T)) + dim(Ker(T))$$
+$$ \implies dim(u) = r(T)+ N(T)$$
+note
+$T: V_3 \to V_3$, here 3 is the dimension number.
+
+eg:
+verify rank-nullity theorem for $T: V_2 \to V_3,\ T(x_1,x_2)=(x_1+x_2,x_1-x_2,x_2)$ 
+1) to find the range,
+$$range(T) = \{T(u)\ | \ u \in U\}$$
+$$= \{T(u)\ |\ u \in V_2\}$$
+$$= \{T(x_1,x_2)\ |\ (x_1,x_2) \in V_2\}$$
+$$\implies \{(x_1+x_2\ ,x_1-x_2\ ,x_2)\}$$
+	this vector can be written as,
+$$x_1(1,1,0)+x_2(1,-1,1)$$
+	therefore the two vectors that generates range is,
+$$\{(1,1,0),(1,-1,1)\} \implies r(T) = 2$$
+2) to find the kernel,
+$$Ker(T) = \{x \in u \ | \ T(x) = 0\}$$
+$$ = \{(x_1,x_2) \in u \ | \ T(x_1,x_2) = 0\}$$
+$$ = \{(x_1+x_2,x_1-x_2,x_2) \in u \ | \ T(x_1+x_2,x_1-x_2,x_2) = 0\}$$
+	now, equate all the elements separately to 0,
+$$x_1+x_2 = 0 \to (1)$$
+$$x_1-x_2 = 0 \to (2)$$
+	then, 
+$$x_1 = x_2$$
+$$x_2 = 0 \to (3)$$
+	so,
+$$x_1 = 0$$
+	therefore,
+$$Ker(T) = \{(0,0)\} \implies N(T) = 0$$
+
+3) verify,
+$$dim(u) = r(T) + N(T)$$
+$$2 = 2+0 \implies 2=2$$
+	yep done.
