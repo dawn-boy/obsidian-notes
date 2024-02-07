@@ -343,7 +343,7 @@ these instructions control the processor itself.
 In minimum mode, the microprocessor is interfaced with peripherals.
 - a 8284 clock
 - a 8282 3 8-bits latch for address
-- a 8286 2 8-bits latch for data 
+- a 8286 2 8-bits transceiver afor data 
 - a 74138 3:8 decoder
 
 ![[mpc-8086_processor_min_mode.jpg]]
