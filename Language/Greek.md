@@ -6,6 +6,7 @@
 είναι - it's, it is, is
 όχι - no
 με - with
+ειμαστε - are
 
 νερό - water
 Καρότο - carrot
@@ -38,4 +39,11 @@
 ναι, το μίνι μάρκετ - yes, the mini market
 
 διαβάζουν - read
-εφημεριδα - 
+εφημεριδα - newspaper
+
+πίνω - I drink
+Πίνεις - you drink 
+Πίνει - he drinks 
+
+έχεις - you have
+εμείς - we, us

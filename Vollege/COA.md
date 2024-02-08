@@ -441,3 +441,6 @@ $$tag\ directory\ size = no.\ of\ lines\ in\ cache * tag\ bits$$
 - ==block bits --> use total no. of blocks size in memory==
 - ==offset bits --> use size of one block/line==
 - ==tag bits --> use (P.A bits - (line bits + offset bits)) or (log(total mainMem size/total cache size))==
+
+$$P.A= tag\ bits + line\ bits+ block/line\ offset$$
+$$P.A = block\ bits+ block/line\ offset$$
