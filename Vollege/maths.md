@@ -236,7 +236,7 @@ $$\alpha_1+\alpha_2+\alpha_3+\alpha_4 = 0$$
 $$\alpha_2-\alpha_3+2\alpha_4 = 0$$
 - and, multiply all the scalars with the third element
 $$\alpha_1+\alpha_3-3\alpha_4 = 0$$
-equate and represent all the scalars in terms on one common scalar, like
+equate and represent all the scalars in terms of one common scalar, like
 $$\alpha_1 = 5\alpha_4$$
 $$\alpha_2 = -4\alpha_4$$
 $$\alpha_3 = -2\alpha_4$$

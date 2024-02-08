@@ -51,6 +51,14 @@ git log
 ## add remote repo
 ```sh
 git remote add repo_name repo_url
+# lists the remotes locally
+git remote -v
+# change remote url
+git remote set-url origin NewURL
+```
+## setting up sSH
+```sh
+git@github.com:username/repo.git
 ```
 ## pushing to remote repo (will create branch if it doesn't exist.)
 ```sh
