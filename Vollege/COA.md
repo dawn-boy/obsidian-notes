@@ -435,7 +435,7 @@ $$tag\ bits = Physical\ address\ bits - (line\ bits
  +offset\ bits)$$
 $$tag\ bits = log_2(\frac{total\ main\ memory\ size}{total\ cache\ size})$$ 
 $$tag\ directory\ size = no.\ of\ lines\ in\ cache * tag\ bits$$
-==note:
+==note:==
 - ==physical address bits --> use main memory size==
 - ==line bits --> use total no. of line size in cache==
 - ==block bits --> use total no. of blocks size in memory==
