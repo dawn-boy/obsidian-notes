@@ -82,7 +82,7 @@ try{
 ```
 ## arrays
 ```js
-let array = ["Hello","There"];
+let array = ["Hello","There",'Something','in','the','way'];
 //nested arrays
 let nestedArrays = ['hi',['hello','what'],['yello']];
 
@@ -99,6 +99,16 @@ array.indexOf(element);
 array.reverse(); // in-place and affects original
 array.slice(startIndex, endIndex); // deletes the elements till indexNum and returns rest of the elements
 array.splice(indexToInsert, countOfElements_ToDeleteThere, elementToInsert, elementsToInsert);
+
+// arrays destructuring
+
+//simply put their just unpacking like in python
+let greet = array[0] //greet has 'Hello'
+let greet_two = array[1] // greet_two has 'There'
+
+//same can be done like this.
+let [greet, greet_two, ...rest] = array; //neat.
+// just to clarify, rest now has all rest of the elements in an array.
 ```
 ## math module and random library
 ```js
@@ -110,7 +120,9 @@ Math.floor(2.4444) // is 2
 Math.ceil(3.1) // is 4
 // gives a random value between 0 and 1 (0.1-0.9)
 Math.random()
-
+// ... spreads the array, giving just an array will not work, Math.min or Math.max is expecting each number in a single argument. So the ... spreads the array as arguments.
+Math.max(...array)
+Math.min(...array)
 // so to get a integer value between 1 and 10
 Math.floor(Math.random()*10)+1
 // so to get a integer value between 1 and 5
@@ -143,6 +155,20 @@ fitBitData.'GoodGod = 3
 Object.keys(object_name)
 Object.values(object_name)
 Object.entries(object_name)
+
+//objects destructuring
+
+//the usual way, long 
+const totalSteps = fitBitData.totalSteps
+const totalMiles = fitBitData.totalMiles
+// the new kid
+const {totalSteps, totalMiles} = fitBitData // the naming of the variable is important here, it should correspond with property of the object.
+// but if you need to rename those vars without having to write another line of code. 
+const {totalSteps: step_count, totalMiles: mile_count} = fitBitData
+
+// to give a default value incase the object dont have the value
+
+const{totalSteps = 'Nope', totalMiles} = fitBitData
 ```
 ## loops
 ```js
@@ -199,7 +225,7 @@ arr.reduce((accumulator, element) => element+accumulator,initial_value_for_accum
 ## functions
 ```js
 //defining funcitons
-function functionName(parameters){
+function functionName(parameters=default_val){
 	//Ben, do something.
 	return something;
 }
@@ -262,6 +288,49 @@ let newFunc = x => (
 // one-liner with implicit returning
 let newFunc = x => statement;
 //the keyword this behaves differently in an arrow function and in a regular function.
+
+// O great arguments, the array-like thingy within functions that keeps track of all the arguments passed to a function. Not available in arrow functions tho.
+function something(){
+	console.log(arguments)
+}
+something(1,2,3,4,5,6,7,8,9,0); // will output an array-like datatype containing all the arguments
+
+//function destructuring
+object = {
+name: 'unbo',
+lastName: 'bonbon',
+age: 'yet to be born',
+died: 'tomorrow'
+}
+
+// the object is destructured at the parameters section itself.
+function me({name, lastName}){
+	return `${name} {lastName}`
+}
+
+```
+## spread and rest
+```js
+// in a function
+Math.max(...array)
+// in a list
+arr = ['hi','no','yes','hono']
+arr2 = [...arr] // this will just spread all the elements of arr to arr2
+
+//in an object
+new_object = {hi:12,no:34,wha:34,nop:3,as:5}
+newest_object = [...new_object]
+
+//rest - collects the rest of values
+// O great rest, the actual array that helps arguments thingy live
+function something(...num){
+	console.log(num) // this prints out a num array which has all the arguments given to this function.
+
+function something(parameter1, parameter2, ...rest_of_the_parameters_array){
+	something; 
+}
+
+}
 ```
 ## methods (functions inside object)
 ```js
