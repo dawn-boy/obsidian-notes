@@ -79,4 +79,10 @@ for idx in cleaner.delete():
 	cleaner.fns[idx].unlink()
 for idx,cat in cleaner.change():
 	shutil.move(str(cleaner.fns[idx]),path/cat)
+
+learn.export('model.pkl')
+model = load_learner('model.pkl')
+
+im = PILImage('image.png')
+model.predict(im)
 ```
