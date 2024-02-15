@@ -55,8 +55,14 @@ Wo - where
 Woher - where from
 welche - which
 was - what 
+Wenn - when
 
 hat - has
+Am - at
+Hast - have
+Das ist - this is
+Und - and
+Oder - or
 das - thats
 Das ist - this is
 Und - and
@@ -76,7 +82,10 @@ Orangensaft -
 Apfelsaft - 
 Tomatensaft - 
 gern - happy to, like to
+
 Tellefonnumer - telephone number 
+Geige - violin
+Tichtennis - table tennis
 spielen - play
 hören - hear
 ghet - goes
@@ -144,7 +153,7 @@ The numbers - die zahlen
 9 - neun
 10 - zehn
 11 - elf
-12 - zwolf
+12 - zwoelf
 
 13 - dreizehn
 14 - vierzehn
@@ -189,6 +198,11 @@ The numbers - die zahlen
 1000000 - eine Million
 ***
 ## pronouns and it's gender of the noun
+
+der(masculine)
+die(feminine)
+das(neutral)
+
 Das ist ein laptop
 Der Laptop ist neu
 Er kostet 500 Euro
@@ -244,7 +258,7 @@ du -> st
 er/sie/es -> t
 wir -> en
 ihr -> t
-Sie -> en
+Sie/sie -> en
 
 ### sprechen
 ich - spreche
@@ -287,6 +301,21 @@ morgen -> tomorrow
 	- der Juli
 	- der August
 
+der Monsun
+die Jahreszeit
+die Regenszeit
+
+***
+Vorname - Firstname
+Nachname - lastname
+Weiblich/männlich (gender)
+Geburtsdatum (dob)
+Wohnort (place of residence)
+Schule (school)
+Beruf - proffession 
+Arbeit bei (Work at)
+Lieblingsmusik (fav music)
+Leiblingsfilm (Jurassic park)
 ### die stadt (the city)
 - die Ample(traffic light)
 - die Strasse(street)
@@ -326,7 +355,6 @@ morgen -> tomorrow
 - das Boot
 - die Faehre(ferry)
 - das Schiff(ship)
-
 ### opposites
 schnell(slow) - langsam(fast)
 schneller(slower) - langsamer(faster)
