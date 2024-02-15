@@ -444,3 +444,4 @@ $$tag\ directory\ size = no.\ of\ lines\ in\ cache * tag\ bits$$
 
 $$P.A= tag\ bits + line\ bits+ block/line\ offset$$
 $$P.A = block\ bits+ block/line\ offset$$
+Q
