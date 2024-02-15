@@ -18,7 +18,7 @@ It's a multipurpose, programmable, clock-driven, register-based electronic devic
 - It has a powerful Instruction set
 - The architecture itself is divided into 2 units,
 	- The BIU (Bus Interface Unit)
-			This part of the processor takes care of fetching the instructions while the EU part of the processor is executing the fetched instruction. 8085 Processor can only fetch or execute at a time, but 8086 can do that simultaneously because of the separate BIU . The BIU also sends out memory addresses to access I/O ports
+			This part of the processor takes care of fetching the instructions while the EU part of the processor is executing the fetched instruction. 8085 Processor can only fetch or execute at a time, but 8086 can do that simultaneously because of the separate BIU. The BIU also sends out memory addresses to access I/O ports
 	- The EU (Execution Unit)
 			This part of the processor executes the fetched instructions while the BIU is fetching the next instruction as it happens.
 - There are two ALU in each portion of the processor
@@ -315,6 +315,19 @@ these instructions control the processor itself.
 	STC 
 
 ***
+## 8086 pin diagram
+![[mpc-8086_pin_diagram.png]]
+- GND
+- AD0-AD15
+	Address/Data bus. These are low order address bus, they are multiplexed with data.
+- A16-A19
+	high order address bus, these are multiplexed with status signals
+- S0-S2
+	status pins, these pins are used by 8288 or 74132 modules for generating control signals
+	![[mpc-status_sig.png]]
+- S3-S6
+	status pins used for accessing main memory segments
+	![[mpc-status_sig_memory_acces.png]]
 ## Modes
 #### difference
 | Min mode | Max mode |
@@ -343,6 +356,7 @@ these instructions control the processor itself.
 In minimum mode, the microprocessor is interfaced with peripherals.
 - a 8284 clock
 - a 8282 3 8-bits latch for address
+- a 8286 2 8-bits transceiver for data 
 - a 8286 2 8-bits transceiver afor data 
 - a 74138 3:8 decoder
 
@@ -363,7 +377,7 @@ In minimum mode, the microprocessor is interfaced with peripherals.
 - 3 8282 latches are required because the 8086 processor has 20-bit address bus. So as to support it, 3 8-bit latches makes a total of 24-bit latch.
 ## 8286 transceiver (8-bits) (data)
 - the valid data is separated from the multiplexed address/data bus using the **DT/R' (Data Transmit/Receive)** and **DEN' (Data Enable)** pins connected to **T (Transmit)** and **OE' (Output Enable)** of 8286 respectively
-- 2 8285 transceivers are required as the 8086 processor's data bus is 16-bits long. 2 8-bit transceivers make a 16-bit transceiver.
+- 2 8286 transceivers are required as the 8086 processor's data bus is 16-bits long. 2 8-bit transceivers make a 16-bit transceiver.
 - DT/R' decides the data flow through the transceiver, that is whether the data is being transmitted from the transceiver or it's receiving the data. 
 - DEN' either enables or disables the transceiver altogether.
 
@@ -378,10 +392,44 @@ In minimum mode, the microprocessor is interfaced with peripherals.
 ## 8284 clock generator
 - used to provide clock signals :)
 ## other pins
-- when INTR (Interrupt) is enabled then that means there is an interrupt to 8086 from other devices for their service
-- when INTA (Interrupt Acknowledge) is enabled that means the 8086 is ready to provide service for them
-- bus request is made by other devices using HOLD pin and the processor acknowledges them by HLDA (Hold Acknowledge) pin
+### INTR (Interrupt) ,INTA (Interrupt Acknowledge), NMI (Non-Maskable Interrupt)
+- INTR and INTA pins are used by external devices. INTR pin is enabled when a device wants to communicate with the processor, and the INTA pin is enabled when the processor is ready to transmit or receiver data to or from that external device.
+- if NMI is enabled and there is an interrupt, the processor will finish the current execution of the instruction and only then will it return to the interrupt.
+### HLD (Hold) and HLDA (Hold Acknowledge)
+- HLD and HLDA are the pins used by DMA controllers to take over access of the bus, When DMA controllers want's to use the bus, it turns on the HLD pin, and the processor hands over the system bus to the DMA by sending the HLDA signal.
 ### maximum mode
 In maximum mode, the microprocessor is interfaced with co-processors
 ## Assembler directives
-a special code placed in the assembly language program to instruct the assembler to perform a specific task or function
+assembler directives are the commands to the assembler to direct the assembly process. They indicate how the assembler treats an operand, and how the assembler handles the program.
+
+- assume
+	assume segment_register:alias
+- define byte
+	name_of_variable DB initialization_value
+- define word
+	name_of_variable DW initialization_value
+- define double
+	name_of_variable DD initialization_value
+- define quad word
+	name_of_variable DQ initialization_value
+- define ten word
+	name_of_variable DT initialization_value
+- END
+	marks the end of assembly language programing
+- ENDP
+	marks the end of a procedure. In ALP, subroutines or functions are called procedures.
+	eg: 
+	Procedure greet
+	.
+	.
+	.
+	greet ENDP
+- ENDS
+	marks the end of a segment. 
+	eg:
+	DATA SEGMENT
+	.
+	.
+	.
+	DATA ENDS
+- EVEN

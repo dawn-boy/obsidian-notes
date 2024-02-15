@@ -4,23 +4,19 @@ basically it's just a globally connected devices over tcp/ip.
 It's the networking protocol that the internet uses.
 ## http
 a service used by tcp/ip to interact and display the websites.
-
 ## request
 a structured piece of text sent to a http server.
 ## response
 the reply to the received request, that the web-browser uses to display elements accordingly.
-
 # tcp/ip handshake
 - syn
 - syn-ack
 - ack
-
 ## dns
 - basically a huge phonebook of domain-names and it's ip-address
 dns provides the bridge between a domain name and ip address
 ### dns querying process
 *when a user needs to access www.example.com*
-
 - First, the request is sent to the ***recursive resolver*** owned by your ***ISP***
 		but we need to get the ***authoritative name server***, the dude server that owns the domain.
 - The search begins at the ***root name server***.

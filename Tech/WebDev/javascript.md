@@ -1,12 +1,19 @@
-# datatypes
+## datatypes
 ==Not like C, variables can store any datatype values;==
 - number (All the numbers, decimals included are considered within this one category) [** is exponent.]
 - string
 - null
 - boolean
 - undefined - NaN (NaN stands for Not a Number, but it's considered within the number datatype. ==Those javascript memes are beginning to make sense..==)
+```js
+console.log('can print something');
+let input = prompt("Ben, say something.. ");
 
-# declaring 
+//this extracts number from the string, returns NaN if there's no number
+parseInt('123asdf'); //outputs 123
+typeof something //return the datatype
+```
+## declaring 
 ```js
 let num = 3;
 const speedOfLight = 299792458; // constant, cannot change
@@ -15,27 +22,25 @@ let isCap = true, isCap = false;
 // old way of doing things
 var num = 3;
 ```
-
-# string methods
+## string methods
 ```js
 let string = "HelloThere";
 
+string.length // gives len, no ().
 string.toUpperCase();
 string.toLowerCase();
-string.trim();
-string.indexOf(wordToSearch);
+string.trim(); // works like strip() in python
+string.indexOf('wordToSearch');
 string.slice(startIndex, endIndex);
 string.replace(whatToReplace, whatToReplaceWith); //replaces only the first occ
 string.repeat(timesToRepeat)
 
 //formated string
 let genName = "Kenobi";
-"Hello There! general ${genName}";
-<<<<<<< HEAD
-=======
+//notice the back-tick, only they evaluate the string template, normal quotes won't cut it.
+`Hello There! general ${genName}`;
 ```
-
-# control statements
+## control statements
 ```js
 if (condition){
 	statements;
@@ -46,19 +51,42 @@ else if (condition){
 else{
 	statements;
 }
->>>>>>> 50a1476ab601524f846d06ce66349c0843c4dce6
-```
 
-# logical operators
+// note
+// if a variable is declared inside the if block, it cannot be accessed from outside, its called block scope.
+//eg 
+if(true){
+	let hi = 'hi'
+}
+console.log(hi) //returns an error
+```
+## logical operators
 ```js
 && // And
 || // Or
 ! //Not
-```
 
-# arrays
+// this is strict equal to (taking into account the memory address of both the values, if they're stored in the same place, then it returns True)
+===
+```
+## try and catch
 ```js
-let array = ["Hello","There"];
+//like try and finally in python, used for error management
+
+try{
+	statements;
+} catch (e) {
+	console.log(e) //catches the error and prints it, this is                           different from the normal as program stops                         normally.
+	statements;
+}
+```
+## arrays
+```js
+let array = ["Hello","There",'Something','in','the','way'];
+//nested arrays
+let nestedArrays = ['hi',['hello','what'],['yello']];
+
+array[0] = 'Hi';
 
 array.push("!"); // adds to the end of list
 array.unshift("Yo") // adds to the start of list
@@ -66,9 +94,280 @@ array.pop(); // deletes the end element
 array.shift(); // deletes the start element
 
 let array3 = array1.concat(array2);
-array.include("Hello"); // true, element "Hello" is in the list
+array.includes("Hello"); // true, element "Hello" is in the list
 array.indexOf(element);
 array.reverse(); // in-place and affects original
-arrays.slice(indexNum); // deletes the elements till indexNum and returns rest of the elements
+array.slice(startIndex, endIndex); // deletes the elements till indexNum and returns rest of the elements
+array.splice(indexToInsert, countOfElements_ToDeleteThere, elementToInsert, elementsToInsert);
 
+// arrays destructuring
+
+//simply put their just unpacking like in python
+let greet = array[0] //greet has 'Hello'
+let greet_two = array[1] // greet_two has 'There'
+
+//same can be done like this.
+let [greet, greet_two, ...rest] = array; //neat.
+// just to clarify, rest now has all rest of the elements in an array.
+```
+## math module and random library
+```js
+// access pi value from Math lib
+Math.pi
+//just cuts the decimal part
+Math.floor(2.4444) // is 2
+// just rounds it up
+Math.ceil(3.1) // is 4
+// gives a random value between 0 and 1 (0.1-0.9)
+Math.random()
+// ... spreads the array, giving just an array will not work, Math.min or Math.max is expecting each number in a single argument. So the ... spreads the array as arguments.
+Math.max(...array)
+Math.min(...array)
+// so to get a integer value between 1 and 10
+Math.floor(Math.random()*10)+1
+// so to get a integer value between 1 and 5
+Math.floor(Math.random()*5)+1
+Math.pow(number,exponent)
+```
+## object literal
+==hold those horses, I thought this what Oops, but nah this is just python's dictionary equivalent datatype.==
+
+```js
+// note keys dont have to be in strings they are automatically converted!
+const fitBitData = {
+	totalSteps : 65535,
+	totalMiles : 299.792458,
+	avgCalorieBurn : 10000,
+	workOutsThisWeek : '4 of 10',
+	avgGoodSleep : NaN;
+}
+
+// to call a value
+fitBitData['totalSteps']
+// or
+fitBitData.totalSteps
+
+//to add elements to an object. Key should be in a string.
+fitBitData['GoodGod'] = '3'
+fitBitData.'GoodGod = 3
+
+//functions
+Object.keys(object_name)
+Object.values(object_name)
+Object.entries(object_name)
+
+//objects destructuring
+
+//the usual way, long 
+const totalSteps = fitBitData.totalSteps
+const totalMiles = fitBitData.totalMiles
+// the new kid
+const {totalSteps, totalMiles} = fitBitData // the naming of the variable is important here, it should correspond with property of the object.
+// but if you need to rename those vars without having to write another line of code. 
+const {totalSteps: step_count, totalMiles: mile_count} = fitBitData
+
+// to give a default value incase the object dont have the value
+
+const{totalSteps = 'Nope', totalMiles} = fitBitData
+```
+## loops
+```js
+// the mighty for loop
+for(initialization;condition;creement){
+	statements;
+}
+
+for(let i=0;i<9;i++){
+	statements;
+}
+
+// the mighty while loop
+let i = 0;
+while(i<100){
+	statements;
+	i++;
+}
+
+// The Almight for of loop (this is seriously great)
+for(let tempVar of iterable){
+	statements;
+}
+//to iterate over an object
+for(let key in objectName){
+	statements;
+}
+
+//foreach
+iterable.forEach(function(a){
+	statements; //forEach will feed new elements in each iteration to a
+})
+
+//map function - returns an array of new calculated values based on the prev array
+newArray = iterable.map(function(tempVar){
+	return statement;
+})
+newArray = iterable.filter(function(tempVar){
+	return conditionalStatement;
+})
+
+//together goodness
+newArray = arr.filter((x) => x.release_date<50).map((x) => x.movie_name)
+
+//some and every functions
+arr=[1,2,3,4,5,6,7,8,9]
+arr.some(x => x<7) //returns true
+arr.every(x => x<7) //returns false
+
+//reduce em down to the ashes of its very creation
+arr.reduce((accumulator, element) => element+accumulator,initial_value_for_accumulator)
+
+```
+## functions
+```js
+//defining funcitons
+function functionName(parameters=default_val){
+	//Ben, do something.
+	return something;
+}
+
+//calling the function
+functionName(arguments)
+
+//function expresion - another way of defining a function
+const add = function(a,b){
+	return a+b;
+}
+
+//higher order functions - passing functions to functions.
+function callnTimes(n,func){
+	for(let i=0;i<n,i++){
+		func();
+	}
+}
+function func(){
+	console.log('Hello there');
+}
+callnTimes(9,func);
+
+//returning functions
+function theHeadwig(num){
+	if(num>3){
+		return function(){
+			console.log("Nah, hardpass");
+		}
+	}
+	else if(num<3){
+		return function(){
+			console.log("Common, its a narrow hit");
+		}
+	}
+	else{
+		return function(){
+			console.log("There, that, Now my friend. We arrived");
+		}
+	}
+}
+let chosenFunction = theHeadwig(3);
+
+//newer way of defining functions
+//arrow functions
+let newFunc = (x,y) => {
+	return statements;
+}
+let newFunc = () => {
+	return statements;
+}
+//or if only one parameter is present, no need for ()
+let newFunc = x => {
+	return statements;
+}
+//implicit returning with arrow functions. Note the braces.
+let newFunc = x => (
+	statements;
+)
+// one-liner with implicit returning
+let newFunc = x => statement;
+//the keyword this behaves differently in an arrow function and in a regular function.
+
+// O great arguments, the array-like thingy within functions that keeps track of all the arguments passed to a function. Not available in arrow functions tho.
+function something(){
+	console.log(arguments)
+}
+something(1,2,3,4,5,6,7,8,9,0); // will output an array-like datatype containing all the arguments
+
+//function destructuring
+object = {
+name: 'unbo',
+lastName: 'bonbon',
+age: 'yet to be born',
+died: 'tomorrow'
+}
+
+// the object is destructured at the parameters section itself.
+function me({name, lastName}){
+	return `${name} {lastName}`
+}
+
+```
+## spread and rest
+```js
+// in a function
+Math.max(...array)
+// in a list
+arr = ['hi','no','yes','hono']
+arr2 = [...arr] // this will just spread all the elements of arr to arr2
+
+//in an object
+new_object = {hi:12,no:34,wha:34,nop:3,as:5}
+newest_object = [...new_object]
+
+//rest - collects the rest of values
+// O great rest, the actual array that helps arguments thingy live
+function something(...num){
+	console.log(num) // this prints out a num array which has all the arguments given to this function.
+
+function something(parameter1, parameter2, ...rest_of_the_parameters_array){
+	something; 
+}
+
+}
+```
+## methods (functions inside object)
+```js
+const math = {
+	PI: 3.14,
+	SPEEDOFLIGHT: 299792458,
+	multiply: function(a,b){
+		return a*b;
+	},
+	divide: function(a,b){
+		return a/b;
+	},
+	power: function(a,e){
+		let power = 1;
+		for(let i=0;i<e;i++){
+			power *= a;
+		}
+		return power;
+	}
+}
+
+math.SPEEDOFLIGHT // gives 299792458
+math.power(2,4) // gives 16
+
+//this keyword - to reference the methods or properties within a method, and only a method.
+const snake = {
+	name: "Hisssenbuurp",
+	age: "foreva",
+	peopleAte: '13 civilizations and counting',
+	size: 'half of Jormungandr',
+	description: function(){
+		console.log(`${this.name} is ${this.size}, now at the age of ${this.age}, she ate ${this.peopleAte}.`);
+	}
+}
+```
+## setTimeout and setInterval
+```js
+setTimeout(function(),milliseconds) // executes the function only once
+setInterval(function(),milliseconds) // executes the function every milliseconds 
 ```

@@ -63,6 +63,10 @@ Hast - have
 Das ist - this is
 Und - and
 Oder - or
+das - thats
+Das ist - this is
+Und - and
+ueber - above
 Sind - are
 Kontinente - continent
 hier liegt - here lies
@@ -89,6 +93,15 @@ dir - you
 mir - me
 wir - we
 nicht - not
+seite - page
+finden - find
+see - sea or oceanand 
+an der - at the
+granze - border
+zwischen - between
+fast - almost everything
+Mann - man or husband
+
 
 
 Direction
@@ -303,3 +316,45 @@ Beruf - proffession
 Arbeit bei (Work at)
 Lieblingsmusik (fav music)
 Leiblingsfilm (Jurassic park)
+### die stadt (the city)
+- die Ample(traffic light)
+- die Strasse(street)
+- der Platz(place)
+- der Zebrastreifen(zebra crossing)
+- die Buergersteig(sidewalk)
+- der Park
+- der Bahnhof(railroad)
+- das Cafe
+- das Geschaeft der Laden(buisness store)
+- der Supermarkt
+- das Kino
+- die Bank
+- die Post
+- die Schule
+- das Hotel
+- das Krakenhaus(hospital)
+- der Flughafen(airport)
+- das Stadion
+- das Restaurant
+- der Parkplatz(parking place)
+### die Verkahrsmittel
+- das Flugzeug(airplane) - Flughafen(airport)
+- das Auto(automobile)
+- der Zug
+- der Bus
+- die U-bahn(subway)
+- die Strassenbahn(tram - cabled train)
+- das Fahrrad(bicycle)
+- das Moped(scooty)
+- das Motorrad
+- der Reisebus(coachbus)
+- der Lastwagen(truck)
+- der Hubschrauber(heli)
+- das Wohnmobile
+- das Taxi
+- das Boot
+- die Faehre(ferry)
+- das Schiff(ship)
+### opposites
+schnell(slow) - langsam(fast)
+schneller(slower) - langsamer(faster)

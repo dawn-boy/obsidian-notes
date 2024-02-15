@@ -1,134 +1,154 @@
-Bash (Bourne again shell) resides at /bin/bash. It's a scripting language meaning it doesn't need to compile to run.
-#### Ways to run the script
-- bash script.sh (arguments)
-- ./script.sh --> needs to have the execute bit turned on for script.sh
-- sh script.sh (arguments)
-***
-# The Within side
 ## Shebang
 ```sh
+# This let's the terminal know the location of the interpreter and is always specified on the top of the script.
+
 #!/bin/bash
 ```
-This let's the terminal know the location of the interpreter and is always specified on the top of the script.
 ## echo
 ```bash
+# -e enables for interpretation for backward slash escapes.
 echo -e "Helloworld\n"
 ```
--e --> enables for interpretation for backward slash escapes.
-## Decision-making  
+## variable declaration
+```sh
+# note there is no space before and after the equal sign.
+FIRST_NAME=someName
+LAST_NAME=someLstName
+
+echo Hi $FIRST_NAME $LAST_NAME
+```
+## positional arguments
+```sh
+echo $0 $1 $2 $3 $4 $5
+```
+## user input
+```sh
+echo What is thy name?
+read FIRST_NAME
+echo what is thy last name?
+read LAST_NAME
+
+echo Hello there, $FIRST_NAME $LAST_NAME
+```
+## Decision-making 
 ```bash
-if [ condition ]
+# don't forget the spaces between the condition and the square bracs.
+ 
+if [ condition ];
 then
 	statements
  
-elif [ condition ]
+elif [ condition ];
 then 
 	statements
  
 else
 	statements
- 
 fi
 ```
-==don't forget the spaces between the condition and the square bracs.==
-
+## case statements
 ```sh
-if [[ '$1' == 'whatever']]
-```
-==string comparisions can be done only within double brackets.==
+#!/bin/bash
 
-if the variable is given within quotes, then the if statement is looking for a string datatype to compare it with.
-## operators
-### string operators
+case
 ```
-== --> is equal to
-!= --> is not equal to
-<  --> is lesser than ASCII value
->  --> is greater than ASCII value
-
--z --> if string is null
--n --> if string is not null
-```
-==string comparisions can be done only inside (within two square brackets)==
-
-### integer operators
-```
--eq --> is equal to
--ne --> is not equal to
-
--gt --> is greater than
--ge --> is greater than or equal to
-
--lt --> is lesser than 
--le --> is lesser than or equal to
-```
-### file operators
-```
--e --> if the file exist
--f --> tests if it's a file
--d --> tests if it's a dictionary
--L --> tests if it's a symbolic link
--N --> checks if the file was modified after the last read
--O --> checks if the current user owns the file
--G --> checks if the file's group id matches the current user's
--s --> tests if the file has size greater than 0
--r --> tests if the file has read permission
--w --> tests if the file has write permission
--x --> tests if the file has execute permission
-```
-### logical operators
-```
-!  --> logical negotiation NOT (just flips the bool)
-&& --> logical AND
-|| --> logical OR
-```
-## arguments
-a bash script can take upto 9 arguments and they are stored in these reserved variables.
-```
-$0 --> executed script name
-$1 --> argument 1
-$2 --> argument 2
-$3 --> argument 3
-$4 --> argument 4
-$5 --> argument 5
-$6 --> argument 6
-$7 --> argument 7
-$8 --> argument 8
-$9 --> argument 9
-```
-## special variables
-```
-$# --> holds the no. of arguments passed to the script
-$@ --> used to retrieve the list of command-line arguments
-$n --> used to retrieve the passed arguments in order (n=1--9)
-$$ --> holds the process id of currently executing process
-$? --> holds the exit status of the script.
-(0 --> success, 1 --> failure)
-
-```
-## variable
-```sh
-var_name='string'
-var_name=$another_var
-echo $var_name
-```
-mind you, the spaces after and before the equal to sign.
 ## arrays
-```bash
-arrays=(element1 element2 "element3 uh with a space" element4 element5)
-echo ${arrays[0]}
-```
-mind you, the index starts at 0 as customary.
-curly brackets are used for variable expansion.
-
-## arithmetic 
 ```sh
-$((10 + 10))
-((var_num++))
+MY_FIRST_LIST=(one two three four 'finee five' six)
+# will give the first element
+echo $MY_FIRST_LIST
+# will give the indexed element
+echo ${MY_FIRST_LIST[3]}
+# will give the entire list
+echo ${MY_FIRST_LIST[@]}
+
+# note: {} means variable expansion
 ```
-arithmetic is always done within two parenthesis.
+### variable expansion vs calling a variable
+```sh
+# this is variable expansion
+${var_name}
+# this executes the command returns its output
+$(cmd)
+# this calls the variable
+$var_name
+```
+## for loop
+```sh
+for item in $LIST;
+do 
+	statements;
+done
+
+```
+## functions
+```sh
+showuptime(){
+	up=$(uptime -p | cut -c4-)
+	since=$(uptime -s)
+	cat << EOF
+-----
+This machine has been up for $up
+THis machine has been running since $since
+-----
+EOF
+}
+
+showuptime
+```
+### passing parameters to function
+```sh
+showuptime(){
+	echo $1 $0
+}
+showuptime yeah adi
+
+# output --> yeah adi
+```
+### not change the global variables value
+```sh
+num=1
+function(){
+	# this won't change the global num
+	local num=0
+	echo $num
+	# output is 0
+}
+echo $num
+# output is 1
+```
 
 ```sh
-${#variable}
+showname(){
+	echo hello $1
+	if [${1,,} = adi ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+showname $1
+# $? refers to the execution code of the previously executed process
+if [$? = 1]; then
+	echo 'Someone snooping in, unknown, for now.'
+fi
 ```
-this counts total number of charactes in the variable.
+## awk
+```sh
+# by default, awk splits the contents based on a space. This command give the 2 element. Indexing starts at 1(radicul, ik).
+awk '{print $2}' fileName
+
+# you can pass the separator char with -F option
+awk -F, '{print $1}' mama.csv
+```
+## sed
+```sh
+# s means substitute, g means affect globally 
+# this outputs the result to screen, no changes made in the file
+sed 's/wordToReplace/wordToReplaceWith/g'
+
+# this makes changes in the original file and creates a backup file of original contents if any suffix is given after -i option.
+sed 's/sanity/humanity/g' sedTest -i.original
+
+```
