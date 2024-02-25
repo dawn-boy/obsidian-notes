@@ -32,7 +32,7 @@ The conservation of information is simply a rule that every state has one arrow 
 
 >[!info] The limits of precision
 >	Laplace may have been overly optimistic about how predictable the world is. This world is constantly changing and the ability to know the initial conditions with almost perfect precision (upto an infinite decimal places) is quite hard. Any slight changes at the billionth billionth decimal place would have compounding effects in the final result which might be drastically different than the original outcome. This is chaos.
-### cordinates
+### coordinates
 To describe points quantitatively, we need to have a coordinate system.
 - Choose an origin (keep it static, do not move it.)
 - Choose three perpendicular axes.

@@ -26,7 +26,8 @@ Wie geht es dir?
 Es geht mir gut, danke.
 Wie geht's?
 Wie alt bist du?
-***
+
+Gehen sie hier gerade ans, 400 m, am gaeustehaus vorbei, dann links - etwa 200m, Da ist die grosse mense himalaja. Am himalaja vorbei und wieder links etwa 50m da finden sie IRCTC
 ## Formal
 Guten Tag, Herr Miller.
 Guten Tag, Herr arhonen.
@@ -101,6 +102,10 @@ granze - border
 zwischen - between
 fast - almost everything
 Mann - man or husband
+schreiben - write
+lesen - listen 
+beschreiben - describe
+Weg(e) - way
 
 
 
@@ -225,6 +230,27 @@ Die eine sie
 Das ein es
 Die ... sie
 
+negativ
+Der kein er
+Die keine sie
+Das kein es
+Die ... sie
+
+Possessive articles
+Ich name --> mein name
+du name --> dein name
+Sie --> Ihr
+er --> sein 
+
+eg:
+Possessive pronouns always follow their articles ein, eine for sein and seine
+der Film
+So, ein Film
+(er, so) sein Film in possessive 
+die Filme
+eine Filme
+seine Filme 
+
 der Kurs
 der Tisch
 der Student
@@ -267,6 +293,26 @@ er/sie/es - spricht
 wir - sprechen
 ihr - sprecht
 sie/Sie - sprechen
+
+### fahren
+ich - fahre
+du - faehrst
+er/sie/es - faehrt
+wir - fahren
+ihr - fahrt
+Sie - fahren
+### geben
+ich - gebe
+du - gibst
+er/sie/es - gibt
+wir - geben
+ihr - gebt
+Sie - geben
+
+### lesen
+ich - lese
+du - liest
+
 ### der Tag, die Tage
 Heute -> today
 morgen -> tomorrow
@@ -358,3 +404,12 @@ Leiblingsfilm (Jurassic park)
 ### opposites
 schnell(slow) - langsam(fast)
 schneller(slower) - langsamer(faster)
+einfach(easy) -sehwar(schwierig)(difficult)
+Spaet(late)- früh(early/on-time)
+
+spaet(late) - spaeter(later)
+
+Transitive and intransitive verbs
+Zahlen - bezahlen
+
+Adding 'be' does things

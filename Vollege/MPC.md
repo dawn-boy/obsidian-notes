@@ -433,3 +433,35 @@ assembler directives are the commands to the assembler to direct the assembly pr
 	.
 	DATA ENDS
 - EVEN
+## multiprocessor configuration
+- multiprocessor means multiple set of processors that executes instructions simultaneously
+- three basic multiprocessor configuration,
+	- Co-processor configuration
+	- Closely coupled configuration
+	- Loosely coupled configuration 
+-
+### Co-processor configuration
+- A Co-processor is a specially designed circuit on microprocessor chip that can perform the same task very quickly than the main processor
+- it reduces the work load on the CPU
+- Co-processor shares the same memory, IO system, bus controll logic and clock generator
+- Co-processor handles specific tasks like mathematical calculations, graphical display on screen, etc.
+- eg: the 8086 and 8088 can perform most of the operations but their instruction set is not able to perform complex mathematical operation, so in those cases they require something like the intel 8087 math processor
+## how is the processor and Co-processor connected
+- the Co-processor and processor is connected through TEST, RQ/GT and QS<sub>0</sub> and QS<sub>1</sub> signals
+- The TEST signal is connected to BUSY pin of Co-processor and remaining three pins are connected to the same pins in Co-processor
+- TEST signal returns the status of co-processor's activate. That is, busy or idle.
+- the RT/GT is used for bus arbitration
+- the Co-processor uses the QS<sub>0</sub> and QS<sub>1</sub> to track the status of the queue of host processor 
+### closely coupled configuration
+- closely coupled configuration is similar to Co-processor configuration as both share memory, I/O, system bus, Control Logic and Control Generator with Host processor
+- however, the coprocessor and the processor fetches and executes their own instructions. The system bus is also controlled independently by the processor and Co-processor.
+### Loosely coupled configuration
+- consists of number of modules of the subprocessor that are connected through a common system bus 
+- each module have their own clock generator, memory, I/O devices and are connected to a local bus
+- clocks of different modules are of similar frequency but they are asynchronous towards each other
+- used in medium to large multiprocessing systems. Each module is capable of being the bus master. There are no direct connection between the modules
+- Each share the system bus and communicate through the system bus. Processor in each module can access their private subsystem through their local bus and perform their local data references and instruction fetches independently.
+- this results is improved degree of concurrent processing. Good for real time applications.
+#### advantages 
+- having more than one processor increases efficiency 
+- each processor have their own local bus to access memory I/O devices. This makes it easy 
