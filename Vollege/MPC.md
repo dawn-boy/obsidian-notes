@@ -439,7 +439,6 @@ assembler directives are the commands to the assembler to direct the assembly pr
 	- Co-processor configuration
 	- Closely coupled configuration
 	- Loosely coupled configuration 
--
 ### Co-processor configuration
 - A Co-processor is a specially designed circuit on microprocessor chip that can perform the same task very quickly than the main processor
 - it reduces the work load on the CPU
