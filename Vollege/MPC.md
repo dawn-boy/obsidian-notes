@@ -442,7 +442,7 @@ assembler directives are the commands to the assembler to direct the assembly pr
 ### Co-processor configuration
 - A Co-processor is a specially designed circuit on microprocessor chip that can perform the same task very quickly than the main processor
 - it reduces the work load on the CPU
-- Co-processor shares the same memory, IO system, bus controll logic and clock generator
+- Co-processor shares the same memory, IO system, bus control logic and clock generator
 - Co-processor handles specific tasks like mathematical calculations, graphical display on screen, etc.
 - eg: the 8086 and 8088 can perform most of the operations but their instruction set is not able to perform complex mathematical operation, so in those cases they require something like the intel 8087 math processor
 ## how is the processor and Co-processor connected
@@ -461,6 +461,33 @@ assembler directives are the commands to the assembler to direct the assembly pr
 - used in medium to large multiprocessing systems. Each module is capable of being the bus master. There are no direct connection between the modules
 - Each share the system bus and communicate through the system bus. Processor in each module can access their private subsystem through their local bus and perform their local data references and instruction fetches independently.
 - this results is improved degree of concurrent processing. Good for real time applications.
-#### advantages 
+#### advantages
 - having more than one processor increases efficiency 
 - each processor have their own local bus to access memory I/O devices. This makes it easy 
+
+### 8051 time counter
+8051 has two 16-bit timer/counter registers namely timer 0 and timer 1.
+- when used as a timer, the microcontroller is programmed to count internal clock pulse
+- when used as a counter, the microcontroller is programmed to count external clock pulse
+- maximum count rate is 1/24 of the oscillator frequency.
+
+#### Timer 0 register
+- exclusive to Timer 0
+	- TH0
+	- TL0
+- shared by both registers
+	- TMOD (Timer mode) register 
+	- TCON (Timer control) register 
+#### Timer 1 register 
+- exclusive to Timer 1
+	- TH1
+	- TL1
+- shared by both registers
+	- TMOD (Timer mode) register 
+	- TCON (Timer control) register 
+
+#### TMOD register
+- 8 bit register
+- lower 4 bits
+	- 
+- upper 4 bits

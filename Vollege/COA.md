@@ -444,3 +444,31 @@ $$tag\ directory\ size = no.\ of\ lines\ in\ cache * tag\ bits$$
 
 $$P.A= tag\ bits + line\ bits+ block/line\ offset$$
 $$P.A = block\ bits+ block/line\ offset$$
+## Internal memory
+### semiconductor memory
+- The most common form of random-access storage for computer main memory employees an array of doughnut shaped ferromagnetic loops referred to as cores
+- the basic element of semiconductor memory is memory cell
+- properties,
+	- they exhibit two stable states, which can represent binary 1 and 0
+	- they're capable of being written into, to set the state
+	- they're capable of being read from, to sense the state
+### memory operation
+- A cell has three functional terminals that is capable of carrying an electric signal
+- select: select signal is used to select a memory cell for read or write operation
+- control: control signals indicates whether the operation to be performed is either read or write
+- read/write: this signal is common for both operations. For writing, the terminal provides an electric signal that sets the state. For reading, the terminal is used as an output of the cell's state.
+### semiconductor memory types
+#### RAM
+- it's possible to read and write data into RAM easily and rapidly. Both reading and writing are accomplished through the use of electrical signal.
+- Traditional RAM is volatile. A RAM must be provided with a constant power supply, if the power is interrupted, then all the data is lost. So RAM can only be used as a temporary storage.
+- traditional forms of RAM are,
+	- DRAM
+	- SRAM
+- newer forms of RAM are non-volatile
+- Dynamic RAM
+	- A DRAM is made up of cells that store data as charge on capacitors. The presence or absence of charge in a capacitor is interpreted as binary 1 and 0
+	- because capacitors have a natural tendency to discharge, dynamic RAMs require periodic charge refreshing to maintain data storage
+	- the term dynamic refers to this tendency of stored charge to leak away even with power continuously applied
+	- memory is made of bits of data that are arranged in a two-dimensional grid
+	- DRAM will store bits of data in what's called a storage or memory cell, consisting of a capacitor and a transistor
+	- 
