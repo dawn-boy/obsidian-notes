@@ -1,4 +1,3 @@
-# Microprocessor
 It's a multipurpose, programmable, clock-driven, register-based electronic device that reads in binary data and instructions from main memory and provides result as output. Intel corp launched the first microprocessor.
 ## 8086 Processor
 
@@ -26,7 +25,7 @@ It's a multipurpose, programmable, clock-driven, register-based electronic devic
 	- The ALU in the EU is used for performing the execution operations
 - The amount of memory that can be accessed depends on the memory bus. The 8086 processor has 20bits memory bus, 2<sup>20</sup> = 1MB. So the Memory size is 1MB
 - The 8086 processor has pipe-lining technology. The next instruction is being fetched by BIU as the EU executes the fetched instruction 
-## Memory segmentation
+### Memory segmentation
 Instead of having a raw memory of 1 MB, the memory is divided into four sections for easy access.
 
 ![[mpc-memory_segmentation.png]]
@@ -39,7 +38,7 @@ Instead of having a raw memory of 1 MB, the memory is divided into four sections
 - Extra segment (ES)
 		contains a random data
 - CS, SS, DS, ES are the starting (base) address of the segment, and IP, SP, SI, DI are their respective offset address. Using the segment address and it's offset address, a data can be located in the section.
-### formula
+#### formula
 The ALU in the BIU is used for calculating the physical address using this formula.
 $$ PhysicalAddr = SegmentationAddr * 10_H + offsetAddr $$
 eg:
@@ -50,7 +49,7 @@ $$ PhysicalAddr = 1000_H * 10_H + 2345_H $$
 $$ PhysicalAddr = 10000_H + 2345_H $$
 $$ PhysicalAddr = 12345_H $$
 
-## The Bus Interface Unit (BIU)
+### The Bus Interface Unit (BIU)
 - Main components are,
 	- pre-fetch instruction queue
 	- segment registers
@@ -83,7 +82,7 @@ The ALU chip in the BIU calculates the physical address of the next instruction 
 3) ==eg: MOV BL, CL has some opcode like 0010100
 4) ==BUT, MOV BL, 25H has opcode only for the MOV BL, part as the next part is a number, and since that number parameter can have infinite variations, it's not reasonable (impossible, yet) to assign an opcode for every iterations.
 5) ==So, MOV BL, 25H have an opcode for the MOV BL part and an operand for the 25H part.==
-## The Execution Unit (EU)
+### The Execution Unit (EU)
 - the main components are, 
 	- instruction decoder
 	- control system or control unit
@@ -144,7 +143,7 @@ generates timing and control signals to perform the internal operations
 - The EU has some flag registers that gives some status about the current result
 
 ***
-# instruction set
+### instruction set
 the entire group of instruction supported by the microprocessor. 8086 has more than 20,000 instruction sets.
 #### format
 ==instructionName Destination, Source==
@@ -155,14 +154,14 @@ the entire group of instruction supported by the microprocessor. 8086 has more t
 			MOV AL, BL
 			MOV BX, [0301H]
 
-## classification of instruction set
+### classification of instruction set
 - data transfer instruction
 - arithmetic instruction
 - bit manipulation instruction
 - program execution transfer instruction
 - string instruction
 - processor control instructions
-### data transfer instruction
+#### data transfer instruction
 The instruction used to transfer data from source to destination.
 - MOV des, src
 	moves the value from source to destination
@@ -191,7 +190,7 @@ The instruction used to transfer data from source to destination.
 - POPF
 	pops the stack top to flag register
 
-### arithmetic instruction
+#### arithmetic instruction
 - ADD des, src
 	adds byte to byte, or word to word
 - ADC des, src
@@ -220,7 +219,7 @@ The instruction used to transfer data from source to destination.
 	converts byte in AL to word in AX
 - CWD
 	converts word in AX to double word in DX: AX
-### bit manipulation
+#### bit manipulation
 These instruction are used at the bit level
 - NOT src
 	complements each bit of src and produces 1's complement
@@ -235,7 +234,7 @@ These instruction are used at the bit level
 	rotates bits of byte or word to left by count
 - ROR des, count
 	rotates bits of byte or word to right by count
-### program execution transfer instruction
+#### program execution transfer instruction
 these instructions cause change in the sequence of execution of instruction.
 - CALL des
 	used to call a sub-routine or a function
@@ -272,7 +271,7 @@ these instructions cause change in the sequence of execution of instruction.
 - LOOP des
 	this is a looping instruction, the number of times to loop is placed in the CX register, with each iteration, the CX register is decremented and ZF is checked whether to loop again or not
 
-### string instructions
+#### string instructions
 - CMPS des, src
 	compares string bytes or words
 - SCAS string
@@ -283,7 +282,7 @@ these instructions cause change in the sequence of execution of instruction.
 	this is an instruction prefix. repeats until CX becomes 0.
 	eg: REP MOV AX, BX
 - 
-### processor control instruction
+#### processor control instruction
 these instructions control the processor itself.
 - STC 
 	sets CF to 1
@@ -296,7 +295,7 @@ these instructions control the processor itself.
 - CLD
 	clears DF to 0. So, string bytes are accessed from lower memory address to the higher memory address
 
-## addressing modes of 8086
+### addressing modes of 8086
 - immediate addressing mode
 	MOV CL, 12H
 - register addressing mode
@@ -315,7 +314,7 @@ these instructions control the processor itself.
 	STC 
 
 ***
-## 8086 pin diagram
+### 8086 pin diagram
 ![[mpc-8086_pin_diagram.png]]
 - GND
 - AD0-AD15
@@ -328,7 +327,7 @@ these instructions control the processor itself.
 - S3-S6
 	status pins used for accessing main memory segments
 	![[mpc-status_sig_memory_acces.png]]
-## Modes
+### Modes
 #### difference
 | Min mode | Max mode |
 | ---- | ---- |
@@ -352,7 +351,7 @@ these instructions control the processor itself.
 	eg: ALE
 - low active signals are those that enables the pin when 0 is transmitted.
 	eg: DEN'
-### minimum mode
+#### minimum mode
 In minimum mode, the microprocessor is interfaced with peripherals.
 - a 8284 clock
 - a 8282 3 8-bits latch for address
@@ -371,35 +370,35 @@ In minimum mode, the microprocessor is interfaced with peripherals.
 	- memory and I/O device
 - Out of 20-bits, 16-bits (A<sub>0</sub> to A<sub>15</sub>) or (16 lines) are multiplexed with a data bus. 
 - Multiplexing means they will act as address lines during the first T cycle and data lines in the rest of the T cycle.
-## 8282 latch (8-bits) (address)
+##### 8282 latch (8-bits) (address)
 - The latches are buffered D flipflop. 
 - the valid address is separated from the multiplexed address/data bus by using the control signal **ALE (Address Latch Enable)** which is connected to **STB (Strobe)** of 8282
 - 3 8282 latches are required because the 8086 processor has 20-bit address bus. So as to support it, 3 8-bit latches makes a total of 24-bit latch.
-## 8286 transceiver (8-bits) (data)
+##### 8286 transceiver (8-bits) (data)
 - the valid data is separated from the multiplexed address/data bus using the **DT/R' (Data Transmit/Receive)** and **DEN' (Data Enable)** pins connected to **T (Transmit)** and **OE' (Output Enable)** of 8286 respectively
 - 2 8286 transceivers are required as the 8086 processor's data bus is 16-bits long. 2 8-bit transceivers make a 16-bit transceiver.
 - DT/R' decides the data flow through the transceiver, that is whether the data is being transmitted from the transceiver or it's receiving the data. 
 - DEN' either enables or disables the transceiver altogether.
 
 ![[mpc-8286_data_flow.png]]
-## 74138 3:8 decoder (control)
+##### 74138 3:8 decoder (control)
 - decides which control signal is to be sent through the control bus
 - M/IO' (Memory/IO) decides whether the memory or I/O operation is to be performed. The RD' (Read) and WR' (Write) says whether a read (instruction fetch) or write cycle is currently being performed
 - control signals for all the operations are generated by decoding the M/IO', WR', RD' signals from the processor. They are decoded by 74138 3:8 decoder, and the output is sent in the control bus.
 
 ![[mpc-8286_control_signals.png]]
 
-## 8284 clock generator
+##### 8284 clock generator
 - used to provide clock signals :)
-## other pins
-### INTR (Interrupt) ,INTA (Interrupt Acknowledge), NMI (Non-Maskable Interrupt)
+##### other pins
+###### INTR (Interrupt) ,INTA (Interrupt Acknowledge), NMI (Non-Maskable Interrupt)
 - INTR and INTA pins are used by external devices. INTR pin is enabled when a device wants to communicate with the processor, and the INTA pin is enabled when the processor is ready to transmit or receiver data to or from that external device.
 - if NMI is enabled and there is an interrupt, the processor will finish the current execution of the instruction and only then will it return to the interrupt.
-### HLD (Hold) and HLDA (Hold Acknowledge)
+###### HLD (Hold) and HLDA (Hold Acknowledge)
 - HLD and HLDA are the pins used by DMA controllers to take over access of the bus, When DMA controllers want's to use the bus, it turns on the HLD pin, and the processor hands over the system bus to the DMA by sending the HLDA signal.
-### maximum mode
+#### maximum mode
 In maximum mode, the microprocessor is interfaced with co-processors
-## Assembler directives
+### Assembler directives
 assembler directives are the commands to the assembler to direct the assembly process. They indicate how the assembler treats an operand, and how the assembler handles the program.
 
 - assume
@@ -433,28 +432,28 @@ assembler directives are the commands to the assembler to direct the assembly pr
 	.
 	DATA ENDS
 - EVEN
-## multiprocessor configuration
+### multiprocessor configuration
 - multiprocessor means multiple set of processors that executes instructions simultaneously
 - three basic multiprocessor configuration,
 	- Co-processor configuration
 	- Closely coupled configuration
 	- Loosely coupled configuration 
-### Co-processor configuration
+#### Co-processor configuration
 - A Co-processor is a specially designed circuit on microprocessor chip that can perform the same task very quickly than the main processor
 - it reduces the work load on the CPU
 - Co-processor shares the same memory, IO system, bus control logic and clock generator
 - Co-processor handles specific tasks like mathematical calculations, graphical display on screen, etc.
 - eg: the 8086 and 8088 can perform most of the operations but their instruction set is not able to perform complex mathematical operation, so in those cases they require something like the intel 8087 math processor
-## how is the processor and Co-processor connected
+##### how is the processor and Co-processor connected
 - the Co-processor and processor is connected through TEST, RQ/GT and QS<sub>0</sub> and QS<sub>1</sub> signals
 - The TEST signal is connected to BUSY pin of Co-processor and remaining three pins are connected to the same pins in Co-processor
 - TEST signal returns the status of co-processor's activate. That is, busy or idle.
 - the RT/GT is used for bus arbitration
 - the Co-processor uses the QS<sub>0</sub> and QS<sub>1</sub> to track the status of the queue of host processor 
-### closely coupled configuration
+#### closely coupled configuration
 - closely coupled configuration is similar to Co-processor configuration as both share memory, I/O, system bus, Control Logic and Control Generator with Host processor
 - however, the coprocessor and the processor fetches and executes their own instructions. The system bus is also controlled independently by the processor and Co-processor.
-### Loosely coupled configuration
+#### Loosely coupled configuration
 - consists of number of modules of the subprocessor that are connected through a common system bus 
 - each module have their own clock generator, memory, I/O devices and are connected to a local bus
 - clocks of different modules are of similar frequency but they are asynchronous towards each other
@@ -470,7 +469,6 @@ assembler directives are the commands to the assembler to direct the assembly pr
 - when used as a timer, the microcontroller is programmed to count internal clock pulse
 - when used as a counter, the microcontroller is programmed to count external clock pulse
 - maximum count rate is 1/24 of the oscillator frequency.
-
 #### Timer 0 register
 - exclusive to Timer 0
 	- TH0
@@ -491,3 +489,169 @@ assembler directives are the commands to the assembler to direct the assembly pr
 - lower 4 bits
 	- 
 - upper 4 bits
+##### advantages 
+- having more than one processor increases efficiency 
+- each processor have their own local bus to access memory I/O devices. This makes it easy 
+### advanced processors
+#### 80186
+- based on 8086 with same 20-bit address bus
+- 80186 and 80188 is compatible with the code written for 8086 and 8088
+- It is intended to be used in embedded systems
+- CPU speed is 6MHz to 25MHz
+#### 80286
+- addresses 16MB of RAM on a 24-bit address bus
+- has 1GB of virtual memory
+- much more powerful than 8086
+- It is the first Intel x86 CPU with built-in memory management
+- there are two modes of operations
+	- Real mode -> same as 8086
+	- Protected mode -> can address a lot more than 64KB.
+#### 80386
+- addresses 4GB of RAM on a 32-bit address bus
+- has 64TB of virtual memory
+- **Unix was developed on a 386 system**
+#### 80486
+- addresses 4GB of RAM 
+- has 64TB of virtual memory
+- It has Level 1 cache memory and integration of floating point unit and a math co-processor.
+#### Pentium
+- Twice the cache size of 486
+- Named so because numbers cannot be trademarked
+- Has a super-scalable design
+
+## 8051 processor
+### micro computer
+A microcomputer is a complete compute system comprising atleast three major components,
+- The microprocessor
+- the memory
+- the I/O peripheral components
+### micro controller
+- 16-bit address bus and 8-bit data bus
+- 8-bit microcontroller was originally developed by Intel in 1980. It has high-performance CMOS technology. 
+- Internal ROM -> 4k bytes,
+	internal RAM -> 128 bytes
+- four 8-bit I/O ports, Two 16-bit timers. 
+- Serial interface communication
+- Contains 40 pins
+- Its a single chip that contains the microprocessor as well as some often used peripherals. It contains one or more of the following components.
+	1) CPU
+	2) RAM
+	3) ROM
+	4) I/O ports
+	5) timers and counters
+	6) Interrupt controls
+	7) ADC
+	8) DAC
+	9) serial interfacing ports
+	10) Oscillatory circuits
+- Internal memory consists of on-chip ROM and on-chip RAM
+- 8051 has a separate memory space for programs and data
+- The operating frequency is between 24MHz-33MHz
+- +5V regulated DC power supply is required to operate
+- it has 8-bit ports and a total of 32 I/O lines
+- 6-interrupts (2 internal and 2 priority levels)
+- low-power idel and power-down modes
+- 8051 has 21 special function registers
+- 8051 requires an external oscillator circuit that runs at 12MHz-16MHz(XTAL1,XTAL2)
+### registers
+![[mpc-8051_registers.png]]
+1) A (Accumulator) and B
+	- A and B are used for all arithmetic and logic instructions
+	- 8051 has 34 general purpose registers
+	- Significance of A
+		- A is used for addition, sub, mul, div, bool, and bit manipulations
+		- data transfer between 8051 and memory
+1) R0-R7
+2) DPTR (data pointer) 
+	- Its the 8051's only user-accessible 16-bit (2-byte) register
+	- Its meant for pointing at data in the external memory
+3) PC (program counter)
+	- 16-bit register
+	- instructions fetched from memory are held in PC
+	- PC do not have an internal address
+	- PC starts at 0000h when 8051 initializes and is incremented every time after an instruction is executed
+	- PC is always not incremented by 1, some instructions may occupy 2 or 3 bytes, in that case PC will be incremented by 2 or 3.
+4) PSW (program status word) or flag registers
+	![[mpc-psw.png]]
+	- CY (PSW.7)
+		carry flag - sets if there's carry after a byte 
+	- AC (PSW.6)
+		auxiliary carry flag - sets if there's carry after a nibble
+	- F0 (PSW.5)
+		available to the user for general purpose
+	- RS1 (PSW.4)
+		register bank selector bit 1
+	- RS0 (PSW.3)
+		register bank selector bit 0
+	- OV (PSW.2)
+		overflow flag
+	- __ (PSW.1)
+		user definable flag
+	- P (PSW.0)
+		parity flag, sets if there is odd number of 1bits in accumulator
+	![[mpc-register_bank.png]]
+	example:
+	![[mpc-example.png]]
+5) stack pointer
+	- an 8-bit register
+	- it has the address of data item currently on top of the stack
+	- stack operations include pushing data on stack and popping data off the stack
+	- pushing increments SP before writing the data and popping decrements SP after reading the value
+	- stack of 8051 is kept in the internal RAM and SP is set to 07H when 8051 resets
+	- eg: MOV SP,#5FH
+### internal memory
+![[mpc-8051_internal_memory.png]]
+- 8051 has a separate memory space for programs and data
+- both code and data may be internal, however, they both can expand using external components to a maximum of 64k code and 64k data memory
+- on-chip RAM contains a rich arrangement of general purpose storage, bit addressable storage, register banks, and special function registers
+- in 8051 the stack resides within the internal RAM rather than the external RAM
+
+![[mpc-8051_banks.png]]
+
+### pin diagram
+![[mpc-8051_pin_diagram.png]]
+#### port 0 (9 pins)
+- 8-bit bidirectional I/O port
+- port 0 pins can be used as high-impedance inputs
+- port 0 is also the multiplexed low-order address and data bus while accessing external program and data memory
+- when used as output the pin latches are programmed to 0, when used as input the pin latches are programmed to 1
+- 32 - 39 pins are used
+#### port 1 (9 pins)
+- 8-bt bidirectional I/O port
+- port 1 has no dual functions
+- when used as output the pin latches are programmed to 0, when used as input the pin latches are programmed to 1
+- 1 - 9 pins are used
+#### port 2 (9 pins)
+- 8-bit bidirectional I/O port
+- port 2 emits the high-order address byte while accessing external program and data memory
+- when used as output the pin latches are programmed to 0, when used as input the pin latches are programmed to 1
+- 21 - 28 pins are used
+#### port 3 (9 pins)
+- 8-bit bidirectional I/O port
+- 10 - 17 pins are used 
+- the pins are
+	1) RXD (P3.0) -> serial input port
+	2) TXD (P3.1) -> serial output port
+	3) INT0 (P3.2) -> external interrupt
+	4) INT1 (P3.3) -> external interrupt
+	5) T0 (P3.4) -> timer 0 external input
+	6) T1 (P3.5) -> timer 1 external input
+	7) WR (P3.6) -> external data memory write strobe
+	8) RD (P3.7) -> external data memory read strobe
+### addressing modes
+1) immediate addressing mode
+	- immediate data is specified in the instruction itself
+	 eg: MOV A,#65H
+2) register addressing mode
+	- R0 - R7 registers are used
+	eg: MOV A,R3 or MOV R4, A
+3) direct addressing mode
+	- Although the entire of 128 bytes of RAM can be accessed using direct addressing mode, it is most often used to RAM loc 30 - 7FH
+4) register indirect addressing mode
+	- In this mode, register is used as a pointer to the data 
+	eg: MOV A, @R0
+5) indexed addressing mode and on-chip ROM access
+	- this mode is widely used for accessing data in program code
+	- destination will always be the accumulator (A)
+	eg: MOVC A, @A+DPTR
+	because the data elements  are stored in program code space of ROM, the instruction is MOVC, C stands for code.
