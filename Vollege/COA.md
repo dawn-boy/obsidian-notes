@@ -466,9 +466,171 @@ $$P.A = block\ bits+ block/line\ offset$$
 	- SRAM
 - newer forms of RAM are non-volatile
 - Dynamic RAM
+		![[coa-dram.png]]
 	- A DRAM is made up of cells that store data as charge on capacitors. The presence or absence of charge in a capacitor is interpreted as binary 1 and 0
 	- because capacitors have a natural tendency to discharge, dynamic RAMs require periodic charge refreshing to maintain data storage
 	- the term dynamic refers to this tendency of stored charge to leak away even with power continuously applied
 	- memory is made of bits of data that are arranged in a two-dimensional grid
 	- DRAM will store bits of data in what's called a storage or memory cell, consisting of a capacitor and a transistor
-	- 
+	- the address line is activated when the bit value from this cell is to be read or written. The transistor acts as a switch that is closed (allowing the current to flow) if a voltage is applied to the address line and open(no current flows) if no voltage is present on the address line.
+	- write operation
+		 for the write operation, a voltage signal is applied to the bit line, a high voltage represents 1, and a low voltage represents 0. A signal is then applied to the address line, allowing a charge to be transferred to the capacitor.
+	- read operation
+		 for the read operation, when the address line is selected, the transistor turns on and the charge stored on the capacitor is fed out onto the bit line and to a sense amplifier. The sense amplifier compares the capacitor voltage to a reference value and determines if the cell contains a logic 1 or a logic 0. The readout from the cell discharges the capacitor which must be restored to complete the operation since reading from the capacitor drains its charge making it a destructive process.
+- Static RAM
+	- its a digital device that uses the same logic elements used in the processor
+	- in a SRAM, binary values are stored using traditional flip-flop logic gate configurations
+	- there are four transistors T1, T2, T3, T4 are cross connected in an arrangement that produces a stable logic state 
+	- In logic state 1, C1 is high and C2 is low. T1 and T4 are OFF, T2 and T3 are ON
+	- in logic state 0, C1 is low and C2 is high. T1 and T4 are ON, T2 and T3 are OFF
+	- both states are stable as long as there is direct current
+	- unlike the DRAM, no refresh is needed to retain its data
+	- As in the DRAM, the SRAM address line is used to open and close a switch which controls T5 and T6. 
+	- for the write operation, the desired bit value is applied to line B whilst its complement is applied to line <span style="text-decoration: overline">B</span>. 
+#### ROM
+- a read only memory contains a permanent pattern of data that cannot be changed. ROM is non-volatile and no power source is required to maintain the bit values in memory
+- while we can read from ROM, its not possible to write anything to it.
+##### programmable ROM
+- when only small number of ROMs with a particular memory content is needed, a less expensive alternative is PROM. its non-volatile and may be written onto only once.
+- for the PROM, writing process is done electrically and may be performed by a supplier or customer at a time later that the original chip fabrication
+- special equipment is required for the writing process
+###### read mostly memory
+read-mostly memory is useful for applications in which read operations are far more frequent that write operations but for which non-volatile storage is required. There are three common forms of read-mostly memory
+
+1) EPROM
+	 optically erasable programmable read only memory is read and written electrically as with PROM. However, before a write operation, all the storage cells must be erased to the same initial state by exposure of packaged chip to ultraviolet. Erasure is performed by shining an intense ultraviolet light through a window that is kept in the memory chip for that purpose. Erasure process can be performed repeatedly and each erasure takes about 20 minutes. EPROM is expensive than PROM but has the advantage of being updated
+1) EEPROM
+	a type of non-volatile ROM that enables individual bytes of data to be erased and reprogrammed. It uses electric signals to erase and program the contents rather than UV signals. This is a read-mostly memory that can be written to at any time without clean wiping prior to writing. EEPROM is more expensive than EPROM and is less dense supporting fewer bits per chip.
+1) Flash memory
+	a type of non-volatile memory that erases data in units called blocks and rewrites data at byte level. its the intermediate between EPROM and EEPROM in both cost and functionality
+	Like EEPROM it uses electrical erasing technology resulting in a much faster erasure rate than EPROM. And like EPROM, flash memory uses only only transistor per bit resulting in a higher density than EEPROM
+### chip logic
+![[coa-chip_logic.png]]
+an organization in which the physical arrangement of cells in array is same as the logical arrangement of words in memory. 
+- 4 bits are read or written at a time, logically memory array is organized as four square arrays of 2048 by 2048 elements
+### hamming code error detection
+its a network technique designed by R. W. hamming for damage and error detection during data transmission between multiple network channels. Its the one of the most effective ways to detect single-data bit errors in original data at the receiver's end. Its not only used for error detection but also for correcting errors in data bit
+## External devices
+- External devices provides a means for exchanging data between the external environment and the computer. 
+- an external device attaches to the computer by a link to an I/O module. The link is used to exchange control, status and data between the I/O module and external devices. The external device that is connected to an I/O module is often referred to as a peripheral device
+- its broadly classified into three categories,
+	1) Human readable: suitable for communicating with the computer user
+		 eg: video display terminals
+	2) Machine readable: suitable for communicating with equipment
+		 eg: magnetic disk and tape systems, sensors and actuators
+	3) communication: suitable for communicating with remote devices
+		 eg: exchange data with remote device
+### block diagram
+![[coa-external_dev_block_diagram.png]]
+
+
+- The interface to the I/O module is in the form of control, data, and status signals
+- the Control signals determine the function that the device will perform,
+	1) send data to I/O module (INPUT or READ)
+	2) accept data from I/O module (OUTPUT or WRITE)
+	3) report status
+- data are in the form of set of bits to be send to or received from I/O module
+- status signals indicate the state of devices (READY or NOT-READY)
+#### control logic
+ control logic associated with the device controls the device's operation in response to direction from the I/O module 
+#### transducer
+it converts data from electricals to other forms of energy during the output. It also converts from other forms of energy to electric whilst input.
+#### buffer
+A buffer is associated with the transducer. It temporarily holds data that's being transferred between the I/O module and external environment. A common buffer size is about 8 - 16 bits long for serial devices whereas block-oriented devices such as disk drive controllers have much larger buffers.
+### I/O module
+The major functions of an I/O module 
+- Control and timing
+	 - At any time, the processor may communicate with one or more external devices depending on the program's need for I/O 
+	 - the internal resources such as main memory and the system bus, is shared among a number of activities including data I/O
+	 - so the I/O function requires a control and timing requirement to co-ordinate the flow of traffic between internal resources and external devices. 
+	 - The control of the transfer of data from an external device to the processor includes the following steps
+		 1. the processor request the I/O module to check the status of the attached device
+		 2. the I/O module returns the device status
+		 3. if the device is operational and ready to transmit, the processor requests the transfer of data by means of a command to the I/O module
+		 4. I/O module obtains the data from the external device 
+		 5. the data is transferred to the processor form the I/O module.
+- processor communication
+	- To communicate with the processor and with the external device, the following steps are required
+		1) command decoding
+			 -  The I/O module accepts commands from the processor
+			 -  it sends it as signals to the control bus.
+			     commands like: READ SECTOR, WRITE SECTOR, SEEK track_number, SCAN record_ID
+		2) data
+			 data is exchanged between the processor and the I/O module over the data bus
+		3) status reporting
+			 because peripherals are so slow, its important to know their status using the I/O module. Common status signals are BUSY and READY.
+		4) address recognition
+			 just as each word of memory has an address, so does each I/O devices. Thus, an I/O module must recognize one unique address for each peripheral it controls, then I/O module must be able to perform device communication. The communication involves commands, status information and data.
+- device communication
+- data buffering
+- error detection
+#### block diagram
+![[coa-io_modules_block_diagram.png]]
+- the module connects to the rest of the computer through a set of signal lines. The data transferred to and from the module are buffered in one or more data registers.
+- there are status registers that provide the current status information. A status register may also function as a control register to accept detailed control information from the processor. 
+- The logic within the module interacts with the processor via a set of control lines. The processor uses the control lines to issue commands to the I/O module. Each I/O module has a unique address. 
+- the I/O module contains logic specific to the interface with each device that it controls.
+==An I/O module that takes on most of the detailed processing burden, presenting a high-level interface to the processor, is usually referred to as an I/O channel or I/O processor.==
+
+### I/O operation techniques
+#### programmed I/O
+- data is read in one word into memory
+- for each word that is read in, the processor must remain in status checking cycle until it determines that the word i s available in the I/O module's data register
+- the main disadvantage of this technique is that its time consuming process that keeps the processor busy needlessly.
+- since the processor has to wait a long time for the external device to be ready for either reception or transmission of data and also it has to repeatedly interrogate the status of the external device, the performance of the entire system is severely degraded.
+
+In simple words, once the CPU checks for the status of the external device through the I/O module, it waits if the external device is BUSY. 
+#### Interrupt I/O
+this technique is more efficient than programmed I/O because it eliminates the needless waiting time period. However interrupt I/O still consumes a lot of processor time because every word from memory to I/O module or from I/O module to memory still has to go through the processor.
+- the device issues an interrupt signal to the processor
+- the processor finishes execution of the current instruction before responding to the interrupt
+- the processor tests for an interrupt, if there is one, then it sends back an acknowledgment signal to the device that issued the interrupt
+- the acknowledgment allows the device to remove its interrupt signal
+- The processor now needs to prepare to transfer control to the interrupt routine
+- the minimum information required to resume its current tasks are,
+	1. the status of the processor, which is copied to a the Program Status Word (PSW)
+	2. the location of the next instruction to be executed, which is copied to the Program Counter (PC)
+- these are pushed to the system control stack
+- the processor now loads the program counter with the entry location address
+
+in simple words, the processor checks the status of the external device but does not wait if its busy, the processor carries on with its task. When the external device is READY, the processor stores its current data process in a stack, goes to the I/O module and performs the required operation and comes back to the stack to pick it up from where it left.
+#### Direct memory access (DMA)
+The DMA module transfers the entire block of data, one word at a time directly to or from the memory without going through the processor at all. When the transfer is complete, the DMA module sends an interrupt signal to the processor. Thus the processor is involved only at the beginning and at the end of the transfer.
+- DMA is an additional module on the system bus
+- its capable of mimicking the processor, taking control over the processor.
+- The DMA module must use the bus only when the CPU doesn't need it or it must force the processor to suspend operation temporarily. This technique is called cycle stealing.
+the DMA mechanism can be configured in a variety of ways,
+1) Single bus, detached DMA: 
+![[coa-single_bus_DMA.png]]
+	All the modules share the same system bus, the DMA module acting as a surrogate processor. 
+
+2) Single bus, integrated DMA-I/O: 
+![[coa-single_bus_int_DMA.png]]
+	 the number of bus cycles can be cut substantially by integrating the DMA and I/O functions. This means that there is a path between the I/O module and the DMA which doesn't include the system bus.
+
+3) I/O bus: 
+![[coa-io_bus.png]]
+- this reduces the I/O interfaces in the DMA module to one.
+- the system bus that the DMA uses with the processor and memory is only there to exchange data.
+### I/O commands
+to execute an I/O related instruction, 
+- the processor issues an address specifying the particular I/O module and external device
+- the processor issues an I/O command
+there are four types of I/O commands that an I/O module may receive when it is addressed by the processor,
+1) Control
+	 used to activate a peripheral and tell it what to do
+2) Test
+	 used to test various status conditions associated with an I/O module and its peripherals
+3) Read
+	 causes the I/O module to obtain an item of data from the peripheral and place it in the internal buffer
+4) Write
+	causes the I/O module to take an item of data from the data bus and transmit it to the peripheral.
+### I/O structure
+1) memory mapped I/O
+	 - there is a single address space for memory locations and I/O devices. 
+	 - The processor treats the status and data registers of I/O modules as memory locations. 
+	 - The processor uses the same machine instructions to access both memory and I/O devices
+		for example: with 10 address lines, 2<sup>10</sup> = 1024 memory locations and I/O addresses can be contained in any combination
+2) Isolated I/O
+	- the address space for I/O is isolated from that of the memory's. So, with 10 address lines, there could now be 1024 memory locations and 1024 I/O addresses.
+	- the I/O ports are accessible only by special I/O commands, which activate the I/O command lines on the bus.
