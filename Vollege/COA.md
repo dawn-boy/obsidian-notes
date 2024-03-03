@@ -6,7 +6,6 @@
 	- number of bits used,
 	- I/O mechanism
 	- techniques for addressing the memory
-
 - Also commonly known as **Instruction Set Architecture (ISA)**
 - ISA defines,
 	- instruction formats and opcodes,
@@ -170,12 +169,10 @@ Computer is a network of modules. The collection of paths connecting various mod
 	processor reads from the memory
 - processor --> memory
 	processor writes to the memory
-	
 - I/O --> processor
 	processor reads from the I/O device
 - processor --> I/O
 	processor writes to the I/O device
-	
 - I/O <--> memory
 	the I/O module is allowed to exchange data directly with memory without the help of a processor, this is called **DMA (direct memory access)**
 ## bus interconnection
@@ -229,7 +226,7 @@ a bus that connects major computer components is called system bus. A system bus
 ***
 ## point to point interface
 the shared bus architecture was the standard approach to interconnection between processor and other components for decades, but present computers are switching to point-to-point interconnection. 
-The main reasons are the difficulty in performing synchronization and arbitration functions at higher data rates adn keeping up with current multi-core processors at low bus latency is really challenging for the shared bus interconnection.
+The main reasons are the difficulty in performing synchronization and arbitration functions at higher data rates and keeping up with current multi-core processors at low bus latency is really challenging for the shared bus interconnection.
 
 ![[coa-multi_core_config_QPI.png]]
 
@@ -570,7 +567,6 @@ The major functions of an I/O module
 - The logic within the module interacts with the processor via a set of control lines. The processor uses the control lines to issue commands to the I/O module. Each I/O module has a unique address. 
 - the I/O module contains logic specific to the interface with each device that it controls.
 ==An I/O module that takes on most of the detailed processing burden, presenting a high-level interface to the processor, is usually referred to as an I/O channel or I/O processor.==
-
 ### I/O operation techniques
 #### programmed I/O
 - data is read in one word into memory

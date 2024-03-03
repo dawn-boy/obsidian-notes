@@ -31,9 +31,26 @@ it reveals the unique characteristics of your typical customer and customer grou
 5) find out where your ideal client hangs out
 6) research on where to do marketing (like blog posts that accept a guest blog post with a link to your website)
 ## technical, financial and social profiles 
-
 ### technological analysis
 it is used to identify the strengths and weaknesses of the company's technological activities
 
+## unique selling proposition
+the one thing that makes your business better than the competition. It that specific benefit that makes your business stand out when compared to other businesses in your market.
 
+- saddleback leather - "They'll fight over it when you're dead"
+- m&m - melts in your mouth, not in your hand
+- canva - empowering the world to design
+## product differentiation
+goal is to create a competitive advantage or to make your product superior to alternatives on the market
+- apple differentiates its products by pricing the higher than its competitors implying that the products are better quality and has the latest tech.
+- types - vertical, horizontal, mixed
+Advantages:
+- it creates additional value
+- develops brand loyalty
+- allows business to compete in different ways
+disadvantages:
+- revenue increases are not guaranteed
+- the offering's perceived value can decline
+- it could strain resources
+product differentiation is important because it allows different brands to gain a competitive advantage in market
 
