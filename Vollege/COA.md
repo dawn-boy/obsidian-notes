@@ -415,7 +415,6 @@ a physical cache stores data using physical addresses of the main memory.
 ##### cache size
 ![[coa-levels_of_cache.png]]
 the size of the cache is pretty small. Processors have different levels of cache such as L1, L2 and L3
-
 #### mapping function
 because there are few cache lines than there are main memory blocks, an algorithm is required for mapping the needed blocks. A mapping function describes how the cache should be organized.
 

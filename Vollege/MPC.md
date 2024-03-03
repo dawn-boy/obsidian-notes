@@ -189,7 +189,6 @@ The instruction used to transfer data from source to destination.
 	pushes flag register to top of the stack
 - POPF
 	pops the stack top to flag register
-
 #### arithmetic instruction
 - ADD des, src
 	adds byte to byte, or word to word
@@ -270,7 +269,6 @@ these instructions cause change in the sequence of execution of instruction.
 		jump if zero
 - LOOP des
 	this is a looping instruction, the number of times to loop is placed in the CX register, with each iteration, the CX register is decremented and ZF is checked whether to loop again or not
-
 #### string instructions
 - CMPS des, src
 	compares string bytes or words
@@ -281,7 +279,6 @@ these instructions cause change in the sequence of execution of instruction.
 - REP (instruction to repeat)
 	this is an instruction prefix. repeats until CX becomes 0.
 	eg: REP MOV AX, BX
-- 
 #### processor control instruction
 these instructions control the processor itself.
 - STC 
@@ -294,7 +291,6 @@ these instructions control the processor itself.
 	sets DF to 1. So, string bytes are accessed from higher memory address to the lower memory address
 - CLD
 	clears DF to 0. So, string bytes are accessed from lower memory address to the higher memory address
-
 ### addressing modes of 8086
 - immediate addressing mode
 	MOV CL, 12H
@@ -312,7 +308,6 @@ these instructions control the processor itself.
 	MOV CL, [BX + DI + 20H]
 - implied addressing mode
 	STC 
-
 ***
 ### 8086 pin diagram
 ![[mpc-8086_pin_diagram.png]]
@@ -463,7 +458,6 @@ assembler directives are the commands to the assembler to direct the assembly pr
 #### advantages
 - having more than one processor increases efficiency 
 - each processor have their own local bus to access memory I/O devices. This makes it easy 
-
 ### 8051 time counter
 8051 has two 16-bit timer/counter registers namely timer 0 and timer 1.
 - when used as a timer, the microcontroller is programmed to count internal clock pulse
@@ -483,7 +477,6 @@ assembler directives are the commands to the assembler to direct the assembly pr
 - shared by both registers
 	- TMOD (Timer mode) register 
 	- TCON (Timer control) register 
-
 #### TMOD register
 - 8 bit register
 - lower 4 bits
@@ -518,7 +511,6 @@ assembler directives are the commands to the assembler to direct the assembly pr
 - Twice the cache size of 486
 - Named so because numbers cannot be trademarked
 - Has a super-scalable design
-
 ## 8051 processor
 ### micro computer
 A microcomputer is a complete compute system comprising atleast three major components,
