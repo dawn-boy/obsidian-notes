@@ -264,25 +264,9 @@ div {
 	/* This turns it on. */
 	display: flex;
 
-	flex-direction: row;
-	flex-direction: row-reverse;
-	flex-direction: column;
-	flex-direction: column-reverse;
 
-	justify-content: flex-start;
-	justify-content: flex-end;
-	justify-content: center;
-	justify-content: space-between;
-	justify-content: space-around;
-	justify-content: space-evenly;
 
-	flex-wrap: nowrap;
-	flex-wrap: wrap;
-	flex-wrap: wrap-reverse;
 
-	align-items: center;
-	align-items: flex-start;
-	align-items: flex-end;
 
 	/* For Individual elements */
 	align-self: flex-start;
@@ -307,20 +291,73 @@ div {
 ```
 ---
 # Flex
+
+flex requires a container which has some children.
+
+We can let an element use flex by saying,
+so from here on out, that element has all the flex goodness ;)
 ```css
-
-/* Initiates Flex Protocols */
 display: flex;
-
-/* If the Screen shrinks, then the contents will either shrink with it or just go past the border */
-flex-shrink: 1;
-/*Allowed to grow and fill the screen if the value is 1 */
-flex-grow: 1;
-
-/* Wraps the elements one below another when the screen size gets smaller */
-flex-wrap: wrap;
-
 ```
+
+flex does its thing based on the main axis(x axis by default) and cross axis(y axis by default). And the main axis can be changed by,
+```css
+flex-direction: row;
+flex-direction: row-reverse;
+flex-direction: column;
+flex-direction: column-reverse;
+```
+
+we can align items along the main axis using,
+```css
+justify-content: flex-start;
+justify-content: flex-end;
+justify-content: center;
+justify-content: space-between;
+justify-content: space-around;
+justify-content: space-evenly;
+```
+
+aligning items along the cross axis using,
+```css
+align-items: flex-start;
+align-items: flex-end;
+align-items: center;
+align-items: baseline; /* the font of each children is at the same level */
+```
+
+when more children are added, they all start to crush each other for space, to solve this
+```css
+flex-wrap: wrap;
+flex-wrap: wrap-reverse;
+flex-wrap: nowrap;
+```
+
+when wrapping is used, a new achievement is unlocked!
+```css
+align-content: flex-start /* same prop as justify-content */
+```
+
+gaps can be added between each children so they leave some space in between,
+```css
+gap: 1em;
+```
+
+each children can be specifically said to grow or shrink individually
+```css
+children{
+	flex-grow: 1;
+	flex-shrink: 3;
+	flex-basis: 300px; /* hmm */
+
+	align-self: center; /* it overwrites the align-items properties */
+	order: -1; /* can make this children appear before the rest. be default everyother children has order of 0, so -1 goes before */
+	order: 1 /* makes this child come last */
+}
+```
+
+
+
 ***
 # bootstrap
 inside the head, gets all the css goodies
