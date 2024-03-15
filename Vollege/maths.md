@@ -330,4 +330,88 @@ $$Ker(T) = \{(0,0)\} \implies N(T) = 0$$
 3) verify,
 $$dim(u) = r(T) + N(T)$$
 $$2 = 2+0 \implies 2=2$$
-	.
+
+
+***
+## inner product
+let u, v be vectors in R<sup>n</sup> then, u<sup>T</sup>V is called the inner product of u and v. Its denoted as,
+$$<u,v> or\  u\cdot v$$
+### inner product space
+the vectors must satisfy the following properties,
+- $<u,v>\ =\ <v,u>$ 
+- $<u+v,w>\ =\ <u,w>+<v,w>$
+- $<\alpha u,v>\ = \alpha <u,v>$
+- $<u,u>\ = 0$
+***
+### length of a vector
+the norm value or the length of the vector can be found by,
+$$||V|| = \sqrt{v_1^2+v_2^2+\ ...\ + v_n^2}$$
+### unit vector
+a unit vector is a vector of length 1.
+$$\hat{V} = \frac{\vec{V}}{||V||}$$
+### distance between the vectors
+distance between u and v,
+$$||u-v|| = \sqrt{(u_1-v_1)^2 + (u_2-v_2)^2 +\ ...\ + (u_n+v_n)^2}$$
+### orthogonal vectors
+two vectors that are perpendicular to each other.
+$$u\cdot v = 0$$
+also if,
+$$||u||^2 + ||v||^2 = ||u+v||^2$$
+#### orthogonal set
+in a set of vectors $\{u_1,u_2,u_3\}$, if
+- $u_1 \cdot u_2 = 0$
+- $u_2 \cdot u_3 = 0$
+- $u_1 \cdot u_3 = 0$
+***
+## Laplace transforms
+
+$$L[t^n] = \begin{cases} \frac{n!}{s^{n+1}}, \text{if n is a positive integer}\\ \frac{n(n+1)}{s^{n+1}}, \text{if n is not an integer} \end{cases}$$
+$$L[e^{at}] = \frac{1}{s-a}$$
+$$L[e^{-at}] = \frac{1}{s+a}$$
+$$L[sin\ at] = \frac{a}{s^2+a^2}$$
+$$L[cos\ at] = \frac{s}{s^2+a^2}$$
+$$L[sinh\ at] = \frac{a}{s^2-a^2}$$
+$$L[cosh\ at] = \frac{s}{s^2-a^2}$$
+$$L[cx] = cL[x]$$
+$$L[1] = \frac{1}{s}$$
+### orthogonal basis
+$$c_1 = \frac{y_1u_1}{u_1u_1}$$
+$$y = c_1u_1\ +\ c_2u_2\ +\ ...\ + c_nu_n$$
+### orthogonal projection
+if u and v are two given vectors, then the projection of u on v is given by,
+$$\hat{y} = \frac{y\cdot u}{u \cdot u}u $$
+## gram schmidt process
+to find the orthogonal basis $\{v_1,v_2,v_3\}$,
+$$v_1 = x_1$$
+$$v_2 = x_2 - proj^{x_2}_{v_1}$$
+$$v_3 = x_3 - proj^{x_3}_{v_1}- proj^{x_3}_{v_2}$$
+
+where $proj^{x_3}_{v_1}$ is like,
+$$proj^{x_3}_{v_1} = \frac{x_3\cdot v_1}{v_1\cdot v_1}v_1$$
+
+to find the orthonormal basis $\{l_1,l_2,l_3\}$,
+$$l_1 = \frac{v_1}{||v_1||}$$
+$$l_2 = \frac{v_2}{||v_2||}$$
+$$l_3 = \frac{v_3}{||v_3||}$$
+## trigonometric formulas
+$$sin^2\theta = \frac{1-cos2\theta}{2}$$
+$$cos^2\theta = \frac{1+cos2\theta}{2}$$
+$$sin^3\theta = \frac{3sin\theta - sin3\theta}{4}$$
+$$cos^3\theta = \frac{3cos\theta - cos3\theta}{4}$$
+$$sin(A+B) = sinAcosB + cosAsinB$$
+$$sin(A-B) = sinAcosB - cosAsinB$$
+$$cos(A+B) = cosAcosB - sinAsinB$$
+$$cos(A-B) = cosAcosB + sinAsinB$$
+$$sinAcosB = \frac{sin(A+B)+sin(A-B)}{2}$$
+$$sinAsinB = \frac{cos(A-B)-cos(A+B)}{2}$$
+$$cosAcosB= \frac{cos(A+B)+cos(A-B)}{2}$$
+
+$$L[e^{at}f(t)] = L[f(t)]_{s\to s-a}$$
+$$L[e^{-at}f(t)] = L[f(t)]_{s\to s+a}$$
+
+$$L[t^nf(t)] = (-1)^n \frac{d^n}{ds^n} L[f(t)]$$
+
+$$L[\frac{f(t)}{t}] = \int^\infty_s{L[f(t)]\ ds}$$
+
+if, f(t) is a periodic function,
+$$L[f(t)] = \frac{1}{1-e^{-ps}}\int_0^p{e^{-st}f(t)}\ dt$$

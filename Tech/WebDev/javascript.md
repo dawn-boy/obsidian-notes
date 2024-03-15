@@ -263,7 +263,7 @@ function theHeadwig(num){
 	}
 	else{
 		return function(){
-			console.log("There, that, Now my friend. We arrived");
+			console.log("There, that, Now my friend. We've arrived");
 		}
 	}
 }
@@ -371,3 +371,82 @@ const snake = {
 setTimeout(function(),milliseconds) // executes the function only once
 setInterval(function(),milliseconds) // executes the function every milliseconds 
 ```
+
+## Document Object Model (DOM)
+```js
+
+document.all // returns a list of all the available element objects
+
+// but you can index each element in your html
+document.all[0].innerHTML = 'somethin' // indexing the 0th element and changing its value to something
+
+//selecting
+
+getElementById(id_name)
+getElementsByTagName(tag_name)
+getElementsByClassName(class_name)
+
+// new way to select a single element
+
+document.querySelector('tag_name')
+document.querySelector('#id_name')
+document.querySelector('.class_name')
+
+document.querySelector('img:nth-of-type(2)')
+document.querySelector('a[title="java"]') //selects only those a tags with 'java' as title
+
+//desendence selection
+document.querySelectorAll('p a') // all a tags within a p tag
+
+// selects all..
+document.querySelectorAll(stuff)
+
+element = document.querySelector(something)
+
+element.innerText // gives only the visible text within 
+element.textContent // gives all the text within 
+element.innerHTML // allows you to directly make changes with HTML syntax
+
+element.getAttribute(attribute)
+element.setAttribute(attribute,new_value)
+
+// change styles
+element.style.color = 'blue' 
+
+// but normally styles are not read from the separate stylesheets but rather only from the inline styles. So to get the current styles of an element..
+window.getComputedStyle(element).property
+
+// to change the class of an element
+element.classList.add(new_class_name)
+element.classList.remove(class_name)
+
+element.classList.contains(class_name) // if the element has the class
+element.classList.toggle(class_name) //adds the class, if not present. or deletes the class if present
+
+//traversing
+element.parentElement // every child only has one direct parent
+element.childElementCount
+element.children
+
+element.nextElementSibling
+element.previousElementSibling
+
+//creating an element
+document.createElement(tag)
+document.body.appendChild(new_element)
+
+p.append('para text')
+p.appendChild(element)
+p.prepend('ho')
+
+element.insertAdjacentElement(type,new_element) // types: beforebegin, afterbegin, beforeend, afterend, 
+
+// to remove the child element
+child = document.querySelector(tag)
+parent = child.parentElement
+parent.removeChild(child)
+// new way
+child.remove()
+```
+### DOM events
+
