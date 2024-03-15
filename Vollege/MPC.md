@@ -317,7 +317,7 @@ these instructions control the processor itself.
 - A16-A19
 	high order address bus, these are multiplexed with status signals
 - S0-S2
-	status pins, these pins are used by 8288 or 74132 modules for generating control signals
+	status pins, these pins are used by 8288 or 74138 modules for generating control signals
 	![[mpc-status_sig.png]]
 - S3-S6
 	status pins used for accessing main memory segments
@@ -526,16 +526,17 @@ A microcomputer is a complete compute system comprising atleast three major comp
 - Serial interface communication
 - Contains 40 pins
 - Its a single chip that contains the microprocessor as well as some often used peripherals. It contains one or more of the following components.
-	1) CPU
+	1) Interrupts
 	2) RAM
 	3) ROM
-	4) I/O ports
-	5) timers and counters
-	6) Interrupt controls
-	7) ADC
-	8) DAC
-	9) serial interfacing ports
-	10) Oscillatory circuits
+	4) timer 0 and timer 1
+	5) CPU
+	6) oscillators
+	7) Bus control(data,address)
+	8) I/O ports(0,1,2,3)
+	9) serial communication
+		- TXN(transmit)
+		- RXN(receive)
 - Internal memory consists of on-chip ROM and on-chip RAM
 - 8051 has a separate memory space for programs and data
 - The operating frequency is between 24MHz-33MHz

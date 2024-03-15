@@ -330,4 +330,4 @@ $$Ker(T) = \{(0,0)\} \implies N(T) = 0$$
 3) verify,
 $$dim(u) = r(T) + N(T)$$
 $$2 = 2+0 \implies 2=2$$
-	yep done.
+	.
