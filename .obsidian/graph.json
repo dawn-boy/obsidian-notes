@@ -1,0 +1,37 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": false,
+  "showAttachments": true,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:Tech  ",
+      "color": {
+        "a": 1,
+        "rgb": 14048348
+      }
+    },
+    {
+      "query": "path:Science  ",
+      "color": {
+        "a": 1,
+        "rgb": 4882408
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": -1.8,
+  "nodeSizeMultiplier": 2.88177083333333,
+  "lineSizeMultiplier": 5,
+  "collapse-forces": false,
+  "centerStrength": 0.713541666666667,
+  "repelStrength": 20,
+  "linkStrength": 0.494791666666667,
+  "linkDistance": 30,
+  "scale": 0.29629629629629584,
+  "close": false
+}

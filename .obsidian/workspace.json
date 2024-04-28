@@ -1,0 +1,167 @@
+{
+  "main": {
+    "id": "d984051b4bf78be8",
+    "type": "split",
+    "children": [
+      {
+        "id": "0c3135def2be0369",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b0ed6a5ba6732498",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tech/Hecking/TCM/3. Hacking.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "46f1359223ec3cc9",
+    "type": "split",
+    "children": [
+      {
+        "id": "9a80ce78e59b1a7c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b6eae14e4279187b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 282.5
+  },
+  "right": {
+    "id": "53dd4121bd4ea4bb",
+    "type": "split",
+    "children": [
+      {
+        "id": "b1d7681e35951df5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "25cd71bbafb309d4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Tech/Hecking/TCM/3. Hacking.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "0f943c9ce5207966",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Tech/Hecking/TCM/3. Hacking.md"
+              }
+            }
+          },
+          {
+            "id": "3179d4107f4e5bc5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Tech/Hecking/TCM/3. Hacking.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a628fb1469455c63",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "graph:Open graph view": false,
+      "command-palette:Open command palette": true
+    }
+  },
+  "active": "b0ed6a5ba6732498",
+  "lastOpenFiles": [
+    "Tech/Hecking/TCM/1. Networking.md",
+    "Vollege/MPC.md",
+    "Vollege/COA.md",
+    "VFX/houdini.md",
+    "Tech/CTFs/OverTheWire/1. Bandit.md",
+    "Vollege/images/mpc-lcd_pin_desc.png",
+    "Vollege/images/mpc-keypad.png",
+    "Vollege/images/mpc-8255_pin_diag.png",
+    "Vollege/images/mpc-8255_block_diag.png",
+    "Vollege/images/mpc-8254_pin_diag.png",
+    "Vollege/images/mpc-8254_control_word.png",
+    "Vollege/images/mpc-8254_block_diag.png",
+    "Vollege/images/mpc-8051_mem_interfacing.png",
+    "Vollege/images/mpc-8051_interrupts_it.png",
+    "Vollege/images/mpc-8051_interrupts_ie.png",
+    "Tech/bug bounty/basics.md",
+    "Tech/Git.md",
+    "Tech/Hecking/TCM/3. Hacking.md",
+    "Tech/WebDev/javascript.md",
+    "Tech/WebDev/css.md",
+    "Tech/Hecking/TCM/2. Linux.md",
+    "Tech/Bash scripting.md",
+    "Tech/Hecking/TCM/images",
+    "Tech/Networking.md",
+    "Linux_1.png.md",
+    "Tech/AI/fastai.md",
+    "Tech/Linux.md",
+    "dkdkd.md",
+    "images/image",
+    "images",
+    "~/hi/image",
+    "~/hi",
+    "~",
+    "$(pwd)/images/image",
+    "$(pwd)/images",
+    "$(pwd)",
+    "image",
+    "Tech/Cryptography.md",
+    "Vollege/Ethics.md",
+    "Vollege/maths.md",
+    "Tech/CyberSecurity.md",
+    "Tech/Coursera.md"
+  ]
+}
