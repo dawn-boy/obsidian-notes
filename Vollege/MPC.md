@@ -648,4 +648,330 @@ A microcomputer is a complete compute system comprising atleast three major comp
 	- destination will always be the accumulator (A)
 	eg: MOVC A, @A+DPTR
 	because the data elements  are stored in program code space of ROM, the instruction is MOVC, C stands for code.
+	
+## 8051 interrupts
 
+![[mpc-8051_interrupts.png]]
+- an interrupt is an external or internal event that interrupts the microprocessor to inform it that a device requires its services.
+- a set of program instructions written to service an interrupt is called interrupt service routine.
+- 8051 has 6 different sources of interrupts:
+	- External: INT0, INT1, power-up reset.
+	- Internal: TIMER0, TIMER1, serial port.
+#### power-on reset
+- the most common type of reset is power-on reset. In this scenario, the RST pin is connected to the power-on reset push button on the circuit.
+- Mechanism:
+	- after turning the power on, the capacitor charges for several milliseconds through a resistor connected to the ground.
+	- the RST pin is driven high during the charging process
+	- once the capacitor is fully charged, the power supply voltage stabilizes, the RST pin remains connected to the ground.
+#### TMOD register
+- Timer 0
+	- TR0 (Timer 0 Run Control Bit) 
+		starts or stops Timer 0 
+	- ET0 (Enable Timer 0 Interrupt Bit):
+		enables or disables Timer 0 Interrupts
+	- Interrupt Source
+		Timer 0 generates an interrupt when it overflows, that is when it reaches its maximum count and then resets back to 0.
+	- IT0
+		![[mpc-8051_interrupts_it.png]]
+		when 0 its set to level-triggering, when 1 its set to edge-triggering
+	- IE0
+		![[mpc-8051_interrupts_ie.png]]
+		when set to 1, that indicates that the microcontroller vectored to the interrupt source and is executing the interrupt service routine.
+- Timer 1
+	- TR1 (Timer 1 Run Control Bit) 
+	- ET1
+	- Interrupt source
+	- IT1
+	- IE1
+#### Interrupts and polling
+there are two different methods the microcontroller uses to serve a device:
+- Interrupts
+	- whenever a device needs the microcontroller's service, it requests them by sending an interrupt signal.
+	- microcontroller is free to do any work when there is no interrupts.
+	
+- Polling
+	* The microcontroller continuously monitors a device until the pre-determined condition is met, then it proceeds to serve the device.
+	* microcontroller cannot perform any other task other than monitoring the status of the device.
+#### how are interrupts serviced?
+1) 8051 finishes what its currently executing and saves the contents of the program counter on the stack
+2) It then jumps to the interrupt vector location corresponding to the interrupt source
+3) It then executes the interrupt service routine until it encounters RETI.
+4) After finishing it returns back to whence it came from, and by popping the contents of PC from the stack, it starts execution at that address.
+#### how interrupts are activated?
+- there are two activation levels for external hardware interrupts:
+	1) Level Triggered
+		- level triggered is the default mode upon RESET of 8051.
+	1) Edge Triggered
+		- during raising or falling edge.
+#### enabling and disabling interrupts
+- upon reset, all the interrupts are disabled by default. The interrupts functionality must be enabled by software. 
+- A register called IE (interrupt enable) is responsible for enabling or disabling the interrupts.
+- upon reset, all IE bits are set to 0.
+- if two interrupts are received at the same time, then the device with the highest priority gets the service.
+## LCD interfacing
+- a 16x2 LCD can display 32 characters in two rows at a time.
+- each character is a 5x7 (5 in a row, and 7 in a column) pixel matrix.
+#### pin description
+
+![[mpc-lcd_pin_desc.png]]
+
+- The pin can be categorized into 
+	1) Power (1,2,3)
+		- pin 1 is ground
+		- pin 2 is vcc
+		- pin 3 is used to set contrast between the foreground and the background. It makes the text darker.
+	1) Control (4,5,6)
+		- pin 4 is used to select the registers where control instructions like clear LCD or shift cursor are stored
+		- pin 5 is used to read from or write to the lcd
+		- pin 6 is considered to be a clock and data is given to the microcontroller when there is a transition in the pin
+	1) Data (7-14)
+		- you can use the first 4 data pins if you decide to save the rest for interfacing the lcd with other devices. If not, it is wiser to use all 8 pins for a faster transfer rate.
+	1) Backlight (15,16)
+		- pin 15 is connected to vcc 
+		- pin 16 is connected to ground
+		- always connect using a resistor as we don't want to damage the led. Except for the times we want to.
+
+## matrix keypad
+- a 4x4 matrix keypad has 16 switches.
+- keypads are organized in rows and columns. When a key is pressed it makes contact with a row and a column and hence its location is identified. Otherwise, there is no connection.
+#### schematic of a 4x4 keypad
+
+![[mpc-keypad.png]]
+
+- there are a total of 16 switches that are strategically placed such that when pressed it would short its row and column, thus making an closed path. All other paths would be open.
+#### principle of operation
+- all the rows are connected to V<sub>DD</sub>. So, if we read, all the rows will produce 1111.
+- connect column 1 to ground and all other columns to V<sub>DD</sub>
+- so if SW1 is pressed, row 1 will be grounded and all other rows will be at 5V. So the output will read 0111
+- Note that this can only work to identify the button presses on column 1. If we need to find the button presses at column 2. Column 2 should be connected to ground while all other columns should be connected to V<sub>DD</sub> 
+- Now, apply the pattern 0111 to the columns and detect for button presses on column 1. 
+
+## Memory interfacing of 8051
+
+![[mpc-8051_block_diag.png]]
+### address bus 
+
+![[mpc-8051_address_bus.png]]
+- 8051 has a 16-bit address bus for accessing RAM/ROM memory
+### Data bus
+- used to transfer opcodes and and data
+- 8051 has a 8-bit data bus
+### Memory map table 
+- EPROM chip name -> 27 (size)
+- RAM chip name -> 62 (size)
+#### ROM
+| Address lines         | Memory size           | IC Name |
+| --------------------- | --------------------- | ------- |
+| A9 - A0 (10)          | 2<sup>10</sup> = ~1k  | 27 8    |
+| A10 - A0 (11)         | 2<sup>11</sup> = ~2k  | 27 16   |
+| A11 - A0 (12)         | 2<sup>12</sup> = ~4k  | 27 32   |
+| A12 - A0 (13)         | 2<sup>13</sup> = ~8k  | 27 64   |
+| A13 - A0 (14)         | 2<sup>14</sup> = ~16k | 27 128  |
+| A14 - A0 (15)         | 2<sup>15</sup> = ~32k | 27 256  |
+| A15 - A0 (16)<br><br> | 2<sup>16</sup> = ~64k | 27 512  |
+#### RAM
+| Address lines         | Memory size           | IC Name |
+| --------------------- | --------------------- | ------- |
+| A9 - A0 (10)          | 2<sup>10</sup> = ~1k  | 62 8    |
+| A10 - A0 (11)         | 2<sup>11</sup> = ~2k  | 62 16   |
+| A11 - A0 (12)         | 2<sup>12</sup> = ~4k  | 62 32   |
+| A12 - A0 (13)         | 2<sup>13</sup> = ~8k  | 62 64   |
+| A13 - A0 (14)         | 2<sup>14</sup> = ~16k | 62 128  |
+| A14 - A0 (15)         | 2<sup>15</sup> = ~32k | 62 256  |
+| A15 - A0 (16)<br><br> | 2<sup>16</sup> = ~64k | 62 512  |
+### problems
+- Total number of address lines available in 8051 is 16.
+1. If a system has a 16kb memory space made of 2 8kb memory chips, then
+	- number of address lines required is 13 (A12 - A0) (~8kb single chip)
+	- number of chip select lines required is 2 (cause there are only 2 chips)
+	- size of decoder to be used is 1:2 Decoder
+### steps to draw that diagram
+
+![[mpc-8051_mem_interfacing.png]]
+1.  8051 will have the following pins
+	- AD<sub>7</sub> - AD<sub>0</sub> 
+	- ALE (address latch enable)
+	- A<sub>15</sub> - A<sub>8</sub> 
+	- <span style="text-decoration:overline">PSEN</span>
+	- <span style="text-decoration:overline">RD</span>
+	- <span style="text-decoration:overline">WR</span>
+2. an 8kb ROM will have the following inputs
+	- A<sub>12</sub> - A<sub>0</sub> 
+	- O<sub>7</sub> - O<sub>0</sub>
+	- <span style="text-decoration:overline">OE</span> from <span style="text-decoration:overline">PSEN</span>
+	- <span style="text-decoration:overline">CS</span> from the decoder
+3. an 8kb rom will have the following inputs
+	- A<sub>12</sub> - A<sub>0</sub> 
+	- IO<sub>7</sub> - IO<sub>0</sub>
+	- <span style="text-decoration:overline">OE</span> from <span style="text-decoration:overline">RD</span>
+	- <span style="text-decoration:overline">WE</span> from <span style="text-decoration:overline">WR</span>
+	- <span style="text-decoration:overline">CS</span> from the decoder
+4. a decoder that takes in 
+	- A<sub>13</sub> - A<sub>14</sub> 
+
+## 8255 PPI (Programmable Peripheral Interface)
+- I/O port chip used for interfacing I/O devices with the microprocessor
+- it is a programmable device
+- It has 3 ports 
+	- Port A
+	- Port B
+	- Port C 
+		Port C has two independent 4-bits port 
+### pin diagram 
+
+![[mpc-8255_pin_diag.png]]
+
+- <span style="text-decoration:overline">CS</span> - Data transfer occurs from 8085 when signal is low
+- D<sub>0</sub> - D<sub>7</sub> - These are 8-bit bi-directional data bus connected to 8085
+- PA<sub>0</sub> - PA<sub>7</sub> - it is a 8-bit bi-directional I/O pins used to send and receive data to and from peripherals
+- PB<sub>1</sub> - same as PA
+- PC<sub>0</sub> - PC<sub>7</sub>  - 8-bit bidirectional I/O pins
+- A<sub>0</sub> - A<sub>1</sub> is used to select the ports
+
+| A<sub>1</sub> | A<sub>0</sub> | port             |
+| ------------- | ------------- | ---------------- |
+| 0             | 0             | port A           |
+| 0             | 1             | port B           |
+| 1             | 0             | port C           |
+| 1             | 1             | control register |
+
+### block diagram of 8255
+
+![[mpc-8255_block_diag.png]]
+
+- Data bus 
+	- 8-bit bidirectional data bus
+- read and write logic
+	- gets input from the control bus and address bus of the cpu
+	- control signals are RD and WR
+	- address signals are A0, A1, and CS
+	- 8255 operations are enabled or disabled by CS
+- Group A and Group B control
+	- gets signal from the CPU and sends the command to individual command blocks
+	- group A controls port A and port C upper
+	- group B control port B and port C lower
+
+- Port A
+	- 8 bit buffer I/O latch
+	- can be programmed by mode 0, mode 1, mode 2
+- Port B
+	- 8 bit buffer I/O latch
+	- can be programmed by mode 0 and mode 1
+- Port C
+	- 8 bit buffer unlatched. Has input and output latches
+	- programmed by bit set / reset operations. Only work in mode 0.
+	- can be used as 
+		- simple I/O
+		- handshake signals
+		- status signals
+
+### Modes of operations in 8255
+- 8255 can operate in 2 modes
+	1. I/O mode
+		I/O mode is further divided into
+		- Basic I/O (mode 0)
+		- Strobe I/O (mode 1)
+		- Bi - conditional bus (mode 2)
+	1. BSR mode
+
+- mode 0
+	- in this mode, port A, B, C are just used individually. A simple mode.
+	- outputs are latched and inputs are buffered
+	- no handshake capability
+- mode 1
+	- in this mode, inputs and outputs are transferred by hand shaking signals
+- mode 2 
+	- allows for bidirectional data transfer using handshakes
+	- this feature is only possible in group A
+	- port A works as a bidirectional port
+	- upper port C is used for the handshakes
+
+## 8254 timer
+- it has 3 independent 16-bit down counters and these counters can be programmed in 6 modes.
+- The counting types can be set to either BCD or binary system.
+- It has a powerful command called "READ BACK COMMAND" which allows the user to check the count value, programmed mode, current mode, and the current status of the counter.
+- The operating frequency of 8254 timer is upto 10MHz.
+
+### pin diagram 
+
+![[mpc-8254_pin_diag.png]]
+
+### block diagram
+
+![[mpc-8254_block_diag.png]]
+
+- each counter contains 
+	1. clock input that provides the basic operating frequency
+	2. a gate input that enables or disables the counter.
+		when any value is loaded onto the counter, the value is decremented by 1, until it becomes 0.
+	3. an output to get the output value of the counter.
+### the working
+- After the power-up, 8254 is initially undefined. It has no mode, no count value, and all the outputs of the counters are undefined.
+- Each counter should be programmed before it can be used and this programming is done by setting bits in the control word of 8254 and by setting an initial value of the counter.
+#### control word
+![[mpc-8254_control_word.png]]
+
+- a counter is selected by setting SC<sub>1</sub> and SC<sub>0</sub> values
+
+| SC1 | SC0 | selection                        |
+| --- | --- | -------------------------------- |
+| 0   | 0   | C0                               |
+| 0   | 1   | C1                               |
+| 1   | 0   | C2                               |
+| 1   | 1   | read the status and reports back |
+- the values of RW<sub>1</sub> and RW<sub>0</sub> are used to define the read and write operations
+
+| RW1 | RW0 | selection                                     |
+| --- | --- | --------------------------------------------- |
+| 0   | 0   | counter latch command                         |
+| 0   | 1   | read/write lower byte                         |
+| 1   | 0   | read/write higher byte                        |
+| 1   | 1   | read/write lower byte followed by higher byte |
+- the values of M<sub>2</sub>, M<sub>1</sub>, M<sub>0</sub> are used to decide the operating modes of 8254
+
+| M2  | M1  | M0  | selection |
+| --- | --- | --- | --------- |
+| 0   | 0   | 0   | mode 0    |
+| 0   | 0   | 1   | mode 1    |
+| 0   | 1   | 0   | mode 2    |
+| 0   | 1   | 1   | mode 3    |
+| 1   | 0   | 0   | mode 4    |
+| 1   | 0   | 1   | mode 5    |
+ - The 0 bit is used to decided whether 8254 should act as a binary counter or BCD counter
+
+### operating modes of 8254
+1. Interrupt on terminal count (MODE 0)
+	- mode 0 is used for event counting
+	- Initially mode 0 will output low until the counting reaches 0, the count is decremented by 1 at each clock cycle.  Once the count reaches 0, the output goes high and remains high until a new word control is written
+2. Hardware retrigger-able one shot (MODE 1)
+	- Initially the output will be high, it will go low when it encounters a clock pulse that follows a trigger and then it will remain low until the counter reaches 0.
+3. Rate generator (MODE 2)
+	- mode 2 is used as frequency divider
+	- initially the output is low. When the counting is enabled, it goes high and this process is repeated periodically.
+4. Square wave generator (MODE 3)
+	- mode 3 is used to generate square waves
+	- counting is enabled when GATE is 1 and disabled when GATE is 0. 
+5. Soft triggered strobe (MODE 4)
+	- counting is enabled when GATE is 1 and disabled when GATE is 0. 
+	 - initially the output is high and becomes low when value of count is at last stage. Count is reloaded again for the next clock pulse.
+6. Hardware triggered strobe (MODE 5)
+	- initially the output will be high. 
+	- the counting is triggered by a rising edge of GATE
+	- when the count reaches 0, the output becomes low for one clock pulse and is high again
+	- after writing the new control word and the initial count, the counter will not be loaded until there's a clock pulse after one trigger
+
+### read operations of 8254
+- simple read operation
+- counter latch command
+- read-back command
+
+1.  Simple read operation
+	- the counter is selected using A1, A0 inputs.
+	- the clock input of the selected counter must be controlled in order to properly read the value from the counter. Otherwise, the count may be in progress during the read operation, thus giving an undefined result.
+2. counter latch command
+	- if the counter latched and the sometime later it is latched again before the count is read, then the second latch command is ignored
+	- and the count read will output the count value of the first latch command.
+3. read-back command
+	- this command is used when more than one counter should be read at a time.
+
+- status register - shows the state of the output pin

@@ -20,6 +20,7 @@ example: it is an architectural issue whether an instruction will have a multipl
 ## structure
 the way in which the components are inter-related.
 4 main structural components
+
 ![[coa-top_level_view_cpu.png]]
 - CPU
 	controls the operation of the computer and performs it's data processing functions
@@ -135,7 +136,7 @@ the process of fetching the instructions from the memory and decoding them for i
 - the decoding process is based on the opcode bits of the instruction
 	- 0 - 11 bits  --> operand address
 	- 12 - 14 bits --> opcode
-	- 15 bit       --> addressing mode 
+	- 15 bit        --> addressing mode 
 ### instruction execution
 - the instruction is send to the MBR (memory buffer register) inside the ALU (arithmetic and logical unit) for execution 
 
@@ -467,7 +468,7 @@ $$P.A = block\ bits+ block/line\ offset$$
 	- because capacitors have a natural tendency to discharge, dynamic RAMs require periodic charge refreshing to maintain data storage
 	- the term dynamic refers to this tendency of stored charge to leak away even with power continuously applied
 	- memory is made of bits of data that are arranged in a two-dimensional grid
-	- DRAM will store bits of data in what's called a storage or memory cell, consisting of a capacitor and a transistor
+	- DRAM will store bits of data in what's called a storage or memory cell, consisting of a  apacitor and a transistor
 	- the address line is activated when the bit value from this cell is to be read or written. The transistor acts as a switch that is closed (allowing the current to flow) if a voltage is applied to the address line and open(no current flows) if no voltage is present on the address line.
 	- write operation
 		 for the write operation, a voltage signal is applied to the bit line, a high voltage represents 1, and a low voltage represents 0. A signal is then applied to the address line, allowing a charge to be transferred to the capacitor.

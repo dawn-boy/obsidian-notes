@@ -50,3 +50,16 @@ f@sine = sin(@ptnum);
 i@len = npoints(0);
 ```
 
+## attributes
+### pscale
+drives the scale value for each point
+### PT
+generates each points number
+### rand(end_value)
+generates a random value
+
+### fit01(max,min,fit_range)
+fits the given min to max value in the given range.
+
+### stamp("from_where_to_copy_from","which_var_to_copy",default_value)
+copies a variable from another node to here.
