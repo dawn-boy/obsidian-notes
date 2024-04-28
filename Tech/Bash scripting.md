@@ -80,6 +80,18 @@ do
 	statements;
 done
 
+# give it a range
+for loop in 'seq 1 33';
+do 
+	statements;
+done
+
+# a list of elements read from a file
+for ip in $(cat ip_list.txt);
+do 
+	statements;
+done
+
 ```
 ## functions
 ```sh

@@ -82,7 +82,7 @@ A set of standards used for routing and addressing each packets as they travel b
 Unique set of strings that identifies the location of a device on the internet
 ### types
 - IPv4
-- IPv6 - 32 bit characters
+- IPv6 - 16 bits each and a total of 128 bits long.
 - Public address 
 	- ISP assigns a public address to the device that's connected to it's geographical location.
 	- all the devices in the same network will have the same public facing IP address.

@@ -67,7 +67,10 @@ p + a {
 /* Direct Child Selector */
 
 p > a {
-/* This selects all the <a> tags that are direct descendent of <p> tags*
+/* This selects all the <a> tags that are direct descendent of <p> tags */
+}
+p > * {
+/* select all childred under p tag */
 }
 
 /* Attribute Selector */
