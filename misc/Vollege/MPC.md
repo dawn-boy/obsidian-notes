@@ -708,43 +708,6 @@ there are two different methods the microcontroller uses to serve a device:
 - A register called IE (interrupt enable) is responsible for enabling or disabling the interrupts.
 - upon reset, all IE bits are set to 0.
 - if two interrupts are received at the same time, then the device with the highest priority gets the service.
-## LCD interfacing
-- a 16x2 LCD can display 32 characters in two rows at a time.
-- each character is a 5x7 (5 in a row, and 7 in a column) pixel matrix.
-#### pin description
-
-![[mpc-lcd_pin_desc.png]]
-
-- The pin can be categorized into 
-	1) Power (1,2,3)
-		- pin 1 is ground
-		- pin 2 is vcc
-		- pin 3 is used to set contrast between the foreground and the background. It makes the text darker.
-	1) Control (4,5,6)
-		- pin 4 is used to select the registers where control instructions like clear LCD or shift cursor are stored
-		- pin 5 is used to read from or write to the lcd
-		- pin 6 is considered to be a clock and data is given to the microcontroller when there is a transition in the pin
-	1) Data (7-14)
-		- you can use the first 4 data pins if you decide to save the rest for interfacing the lcd with other devices. If not, it is wiser to use all 8 pins for a faster transfer rate.
-	1) Backlight (15,16)
-		- pin 15 is connected to vcc 
-		- pin 16 is connected to ground
-		- always connect using a resistor as we don't want to damage the led. Except for the times we want to.
-
-## matrix keypad
-- a 4x4 matrix keypad has 16 switches.
-- keypads are organized in rows and columns. When a key is pressed it makes contact with a row and a column and hence its location is identified. Otherwise, there is no connection.
-#### schematic of a 4x4 keypad
-
-![[mpc-keypad.png]]
-
-- there are a total of 16 switches that are strategically placed such that when pressed it would short its row and column, thus making an closed path. All other paths would be open.
-#### principle of operation
-- all the rows are connected to V<sub>DD</sub>. So, if we read, all the rows will produce 1111.
-- connect column 1 to ground and all other columns to V<sub>DD</sub>
-- so if SW1 is pressed, row 1 will be grounded and all other rows will be at 5V. So the output will read 0111
-- Note that this can only work to identify the button presses on column 1. If we need to find the button presses at column 2. Column 2 should be connected to ground while all other columns should be connected to V<sub>DD</sub> 
-- Now, apply the pattern 0111 to the columns and detect for button presses on column 1. 
 
 ## Memory interfacing of 8051
 
@@ -808,81 +771,134 @@ there are two different methods the microcontroller uses to serve a device:
 	- <span style="text-decoration:overline">CS</span> from the decoder
 4. a decoder that takes in 
 	- A<sub>13</sub> - A<sub>14</sub> 
+## LCD interfacing
+- a 16x2 LCD can display 32 characters in two rows at a time.
+- each character is a 5x7 (5 in a row, and 7 in a column) pixel matrix.
+#### pin description
 
-## 8255 PPI (Programmable Peripheral Interface)
-- I/O port chip used for interfacing I/O devices with the microprocessor
-- it is a programmable device
-- It has 3 ports 
-	- Port A
-	- Port B
-	- Port C 
-		Port C has two independent 4-bits port 
-### pin diagram 
+![[mpc-lcd_pin_desc.png]]
 
-![[mpc-8255_pin_diag.png]]
+- The pin can be categorized into 
+	1) Power (1,2,3)
+		- pin 1 is ground
+		- pin 2 is vcc
+		- pin 3 is used to set contrast between the foreground and the background. It makes the text darker.
+	1) Control (4,5,6)
+		- pin 4 is used to select the registers where control instructions like clear LCD or shift cursor are stored
+		- pin 5 is used to read from or write to the lcd
+		- pin 6 is considered to be a clock and data is given to the microcontroller when there is a transition in the pin
+	1) Data (7-14)
+		- you can use the first 4 data pins if you decide to save the rest for interfacing the lcd with other devices. If not, it is wiser to use all 8 pins for a faster transfer rate.
+	1) Backlight (15,16)
+		- pin 15 is connected to vcc 
+		- pin 16 is connected to ground
+		- always connect using a resistor as we don't want to damage the led. Except for the times we want to.
 
-- <span style="text-decoration:overline">CS</span> - Data transfer occurs from 8085 when signal is low
-- D<sub>0</sub> - D<sub>7</sub> - These are 8-bit bi-directional data bus connected to 8085
-- PA<sub>0</sub> - PA<sub>7</sub> - it is a 8-bit bi-directional I/O pins used to send and receive data to and from peripherals
-- PB<sub>1</sub> - same as PA
-- PC<sub>0</sub> - PC<sub>7</sub>  - 8-bit bidirectional I/O pins
-- A<sub>0</sub> - A<sub>1</sub> is used to select the ports
+## matrix keypad
+- a 4x4 matrix keypad has 16 switches.
+- keypads are organized in rows and columns. When a key is pressed it makes contact with a row and a column and hence its location is identified. Otherwise, there is no connection.
+#### schematic of a 4x4 keypad
 
-| A<sub>1</sub> | A<sub>0</sub> | port             |
-| ------------- | ------------- | ---------------- |
-| 0             | 0             | port A           |
-| 0             | 1             | port B           |
-| 1             | 0             | port C           |
-| 1             | 1             | control register |
-### block diagram of 8255
+![[mpc-keypad.png]]
 
-![[mpc-8255_block_diag.png]]
+- there are a total of 16 switches that are strategically placed such that when pressed it would short its row and column, thus making an closed path. All other paths would be open.
+#### principle of operation
+- all the rows are connected to V<sub>DD</sub>. So, if we read, all the rows will produce 1111.
+- connect column 1 to ground and all other columns to V<sub>DD</sub>
+- so if SW1 is pressed, row 1 will be grounded and all other rows will be at 5V. So the output will read 0111
+- Note that this can only work to identify the button presses on column 1. If we need to find the button presses at column 2. Column 2 should be connected to ground while all other columns should be connected to V<sub>DD</sub> 
+- Now, apply the pattern 0111 to the columns and detect for button presses on column 1. 
 
-- Data bus 
-	- 8-bit bidirectional data bus
-- read and write logic
-	- gets input from the control bus and address bus of the cpu
-	- control signals are RD and WR
-	- address signals are A0, A1, and CS
-	- 8255 operations are enabled or disabled by CS
-- Group A and Group B control
-	- gets signal from the CPU and sends the command to individual command blocks
-	- group A controls port A and port C upper
-	- group B control port B and port C lower
 
-- Port A
-	- 8 bit buffer I/O latch
-	- can be programmed by mode 0, mode 1, mode 2
-- Port B
-	- 8 bit buffer I/O latch
-	- can be programmed by mode 0 and mode 1
-- Port C
-	- 8 bit buffer unlatched. Has input and output latches
-	- programmed by bit set / reset operations. Only work in mode 0.
-	- can be used as 
-		- simple I/O
-		- handshake signals
-		- status signals
-### Modes of operations in 8255
-- 8255 can operate in 2 modes
-	1. I/O mode
-		I/O mode is further divided into
-		- Basic I/O (mode 0)
-		- Strobe I/O (mode 1)
-		- Bi - conditional bus (mode 2)
-	1. BSR mode
+## 8251 USART (Universal Synchronous Asynchronous Receiver Transmitter)
+- used for serial data communication
+- it is a programmable peripheral interface used for serial communication
+- serial data communication is widely used for longer distances as parallel communications requiring laying multiple wires between two communication points. Hence, data is usually converted to serial format and is transmitted over fewer communication lines
+- This chip receives parallel data from the microprocessor and converts it into serial data. 
+- It also receives serial data from outside and transmits parallel data to the microprocessor
+### Basics of serial data
+- the process of sending bit by bit over a single channel between transmitter and receiver is called as serial data
+- it only requires one communication line
+- for correct form of communication there has to be some form of synchronization between the sender and the receiver
+- serial communication reduces the cost of IC pins used for communication between different IC chips
+- Bit rate: its the number of bit sent every second
+- Baud rate: its the number of symbols sent every second. A symbol can be more than one bit.
+- the sender and receiver must agree on some rules
+	- when the transmission will start and end
+	- what is the bit rate and data packaging format used
+#### synchronous vs asynchronous 
 
-- mode 0
-	- in this mode, port A, B, C are just used individually. A simple mode.
-	- outputs are latched and inputs are buffered
-	- no handshake capability
-- mode 1
-	- in this mode, inputs and outputs are transferred by hand shaking signals
-- mode 2 
-	- allows for bidirectional data transfer using handshakes
-	- this feature is only possible in group A
-	- port A works as a bidirectional port
-	- upper port C is used for the handshakes
+| synchronous                                                                    | asynchronous                                                                                                                                              |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| sender and receiver use same clock signals                                     | there is no common clock signa                                                                                                                            |
+| high data transfer rate                                                        | slow data transfer r                                                                                                                                      |
+| if there are multiple receivers, a master should provide a common clock sign the sender and receiver must agree on a data transfer speed and the sender must send a synchronization signal to the receiver to begin the transmission. the  |
+#### synchronous
+- its efficient, reliable and is used for transferring large amounts of data
+- synchronization between source and target is required so the receiver can identify where the data starts as there is not space between data. 
+- It provides real time connection between connected devices
+#### asynchronous
+- data flows at one byte at a time
+- a start bit is used to identify the start of a communication and a stop bit is used to identify its termination
+- the sender and the receiver are synchronized on a character basis
+- in asynchronous method, each bit is placed in-between a start and a stop bit. This is called as framming.
+### data transmission types
+- Simplex 
+	![[MPC_7.png]]
+	communication is only possible in one way
+- Half duplex
+	![[MPC_8.png]]
+	communication is possible in both directions, but only one can transmit and receive at a time.
+- Full duplex
+	![[MPC_9.png]]
+	communication is possible in both directions and both can receive and transmit at the same time.
+#### USART module
+- the Universal Synchronous Asynchronous Receiver Transmitter module is a full duplex serial I/O communication peripheral
+- it has 28 pins
+- it has shift registers, data buffers, clock generators that are needed for serial communication
+- it can work in synchronous or asynchronous mode
+- The USART uses two I/O pins to receive and transmit serial data. It can transmit and receive at the same time
+- to send a byte, the application writes the byte to transmit buffer. The USART then sends the data bit by bit in the requested format. In a similar way, the USART can receive the bits and send out an interrupt to indicate the completion of the transmission
+#### block diagram 
+![[MPC_10.png]]
+- data buffer
+	- its a 8-bit data buffer used to interface internal data bus of 8251 to microprocessor's data bus
+	- the direction of the data transfer is decided by RD and WR pins
+	- this buffer has control word, status word and the data to transfer
+- read/write logic
+	- controls the operation of the peripherals based on the operations initiated by the CPU
+	- the control signals like RD, WR, RESET, CLK, C/D, CTS are given to this block to generate control signals
+		- it has two 8-bit buffer registers
+		- one 16-bit control word register
+		- one 8-bit status register
+	- control logic - it interfaces the 8251 with MPU which determines the function of the chip
+	- control register - a 16-bit register for a control word that has two independent bytes
+		- mode word - general characteristics of the communication like baud rate, parity, etc
+		- command word - enables data transmission or reception
+	- status register - checks the ready status of the peripheral
+		![[MPC_11.png]]
+- transmitter section 
+	- accepts parallel data from MPU and converts them into serial data
+	- it has two register
+		- buffer register - to hold eight bits
+		- output register - to convert the eight bits to a stream of serial bits
+		- The MPU writes into the buffer register and whenever the output register is empty, the content of the buffer register is transferred to it.
+		- When we want to transmit a character, it is first placed in the transmitter buffer which is then transferred to output buffer for transmissions
+	- it has three output and one input signals
+		- TxD - transmitter data output 
+		- TxC - transmitter clock input
+		- TxRDY - transmitter ready output (indicates that the buffer register is empty and its ready to get the next byte)
+		- TxE - transmitter empty output (indicates that the output register is empty and is ready to receive the next byte)
+- receiver section
+	- accepts serial data on the RxD pin and converts them into parallel data
+	- has two register, 
+		- buffer register
+		- Receiver input register
+	- the receiver section receiver data bit by bit on the RxD line into the Receiver input register at the rate determined by the receiver clock
+	- the input register converts the serial data into parallel data and transfers it to the buffer register
+	- when the data is transferred from the input register to receiver buffer register, the RxRDY signal is on indicating the availability of the data byte
+- modem control 
+	allows for interfacing with a modem to establish communications through telephone lines. This unit takes care of handshaking signals of MODEM interface.
 ## 8254 timer
 - it has 3 independent 16-bit down counters and these counters can be programmed in 6 modes.
 - The counting types can be set to either BCD or binary system.
@@ -934,7 +950,6 @@ there are two different methods the microcontroller uses to serve a device:
 | 1   | 0   | 0   | mode 4    |
 | 1   | 0   | 1   | mode 5    |
  - The 0 bit is used to decided whether 8254 should act as a binary counter or BCD counter
-
 ### operating modes of 8254
 1. Interrupt on terminal count (MODE 0)
 	- mode 0 is used for event counting
@@ -949,13 +964,12 @@ there are two different methods the microcontroller uses to serve a device:
 	- counting is enabled when GATE is 1 and disabled when GATE is 0. 
 5. Soft triggered strobe (MODE 4)
 	- counting is enabled when GATE is 1 and disabled when GATE is 0. 
-	 - initially the output is high and becomes low when value of count is at last stage. Count is reloaded again for the next clock pulse.
+	- initially the output is high and becomes low when value of count is at last stage. Count is reloaded again for the next clock pulse.
 6. Hardware triggered strobe (MODE 5)
 	- initially the output will be high. 
 	- the counting is triggered by a rising edge of GATE
 	- when the count reaches 0, the output becomes low for one clock pulse and is high again
 	- after writing the new control word and the initial count, the counter will not be loaded until there's a clock pulse after one trigger
-
 ### read operations of 8254
 - simple read operation
 - counter latch command
@@ -969,5 +983,204 @@ there are two different methods the microcontroller uses to serve a device:
 	- and the count read will output the count value of the first latch command.
 3. read-back command
 	- this command is used when more than one counter should be read at a time.
-
 - status register - shows the state of the output pin
+## 8255 PPI (Programmable Peripheral Interface)
+- I/O port chip used for interfacing I/O devices with the microprocessor
+- it is a programmable device
+- It has 3 ports 
+	- Port A
+	- Port B
+	- Port C 
+		Port C has two independent 4-bits port 
+### pin diagram 
+
+![[mpc-8255_pin_diag.png]]
+
+- <span style="text-decoration:overline">CS</span> - Data transfer occurs from 8085 when signal is low
+- D<sub>0</sub> - D<sub>7</sub> - These are 8-bit bi-directional data bus connected to 8085
+- PA<sub>0</sub> - PA<sub>7</sub> - it is a 8-bit bi-directional I/O pins used to send and receive data to and from peripherals
+- PB<sub>1</sub> - same as PA
+- PC<sub>0</sub> - PC<sub>7</sub>  - 8-bit bidirectional I/O pins
+- A<sub>0</sub> - A<sub>1</sub> is used to select the ports
+
+| A<sub>1</sub> | A<sub>0</sub> | port             |
+| ------------- | ------------- | ---------------- |
+| 0             | 0             | port A           |
+| 0             | 1             | port B           |
+| 1             | 0             | port C           |
+| 1             | 1             | control register |
+### block diagram of 8255
+
+![[mpc-8255_block_diag.png]]
+
+- Data bus 
+	- 8-bit bidirectional data bus
+- read and write logic
+	- gets input from the control bus and address bus of the cpu
+	- control signals are RD and WR
+	- address signals are A0, A1, and CS
+	- 8255 operations are enabled or disabled by CS
+- Group A and Group B control
+	- gets signal from the CPU and sends the command to individual command blocks
+	- group A controls port A and port C upper
+	- group B control port B and port C lower
+- Port A
+	- 8 bit buffer I/O latch
+	- can be programmed by mode 0, mode 1, mode 2
+- Port B
+	- 8 bit buffer I/O latch
+	- can be programmed by mode 0 and mode 1
+- Port C
+	- 8 bit buffer unlatched. Has input and output latches
+	- programmed by bit set / reset operations. Only work in mode 0.
+	- can be used as 
+		- simple I/O
+		- handshake signals
+		- status signals
+### Modes of operations in 8255
+- 8255 can operate in 2 modes
+	1. I/O mode
+		I/O mode is further divided into
+		- Basic I/O (mode 0)
+		- Strobe I/O (mode 1)
+		- Bi - conditional bus (mode 2)
+	1. BSR mode
+
+- mode 0
+	- in this mode, port A, B, C are just used individually. A simple mode.
+	- outputs are latched and inputs are buffered
+	- no handshake capability
+- mode 1
+	- in this mode, inputs and outputs are transferred by hand shaking signals
+- mode 2 
+	- allows for bidirectional data transfer using handshakes
+	- this feature is only possible in group A
+	- port A works as a bidirectional port
+	- upper port C is used for the handshakes
+
+## 8259 PIC (programmable interrupt controller)
+- its a tool for managing interrupt requests
+- 8259 combines multiple interrupt input sources into a single interrupt output signal
+- It has an internal priority resolver which can be set to fixed priority mode or rotating priority mode
+- it is available as a separate IC
+#### block diagram
+![[MPC_6.png]]
+##### data bus buffer
+- a bi-directional 8-bit buffer that is used to interface 8259 with the system bus
+- control words and status signals are exchanged to and from the PIC through D7 - D0
+- after selecting the interrupt, it sends the opcode of the interrupt and the address of the interrupt sub-routine to the connected microprocessor
+- RD, WR, CS, A0 are the control signals used in read/write and control logic
+- a low on RD or WR enables the 8259 to read or write respectively. 
+- A low on RD will put the status of 
+	- Interrupt Service Register (ISR), 
+	- Interrupt Request Register (IRR), and 
+	- Interrupt Mask Register (IMR) 
+	on the data bus
+- A0 command is used together with RD and WR to read various status registers or write commands into various registers
+##### Interrupt request register (IRR)
+- this block stores the actual interrupt requests from external interrupting devices. IR7 - IR0 lines
+- its an 8-bit register, one bit for each interrupt
+- if an interrupt is unmasked and has an interrupt signal on it. Then the corresponding bit in IRR will be set
+##### Interrupt mask register (IMR)
+- this logic blocks masked interrupt lines based on how its programmed
+- IMR is used to enable or disable individual interrupt lines
+- 8-bit register where each bit corresponds to the interrupt input with the same number as in IRR 
+- the IMR works on IRR, masking the higher priority inputs will not bother the low priority ones
+- to unmask any interrupt, its bit in IMR is set to 0
+##### In-Service Register (ISR)
+- this register keeps track of which interrupts are currently being serviced
+- for each interrupt that is being serviced, its bit in ISR will be set to 1
+
+==Each of these 3 registers can be read as status registers.==
+##### Priority resolver 
+- this logic decides the priority of the incoming interrupts from IRR
+- it takes the information from IRR, ISR, IMR to determine its priority level
+- if the new interrupt is having a higher priority then it is selected and processed
+##### cascade buffer comparator
+- it allows for cascading multiple 8259 chips in master-slave configuration
+- it stores and compares all the ID's of 8259 in the system
+- the CAS2, CAS1, CAS0 are used as output when 8259 is used as master and as input when they are used as a slave
+- As a master, the 8259 will send the ID of the interrupting device on the CAS2-0 lines. Each slave compares it with their own IDs. If there's a match, then that 8259 will put its pre-programmed sub-routine on the data bus.
+## CISC and RISC
+### CISC
+- CISC - Complex Instruction Set Computer
+- in the olden days, it was believed that hardware design was easier than compiler design and so most programs were written in assembly language.
+- The hardware concerns of the past were,
+	- limited and slower memory
+	- fewer registers
+- because of limited registers, each instruction was designed to do more work and thereby minimizing the number of instructions called
+- each instruction executes multiple low level operations. For example, a single instruction can load from memory, perform an arithmetic operation, and store the result back in memory.
+- This all leads to smaller sized programs.
+#### characteristics
+- a larger number of instructions
+- some instructions for special tasks were used infrequently
+- lots of addressing modes
+- variable length instruction formats
+- disadvantages,
+	- a complex instruction set requires 
+		- a complex instruction decoding scheme, 
+		- an increased size of the control unit
+		- increased logic delays
+- used in Intel Pentium processors, etc.
+#### architecture
+- the essential goal of the CISC architecture is to attempt to provide a single machine instruction for each high level language instruction
+### RISC
+- RISC - Reduced Instruction Set Computer
+- compilers became more widely used. This resulted in very rare usage of CISC instructions.
+- some complex instructions from CISC took a longer time to perform than a few simple commands from RISC. 
+- Smaller instructions also allowed users to store the operands within the instructions resulting in lesser calls to registers or memory
+- It is a micro processor that is designed to perform smaller sets of instructions at high speeds
+- it has large number of registers
+- used in Motorola, Nintendo Game Boy, etc.
+#### characteristics
+- relatively fewer instructions (128 or less)
+- relatively fewer addressing modes
+- fixed length and easily decodable instruction format
+- single cycle instruction execution. Done by overlapping the fetch, decode, and execute phases of multiple instructions, known as pipelining. 
+- memory access instructions are just LOAD and STORE instructions
+- all the operations were done within the registers of the CPU. This architectural feature simplifies the instruction set and encourages the optimization of registers
+- ==an important RISC characteristic is to keep more frequently used operands in register and to minimize the register-memory accessing operations==
+## Pentium
+- Pentium
+- Pentium pro
+- Pentium II
+- Pentium III
+### architecture
+![[MPC_1.png]]
+##### BIU
+- Pentium has 32 bit address bus
+- Pentium has 64 bit data bus
+- the BIU (bus interface unit) controls all the system bus of MPU
+- addressing of main memory and I/O is done by BIU
+##### super-scalar structure
+- Pentium is a super-scalar structure meaning it has more than one execution units
+- Pentium processor contains two integer units,
+	- u pipe
+	- v pipe
+- each of these integer units has 32 bits of ALU
+- due to two execution units, the performance of the ALU is doubled
+##### prefetch unit
+- The Prefetch unit is used to implement 5-stage pipelining 
+- there is a pair of pre-fetch buffers of size 32-bytes each
+- both buffers operate at the same time but independently to their work
+- it takes instruction sequentially from code cache
+##### branch prediction unit
+- branch instruction causes pipeline stalling and frequent pipeline stalling degrades the performance of the execution
+- so by branch prediction we can predict the branch instruction in advance
+- Branch prediction is done using BTB (Branch Target Buffer)
+- Branch Target Buffer stores 256 entries
+##### execution unit
+- two execution units are being run in parallel
+- each execution unit has 32-bits of ALU
+##### cache memory
+- Pentium has cache memory which increases the execution speed
+- there is a 16kb split cache memory for the data and code unit
+- split cache reduces memory conflicts
+##### floating point integer
+- used for execution of floating point instructions
+- floating point unit supports for 8 stage pipeline
+- floating point unit enhances the capabilities of the microprocessor in graphics and multimedia applications
+- it has dedicated hardware circuits for multiplier, adder, and divider
+- the hardwire control unit improves performance
+- the floating point unit supports single, double and extended precision floating point calculations 
+- It has 8, 80-bits registers 
