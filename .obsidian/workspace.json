@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tech/Hecking/TCM/3. Hacking.md",
+                "file": "Tech/Git.md",
                 "mode": "source",
                 "source": false
               }
@@ -62,7 +62,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tech/Hecking/TCM/3. Hacking.md",
+                "file": "Tech/Git.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -79,7 +79,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tech/Hecking/TCM/3. Hacking.md"
+                "file": "Tech/Git.md"
               }
             }
           },
@@ -89,7 +89,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Tech/Hecking/TCM/3. Hacking.md",
+                "file": "Tech/Git.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -121,11 +121,14 @@
   },
   "active": "b0ed6a5ba6732498",
   "lastOpenFiles": [
+    "Tech/CTFs/OverTheWire/1. Bandit.md",
+    "Tech/Hecking/TCM/3. Hacking.md",
+    "Tech/Cryptography.md",
+    "Tech/Git.md",
     "Tech/Hecking/TCM/1. Networking.md",
     "Vollege/MPC.md",
     "Vollege/COA.md",
     "VFX/houdini.md",
-    "Tech/CTFs/OverTheWire/1. Bandit.md",
     "Vollege/images/mpc-lcd_pin_desc.png",
     "Vollege/images/mpc-keypad.png",
     "Vollege/images/mpc-8255_pin_diag.png",
@@ -137,8 +140,6 @@
     "Vollege/images/mpc-8051_interrupts_it.png",
     "Vollege/images/mpc-8051_interrupts_ie.png",
     "Tech/bug bounty/basics.md",
-    "Tech/Git.md",
-    "Tech/Hecking/TCM/3. Hacking.md",
     "Tech/WebDev/javascript.md",
     "Tech/WebDev/css.md",
     "Tech/Hecking/TCM/2. Linux.md",
@@ -158,7 +159,6 @@
     "$(pwd)/images",
     "$(pwd)",
     "image",
-    "Tech/Cryptography.md",
     "Vollege/Ethics.md",
     "Vollege/maths.md",
     "Tech/CyberSecurity.md",
