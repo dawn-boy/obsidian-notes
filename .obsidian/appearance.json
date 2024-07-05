@@ -1,6 +1,7 @@
 {
   "accentColor": "#865227",
-  "cssTheme": "Material Gruvbox",
+  "cssTheme": "Dune",
   "showViewHeader": false,
-  "nativeMenus": false
+  "nativeMenus": false,
+  "theme": "obsidian"
 }
