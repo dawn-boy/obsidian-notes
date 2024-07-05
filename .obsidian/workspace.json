@@ -1,14 +1,14 @@
 {
   "main": {
-    "id": "77497bac93be0a4e",
+    "id": "e64cb2b479202d14",
     "type": "split",
     "children": [
       {
-        "id": "c4da6a33638f88a9",
+        "id": "b2f83e6d57e5cf0e",
         "type": "tabs",
         "children": [
           {
-            "id": "7fdf579a2793d030",
+            "id": "3f23e11705e147af",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -25,15 +25,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "bb269aaf3a1b9c6d",
+    "id": "2fbc01b8d352ea35",
     "type": "split",
     "children": [
       {
-        "id": "d6200241ea0568f0",
+        "id": "125276f1f18590b6",
         "type": "tabs",
         "children": [
           {
-            "id": "c1ee38a1bbeea08f",
+            "id": "7d76872c8fb7e95f",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -49,15 +49,15 @@
     "width": 300
   },
   "right": {
-    "id": "dfdb553735f5279d",
+    "id": "e7b6057d779f4017",
     "type": "split",
     "children": [
       {
-        "id": "ad9ae622960cbc18",
+        "id": "1962f3f20fdb6378",
         "type": "tabs",
         "children": [
           {
-            "id": "1e0b25a8a3353176",
+            "id": "bad1065d441a0a33",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -74,7 +74,7 @@
             }
           },
           {
-            "id": "bf53c772a92291a5",
+            "id": "9188a41377ed3f31",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -86,7 +86,7 @@
             }
           },
           {
-            "id": "63f0a57593ef6cf1",
+            "id": "ab32d53754b45bf3",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -97,7 +97,7 @@
             }
           },
           {
-            "id": "e24f3b09649a073e",
+            "id": "44c0831b4eeda748",
             "type": "leaf",
             "state": {
               "type": "outline",
@@ -119,49 +119,8 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c1ee38a1bbeea08f",
+  "active": "3f23e11705e147af",
   "lastOpenFiles": [
-    "Investing",
-    "Tech/Bash scripting.md",
-    "Investing/Investing.md",
-    "Tech/Hecking/TCM/3. Hacking.md",
-    "misc/Vollege/MPC.md",
-    "misc/Vollege/images/MPC_11.png",
-    "misc/Vollege/images/MPC_10.png",
-    "misc/Vollege/images/MPC_9.png",
-    "misc/Vollege/images/MPC_8.png",
-    "misc/Vollege/images/MPC_7.png",
-    "misc/Vollege/images/MPC_6.png",
-    "misc/Vollege/images/MPC_5.png",
-    "misc/Vollege/images/MPC_4.png",
-    "misc/Vollege/images/MPC_3.png",
-    "misc/Vollege/images/MPC_2.png",
-    "misc/Vollege/BP.md",
-    "misc/Vollege/COA.md",
-    "VFX/Houdini - Hipflask.md",
-    "VFX/houdini.md",
-    "misc/Vollege/Ethics.md",
-    "Math/1. Matrix and Calculus.md",
-    "Math/2. Partial differentiation and Laplace.md",
-    "misc/Vollege/Constitution.md",
-    "Science/Classical physics.md",
-    "Tech/WebDev/html.md",
-    "Tech/Concurrency.md",
-    "misc",
-    "Math/Module 2.md",
-    "BP.md",
-    "Untitled 2.canvas",
-    "Untitled 1.canvas",
-    "Untitled.canvas",
-    "misc/Vollege/business plan.md",
-    "Tech/Git.md",
-    "Tech/Hecking/TCM/images",
-    "Tech/Hecking/TCM/2. Linux.md",
-    "Tech/Hecking/TCM/1. Networking.md",
-    "Tech/Hecking/TCM",
-    "Tech/Hecking",
-    "MPC.pdf",
-    "Tech/Cryptography.md",
-    "Tech/WebDev/javascript.md"
+    "Untitled"
   ]
 }
