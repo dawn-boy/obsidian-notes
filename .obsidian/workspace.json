@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b0ed6a5ba6732498",
+            "id": "b03d5864ee298789",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tech/Git.md",
+                "file": "Tech/Hecking/TCM/3. Hacking.md",
                 "mode": "source",
                 "source": false
               }
@@ -46,7 +46,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5
+    "width": 282.5,
+    "collapsed": true
   },
   "right": {
     "id": "53dd4121bd4ea4bb",
@@ -62,7 +63,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tech/Git.md",
+                "file": "Tech/Hecking/TCM/3. Hacking.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -79,7 +80,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tech/Git.md"
+                "file": "Tech/Hecking/TCM/3. Hacking.md"
               }
             }
           },
@@ -89,7 +90,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Tech/Git.md",
+                "file": "Tech/Hecking/TCM/3. Hacking.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,52 +117,22 @@
   "left-ribbon": {
     "hiddenItems": {
       "graph:Open graph view": false,
-      "command-palette:Open command palette": true
+      "command-palette:Open command palette": true,
+      "omnisearch:Omnisearch": false
     }
   },
-  "active": "b0ed6a5ba6732498",
+  "active": "b03d5864ee298789",
   "lastOpenFiles": [
-    "Tech/CTFs/OverTheWire/1. Bandit.md",
-    "Tech/Hecking/TCM/3. Hacking.md",
-    "Tech/Cryptography.md",
-    "Tech/Git.md",
-    "Tech/Hecking/TCM/1. Networking.md",
-    "Vollege/MPC.md",
-    "Vollege/COA.md",
-    "VFX/houdini.md",
-    "Vollege/images/mpc-lcd_pin_desc.png",
-    "Vollege/images/mpc-keypad.png",
-    "Vollege/images/mpc-8255_pin_diag.png",
-    "Vollege/images/mpc-8255_block_diag.png",
-    "Vollege/images/mpc-8254_pin_diag.png",
-    "Vollege/images/mpc-8254_control_word.png",
-    "Vollege/images/mpc-8254_block_diag.png",
-    "Vollege/images/mpc-8051_mem_interfacing.png",
-    "Vollege/images/mpc-8051_interrupts_it.png",
-    "Vollege/images/mpc-8051_interrupts_ie.png",
-    "Tech/bug bounty/basics.md",
-    "Tech/WebDev/javascript.md",
-    "Tech/WebDev/css.md",
-    "Tech/Hecking/TCM/2. Linux.md",
-    "Tech/Bash scripting.md",
-    "Tech/Hecking/TCM/images",
+    "Language/Greek.md",
     "Tech/Networking.md",
-    "Linux_1.png.md",
-    "Tech/AI/fastai.md",
+    "VFX/houdini.md",
     "Tech/Linux.md",
-    "dkdkd.md",
-    "images/image",
-    "images",
-    "~/hi/image",
-    "~/hi",
-    "~",
-    "$(pwd)/images/image",
-    "$(pwd)/images",
-    "$(pwd)",
-    "image",
-    "Vollege/Ethics.md",
-    "Vollege/maths.md",
-    "Tech/CyberSecurity.md",
-    "Tech/Coursera.md"
+    "Tech/Hecking/TCM/3. Hacking.md",
+    "Tech/Bash scripting.md",
+    "Tech/CTFs/OverTheWire/1. Bandit.md",
+    "Math/1. Matrix and Calculus.md",
+    "Tech/Hecking/TCM/1. Networking.md",
+    "Tech/Git.md",
+    "Tech/Cryptography.md"
   ]
 }

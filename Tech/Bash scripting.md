@@ -50,7 +50,21 @@ fi
 ```sh
 #!/bin/bash
 
-case
+case $variable in 
+pattern1)
+	statements
+	;;
+pattern2)
+	statements
+	;;
+pattern3)
+	statements
+	;;
+*)
+	#anything else
+	statements
+	;;
+esac
 ```
 ## arrays
 ```sh
@@ -64,6 +78,23 @@ echo ${MY_FIRST_LIST[@]}
 
 # note: {} means variable expansion
 ```
+### Associative arrays
+```sh
+declare -A dict_name=([key1]=value1 [key2]=value2)
+
+echo ${dict_name[key]}
+
+for key in "${!dict_name[@]}"
+do
+	echo $key
+done
+
+for value in "${dict_name[@]}"
+do
+	echo $value
+done
+```
+
 ### variable expansion vs calling a variable
 ```sh
 # this is variable expansion
