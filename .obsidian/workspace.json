@@ -1,14 +1,14 @@
 {
   "main": {
-    "id": "d984051b4bf78be8",
+    "id": "783eb77a84c52bd4",
     "type": "split",
     "children": [
       {
-        "id": "0c3135def2be0369",
+        "id": "455d3974e99e82b7",
         "type": "tabs",
         "children": [
           {
-            "id": "b03d5864ee298789",
+            "id": "c5b03c8d72791abb",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -25,15 +25,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "46f1359223ec3cc9",
+    "id": "bfbd8b6bfb316bed",
     "type": "split",
     "children": [
       {
-        "id": "9a80ce78e59b1a7c",
+        "id": "46e6980e818155dc",
         "type": "tabs",
         "children": [
           {
-            "id": "b6eae14e4279187b",
+            "id": "bb44785b9da347fa",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -46,19 +46,18 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5,
-    "collapsed": true
+    "width": 300
   },
   "right": {
-    "id": "53dd4121bd4ea4bb",
+    "id": "ce3c3c6e3bee2a05",
     "type": "split",
     "children": [
       {
-        "id": "b1d7681e35951df5",
+        "id": "e8022176fe4b6318",
         "type": "tabs",
         "children": [
           {
-            "id": "25cd71bbafb309d4",
+            "id": "c94f7c7bc5201927",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -75,17 +74,7 @@
             }
           },
           {
-            "id": "0f943c9ce5207966",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "Tech/Hecking/TCM/3. Hacking.md"
-              }
-            }
-          },
-          {
-            "id": "3179d4107f4e5bc5",
+            "id": "b1faeeede2d39304",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -97,13 +86,23 @@
             }
           },
           {
-            "id": "a628fb1469455c63",
+            "id": "9388d51f5c6e68e6",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "274719d234a305e5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Tech/Hecking/TCM/3. Hacking.md"
               }
             }
           }
@@ -117,22 +116,13 @@
   "left-ribbon": {
     "hiddenItems": {
       "graph:Open graph view": false,
-      "command-palette:Open command palette": true,
+      "command-palette:Open command palette": false,
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "b03d5864ee298789",
+  "active": "c5b03c8d72791abb",
   "lastOpenFiles": [
-    "Language/Greek.md",
-    "Tech/Networking.md",
-    "VFX/houdini.md",
-    "Tech/Linux.md",
-    "Tech/Hecking/TCM/3. Hacking.md",
-    "Tech/Bash scripting.md",
-    "Tech/CTFs/OverTheWire/1. Bandit.md",
-    "Math/1. Matrix and Calculus.md",
-    "Tech/Hecking/TCM/1. Networking.md",
-    "Tech/Git.md",
-    "Tech/Cryptography.md"
+    "Tech/Hecking/TCM/2. Linux.md",
+    "Tech/Hecking/TCM/1. Networking.md"
   ]
 }
