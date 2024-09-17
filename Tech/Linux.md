@@ -26,5 +26,3 @@ chmod 400 fileName
 - CTRL + A -> moves the cursor to the start
 - CTRL + E -> moves the cursor to the end
 
-
-![[Linux_1.png]]
