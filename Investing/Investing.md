@@ -61,7 +61,7 @@
 		1. ==PEG ratio < 1 --> undervalued==
 		2. ==PEG ratio = 1 --> fairly valued==
 		3. ==PEG ratio > 1 --> over valued==
-	- ==try looking for companies that's less than 1.4 or less.==
+	- ==try looking for companies that's less than 1.4.==
 - capital employed turnover ratio
 	- it indicates how efficiently the company utilizes its capital employed with reference to its sales. 
 	- ==This ratio changes from industry to industry, so comparing a company with the average CET ratio of its sector (all its peers in that industry), proves to be a viable option. Look for a higher CET ratio than its industry.==
