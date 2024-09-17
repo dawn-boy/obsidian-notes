@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "b2f83e6d57e5cf0e",
+        "id": "e5f49d56e139d596",
         "type": "tabs",
         "children": [
           {
-            "id": "3f23e11705e147af",
+            "id": "485a11184d1131a8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Investing/Investing.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -62,7 +58,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Investing/Investing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -79,7 +74,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Investing/Investing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -101,9 +95,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Investing/Investing.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -119,8 +111,27 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3f23e11705e147af",
+  "active": "485a11184d1131a8",
   "lastOpenFiles": [
-    "Untitled"
+    "misc/Vollege/sem2/business plan.md",
+    "misc/Vollege/sem2/BP.md",
+    "misc/Vollege/sem3/DSA.md",
+    "Untitled 1.md",
+    "misc/Vollege/sem2",
+    "misc/Vollege/sem3",
+    "Math/3. Probability and statistics.md",
+    "Math/1. Matrix and Calculus.md",
+    "Tech/WebDev/css.md",
+    "Tech/WebDev/html.md",
+    "Tech/WebDev/javascript.md",
+    "Investing/Investing.md",
+    "VFX/Blender.md",
+    "VFX/images/Blender_6.png",
+    "VFX/images/Blender_5.png",
+    "VFX/images/Blender_4.png",
+    "VFX/images/Blender_3.png",
+    "VFX/images/Blender_2.png",
+    "VFX/images/Blender_1.png",
+    "VFX/images"
   ]
 }
