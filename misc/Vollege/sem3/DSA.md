@@ -30,7 +30,6 @@ Storing and organizing set of related data computer memory, so they can be acces
 3. sort
 4. merge
 ## Abstract data type (ADT)
-
 - collection of data with its type and operations that can be performed
 - abstraction means separating necessary information from unnecessary information
 ## Linked list
@@ -135,10 +134,10 @@ struct Node* createNode(int data){
     return temp;
 }
 
-void insert(int data, struct Node* temp){
-    struct Node* ref = temp -> next;
-    temp -> next = createNode(data);
-    temp -> next -> next = ref;
+void insert(int data, struct Node* prevNode){
+    struct Node* nextNode = prevNode -> next;
+    prevNode -> next = createNode(data);
+    prevNode -> next -> next = nextNode;
 }
 void delete(struct Node* prev, struct Node* del){
     prev -> next = del -> next;
@@ -178,7 +177,7 @@ int main(){
 ```
 
 ## double linked list
-```c
+```
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -251,3 +250,85 @@ int main(){
     
 }
 ```
+## stack adt
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int top = -1;
+int max = 10;
+
+bool isFull(){
+    return (top == max-1);
+}
+bool isEmpty(){
+    return (top == -1);
+}
+
+void push(int data, int stack[]){
+    if(!isFull()){
+        top++;
+        stack[top] = data;
+        printf("Added %d to stack! at %d\n", data, top);
+    }
+    else{
+        printf("Stack Overflow!\n");
+    }
+}
+int pop(int stack[]){
+    if(!isEmpty()){
+        top--;
+        return stack[top+1];
+    }
+    else{
+        printf("Stack Underflow\n");
+        return 0;
+    }
+}
+
+void display(int stack[]){
+    for(int i=0; i<=top; i++){
+        printf("\n%d",stack[i]);
+    }
+}
+
+void peek(int stack[]){
+    if(!isEmpty()){
+        printf("\n%d", stack[top]);
+    }
+    else{
+        printf("Stack is empty.");
+    }
+}
+
+int main(){
+    int stack[max];
+
+    push(5,stack);
+    push(6,stack);
+    push(7,stack);
+    push(8,stack);
+    push(9,stack);
+    push(10,stack);
+    push(11,stack);
+    push(12,stack);
+    push(13,stack);
+    push(17,stack);
+
+    display(stack);
+    pop(stack);
+    peek(stack);
+    
+}
+```
+
+### application of stacks
+#### infix
+the general math notation where the operator is written in-between the notations
+#### prefix
+the operator is placed before the operands 
+#### postfix
+the operator is placed after the operands
+
+***
+O(n) --> big O notation - best case notation
