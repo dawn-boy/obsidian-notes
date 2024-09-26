@@ -189,17 +189,13 @@ struct Node{
 
 struct Node* createNode(int data, struct Node* prev){
     struct Node* temp = (struct Node*) malloc(sizeof(struct Node));
-    if(prev == NULL){
-        temp -> prev = NULL;
-    }
-    else{
-        temp -> prev = prev;
-    }
+    
+    temp -> prev = prev;
     temp -> data = data;
     temp -> next = NULL;
 }
 
-void printList(struct Node* head){
+void display(struct Node* head){
      struct Node* temp = head;
      while (temp != NULL){
          printf("%d", temp-> data);
@@ -207,19 +203,13 @@ void printList(struct Node* head){
          printf("\n");
      }
 }
-void printPrev(struct Node* tail){
-    struct Node* temp = tail;
-    while(temp != NULL){
-        printf("%d",temp->data);
-        temp = temp-> prev;
-        printf("\n");
-    }
-}
+    
 void insert(int data, struct Node* node){
      struct Node* prevNode = node -> prev;
-     struct Node* newNode = createNode(data, prevNode);
+     struct Node* newNode = createNode(data, NULL);
      
      prevNode -> next = newNode;
+     newNode -> prev = prevNode;
      newNode -> next = node;
      node -> prev = newNode;
 }
@@ -244,12 +234,10 @@ int main(){
     insert(34,n2);
     delete(n2);
     
-    printList(head);
-    printf("\n");
-    printPrev(n3);
-    
+    display(head);
 }
 ```
+<<<<<<< HEAD
 ## stack adt
 ```c
 #include <stdio.h>
@@ -332,3 +320,22 @@ the operator is placed after the operands
 
 ***
 O(n) --> big O notation - best case notation
+=======
+
+***
+## tree
+#### binary tree
+binary tree is a type of tree data structure where each node can have maximum two children nodes.
+
+1. full binary tree
+	1. considered to have only 0 or 2 children 
+2. complete binary tree
+	1. all nodes are filled completely except the last level 
+3. perfect binary tree
+	1. if all nodes have 2 children 
+4. degenerated binary tree
+	1. all internal nodes have one children 
+5. balanced binary tree 
+	1. left and right binary tree differ by 1
+
+>>>>>>> 728b0cb412f798540be7e698649f2e40830ac93c
