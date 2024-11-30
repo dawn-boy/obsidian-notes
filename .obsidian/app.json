@@ -9,5 +9,6 @@
     "downscalePercent": 57
   },
   "attachmentFolderPath": "./images",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "promptDelete": false
 }
