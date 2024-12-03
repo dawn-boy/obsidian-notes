@@ -1,4 +1,4 @@
-20th August - 1
+0th August - 1
 Proper convo in lab, one of my best days in life
 
 28th August - 9

@@ -58,6 +58,7 @@ git remote set-url origin NewURL
 ```
 ## setting up sSH
 ```sh
+# id_rsa file and folder should be at 700 permission
 git@github.com:username/repo.git
 ```
 ## pushing to remote repo (will create branch if it doesn't exist.)
