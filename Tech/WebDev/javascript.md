@@ -86,7 +86,7 @@ let array = ["Hello","There",'Something','in','the','way'];
 //nested arrays
 let nestedArrays = ['hi',['hello','what'],['yello']];
 
-array[0] = 'Hi';
+array[0] = e'Hi';
 
 array.push("!"); // adds to the end of list
 array.unshift("Yo") // adds to the start of list
@@ -149,7 +149,7 @@ fitBitData.totalSteps
 
 //to add elements to an object. Key should be in a string.
 fitBitData['GoodGod'] = '3'
-fitBitData.'GoodGod = 3
+fitBitData.GoodGod = 3
 
 //functions
 Object.keys(object_name)
@@ -188,7 +188,7 @@ while(i<100){
 	i++;
 }
 
-// The Almight for of loop (this is seriously great)
+// The Almighty for of loop (this is seriously great)
 for(let tempVar of iterable){
 	statements;
 }
@@ -207,7 +207,7 @@ newArray = iterable.map(function(tempVar){
 	return statement;
 })
 newArray = iterable.filter(function(tempVar){
-	return conditionalStatement;
+	return conditional'Statement;
 })
 
 //together goodness
@@ -449,4 +449,351 @@ parent.removeChild(child)
 child.remove()
 ```
 ### DOM events
+```js
+// inline event
+<button onclick="alert('something');">hi</button>
 
+// property events
+const button = document.querySelector("#but");
+button.onclick = () => {
+	console.log("Hi");
+}
+// property listeners like onclick can have only one callback function
+
+function twist(){
+	console.log('twist');
+}
+function turn(){
+	console.log('turn');
+}
+
+button.onclick = twist;
+button.onclick = turn;
+// now, onclick can house only one function either twist or turn. not both.
+
+//EventListeners can house multiple callback function
+button.addEventListener('click',twist);
+button.addEventListener('click',turn);
+// to run only once and then remove the eventListener
+button.addEventListener('click',twist, {once : true});
+
+//this keyword
+
+function off(){
+	this.style.color = 'red';// since this keyword is used, we can reuse this on any object
+}
+
+for(let button of buttons){
+	button.addEventListener('click',off);
+	otherElem.addEventListener('click',off); // reuse like so
+}
+
+button.addEventListener('keydown',somethin(e){
+					console.log(e.code); // it gives the code
+					console.log(e.key); // it gives the key
+}); // there's keydown, keyup, keypress
+```
+## form events
+```js
+// to avoid the default page redirect behaviour of forms
+form = document.querySelector('form');
+input = document.querySelector('#input');
+list = document.querySelector('#list');
+
+form.addEventListener('submit', (e) => {
+	e.preventDefault(); // this prevents the default actions.
+
+	// if the form had an input box, then get value from the input
+
+	//either direct access like,
+	console.log(input.value);
+	//or indirectly accessing it from forms,
+	console.log(form.elements.input.value) //input is the id name.
+
+	//if we need to append elements inside of another elements
+	newli = document.createElement('li');
+	newli.innerText = input.value;
+	list.append(newli); // you can also prepend
+
+})
+//to remove LIs
+
+li = document.querySelectorAll('li');
+for(let list of li){
+list.addEventListener('click', () => {
+	list.remove();
+})
+
+//to remove LIs that were added dynamically through inputs
+// this is event delegation
+list = document.querySelector("#list");
+list.addEventListener('click', (e) => {
+	e.target.remove();
+	// to make actions on certain condition
+	e.target.nodeName == 'LI' && e.target.remove();
+})
+
+```
+## event bubbling
+event bubbling occurs when a child eventListener is triggered along with all other eventListeners of the parents. Event triggers are propagated.
+```js
+
+	container.addEventListener('click', (e) => {
+		e.stopPropagation(); // it stops event bubbling
+	})
+
+```
+
+## callbacks
+call stack is a mechanism used by the interpreter that is used to keep track of its place in the script that calls multiple functions
+- when a script calls a function, that function is added to the stack
+- any functions that are called by this function are added to the stack further
+- when the current function is finished, that function is popped off of the stack
+
+```js
+//callbacks
+setTimeout(() => {
+	//statement
+}, delay)
+```
+
+#### callback hell
+this is when the script uses many nested callbacks making the code difficult to read
+```js
+function calls(delay, success, failure){
+
+		let status = Math.floor((Math.random()*5000)+1);
+
+		if(status > 3000){
+				setTimeout(success(), delay);
+		}
+		else{
+				setTimeout(failure(), delay);
+		}
+}
+
+calls(2000, () => {
+		console.log("Success (1)");
+		calls(2000, () => {
+				console.log("Success (2)");
+		}, () => {
+				console.log("failed (2)");
+		})
+},
+		() => {
+				console.log("failed (1)");
+		}
+)
+
+```
+## Promises
+promises object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+- its an proxy for a value that is not yet known when the promise is created.
+- using promises we can associate handlers with this yet to be known value
+- promises can be in three states
+	1. pending
+	2. fulfilled
+	3. rejected
+
+```js
+// creating a new promise
+new Promise((resolve, reject) => { // resolve and reject are custom func names
+	resolve(); //calling resolve() [the first arg func]	will fullful the promise
+})
+new Promise((resolve, reject) => { // resolve and reject are custom func names
+	reject(); //calling reject() [the second arg func]	will reject the promise
+})
+
+//sample promise that waits for a random status code. If status is above 3000, it is fullfilled or else it is rejected.
+new Promise((resolve, reject) => {
+	let status = Math.floor(Math.random()*5000)+1;
+	setTimeout(() => {
+		if(status > 3000){
+			resolve();
+		}
+		reject();
+	},2000)
+})
+
+//managing promises
+let getPage = (url) => {
+	new Promise((resolve, reject) => {
+		let status = Math.floor(Math.random()*5000)+1;
+		setTimeout(() => {
+			if(status > 3000){
+				resolve(`Data from ${url}`);
+			}
+			reject(`Couldn't fetch ${url}`);
+		},2000)
+	})
+}
+
+getPage("nasa.org")
+.then((data) => {
+	console.log("Success (page 1)");
+	console.log(data);
+	return getPage("spacex.com"); // since we return a promise here, we can call .then next
+})
+.then((data) => { 
+	console.log("Success (page 2)");
+	console.log(data);
+})
+.catch((err) => {
+	console.log("Failed..");
+	console.log(err);
+}) 
+```
+## Async functions
+- these functions returns a promise
+```js
+let login = async (username, password){
+	if(!username || !password) throw "missing creds"; // using throw will result in a rejected promise
+	if(password === 'dew') return 'success'; // using return will result in a fulfilled promise
+	throw 'invalid login';
+}
+
+login("asdf","add")
+	.then(msg => {
+		console.log("DONE LOGIN!");
+		console.log(msg);
+	})
+	.catch(err => {
+		console.log("ERRORd");
+		console.log(err);
+	})
+
+//await keyword waits for an async function to finish up before moving to next line
+
+function delayedColorChange(color, delay){
+	//changes the body's backgroundColor value after 'delay' seconds.
+}
+
+async function colors(){
+	await delayedColorChange('red',1000); // interpreter waits till completion
+	await delayedColorChange('orange',1000);
+	await delayedColorChange('yellow',1000);
+	await delayedColorChange('green',1000);
+	await delayedColorChange('blue',1000);
+	await delayedColorChange('violet',1000);
+	return "All good."
+}
+```
+## error handling
+```js
+async function sample(){
+	try{
+		await someFunction();
+	} catch(e){
+		console.log("The error: ",e);
+	}
+}
+```
+## JSON - JavaScript Object Notation
+- it is used in transfer of data
+```js
+let data = '';
+jsonData = JSON.parse(data) // will convert the string to json data
+jsonString = JSON.stringify(jsonData) // will convert a JSON data to string
+```
+### fetch api
+```js
+fetch(apiURL)
+	.then(res => {
+		return res.json(); //.json method returns a promise
+	})
+	.then(data => { //we can call another .then only because we return a promise in the above .then
+		console.log(data)
+	})
+```
+### axios
+```js
+config = {headers: {Accept: 'application/json'}};
+axios.get(apiURL,config)
+	.then(data => {
+		console.log(data);
+	})
+	.catch(err => {
+		console.log(err);
+	})
+```
+## prototypes
+- it contains all the common methods and function specific to that datatype. 
+- objects of that datatype look upto the prototype methods under its datatype
+```js
+//to modify prototypes
+Array.prototype.pop = () => {
+	console.log('mod the pop behavior');
+}
+```
+### factory functions
+```js
+function makeColor(r,g,b){
+	const color = {};
+	color.r = r;
+	color.g = g;
+	color.b = b;
+
+	color.rgb = () => {
+		const {r,g,b} = this;
+		return `rgb(${r}, ${g}, ${b})`;
+	}
+}
+```
+### constructor function
+```js
+function Color(r,g,b){
+	this.r = r;
+	this.g = g;
+	this.b = b;
+}
+//to add methods to the prototype for common access about all its objects
+Color.prototype.rgb = () => {
+	const {r,g,b} = this;
+	return `rgb(${r}, ${g}, ${b})`
+}
+
+//to create objects
+const color1 = new Color(45,67,23);
+```
+### class
+```js
+class Color(r,g,b){
+	constructor(r,g,b){
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
+	rgb(){
+		return `rgb(${r},${g},${b})`
+	}
+}
+//creating objects
+const c1 = new Color(34,45,55)
+
+//inheritance
+class Pet{
+	constructor(name, age){
+		this.name = name;
+		this.age = age;
+	}
+
+	eat(){
+		return `${name} is eating.`;
+	}
+}
+
+class Dog extends Pet{
+	bark(){
+		return `${this.name}, the dog, is barking`
+	}
+}
+class Cat extends Pet{
+	constructor(name,age,lives = 9){
+		super(name,age);
+		this.livesLeft = lives;
+	}
+	bark(){
+		return `${this.name}, the cat, is mewwwing`
+	}
+}
+```
