@@ -99,7 +99,7 @@ movieSchema.post('save', async function(){
 
 const Movie = mongoose.model('Movie', movieSchema); //.model() returns a class. 'Movie' argument needs to have first letter capital and a singular word. Mongoose creates a collection called movies with this.
 const jurassicPark = new Movie({title: "Jurassic Park", year: 1988, score: 10, rating: "The Best"});
-
+0
 
 //changing values
 jurassicPark.score = 100;

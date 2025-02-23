@@ -66,6 +66,33 @@ git@github.com:username/repo.git
 git push -u repo_name branch_name (first time)
 git push (other times)
 ```
+## setting up different keys for same account
+```sh
+# create those keys
+ssh-keygen -t ed25519
+# should be located in ~/.ssh/.
+chmod 700 id_key
+
+ssh-agent /bin/fish
+ssh-add id_key
+
+# inside the ~/.ssh/config file
+
+# specific for a particular repo
+Host host1.github.com
+HostName github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_key
+
+# common for other repos
+Host github.com
+HostName github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+
+# the remote url of the specific repo should be
+git@host1.github.com:username/repo
+```
 # ==Branch==
 ##  creating new branch
 ```sh

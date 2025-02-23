@@ -111,7 +111,52 @@ encoded_df = pd.DataFrame(
 
 df = df.join(encoded_df)
 ```
+## univariate
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data = {
+		...
+}
+df = pd.DataFrame(data)
 
 
+# customize the plot
+plt.title('col dis')
+plt.xlabel("Col")
+plt.ylabel("Count")
+plt.show()
+
+# Bar Plot
+sns.countplot(
+	x='colName',
+	data=df
+)
+# Violin chart
+sns.violinplot(
+	x='Gender',
+	y='Age',
+	data=df
+)
+
+# Histogram
+sns.histplot(
+	df['Age'],
+	kde=True, # gives the trend line over the blocks,
+	bins=5 # number of blocks
+)
+
+# Pie chart
+depts_counts = df['Departments']
+plt.pie(
+	dept_counts,
+	labels=dept_counts.index,
+	autopct = '%1.1f',
+	startangle=90
+)
 
 
+```
