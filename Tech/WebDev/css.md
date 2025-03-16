@@ -1,4 +1,4 @@
-- Cascading Style Sheets
+`- Cascading Style Sheets
 it's called Cascading, so the style that's closer to the end of the sheet will always take precedence
 Order of Precedence: 
 	- ID Selectors,

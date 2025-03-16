@@ -35,7 +35,6 @@
 - attribute create
 - grouprange (select n points from a total of m points)
 - attribute wrangle (all vex glory)
-
 ## vex
 ```vex
 // to create a variable
@@ -49,7 +48,6 @@ f@sine = sin(@ptnum);
 //gives the total number of points
 i@len = npoints(0);
 ```
-
 ## attributes
 ### pscale
 drives the scale value for each point
@@ -57,7 +55,6 @@ drives the scale value for each point
 generates each points number
 ### rand(end_value)
 generates a random value
-
 ### fit01(max,min,fit_range)
 fits the given min to max value in the given range.
 ### stamp("from_where_to_copy_from","which_var_to_copy",default_value)

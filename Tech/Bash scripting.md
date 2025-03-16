@@ -4,6 +4,12 @@
 
 #!/bin/bash
 ```
+
+```sh
+set -e #will stop execution on error
+echo $? #will give the previous command's exit code. 0 means success, anything else means a failure 
+eval somecmd #this will evaluate any spaces within the file path
+```
 ## echo
 ```bash
 # -e enables for interpretation for backward slash escapes.
@@ -20,6 +26,7 @@ echo Hi $FIRST_NAME $LAST_NAME
 ## positional arguments
 ```sh
 echo $0 $1 $2 $3 $4 $5
+echo $# # will give the number of arguments
 ```
 ## user input
 ```sh
@@ -135,6 +142,7 @@ This machine has been up for $up
 THis machine has been running since $since
 -----
 EOF
+	exit 0 # returns an exit code
 }
 
 showuptime
