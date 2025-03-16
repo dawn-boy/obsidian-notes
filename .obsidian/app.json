@@ -2,11 +2,11 @@
   "vimMode": true,
   "showInlineTitle": true,
   "pdfExportSettings": {
-    "includeName": false,
+    "includeName": true,
     "pageSize": "A4",
     "landscape": false,
     "margin": "0",
-    "downscalePercent": 57
+    "downscalePercent": 80
   },
   "attachmentFolderPath": "./images",
   "alwaysUpdateLinks": true
