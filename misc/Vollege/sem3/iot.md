@@ -28,7 +28,7 @@
 	- battery life 
 	- water
 	- display 
-	- companian 
+	- companion 
 - health and fitness 
 ## chemical or biochemical sensor
 - it consists of a recognition element coupled with transducer element
@@ -55,12 +55,12 @@
 	- Transduction: the binding event casus a change in the transducer that converts biological interaction into a detectable signal
 	- Signal processing: signal is amplified, processed, and converted into a readable form
 - electrochemical sensor 
-	- potentiometeric sensor
-	- amperometric sensor
+	- potentiometeric sensor - voltage
+	- amperometric sensor - current
 	- conductometric sensor -  change in conductivity 
 	- commonly used in glucose monitoring 
 - optical biosensors
-	- detects changes in light properties dude to the interaction between analyte and biological recognition element 
+	- detects changes in light properties due to the interaction between analyte and biological recognition element 
 	- surface plasmon resonance 
 	- flouroscence based sensors 
 	- ex: medical diagnostics, 
@@ -108,3 +108,20 @@
 	- interface with the body
 	- textile integration
 	- power requirement
+
+## atrial fibrillation
+- a common type, caused by rapid, disorganized electrical impulses of the heart
+- AF can lead to stroke and heart failure
+- higher chance in elders
+- AF can be diagnosed from ECG
+## Coronary artery atherosclerosis
+- coronary heart disease (CHD) is caused by blockages of blood vessels of the heart resulting in chest pain due to lack of blood supply to the heart
+- with uncontrolled blockage, parts of the heart may die
+- CHD may lead to sudden deaths as a result of rupture
+- major risk factors of CHD includes age, high BP, smoking and diabetes
+## Peripheral arteries disease
+- it is a slowly progressive disease mainly due to atherosclerosis and further affects the vessels such as aorta and other arteries
+- PAD can lead to CAD, stroke, or even death
+- major risk factor s are hypertension, smoking and diabetes
+- as technology is becoming mature, it is possible to build wearable systems for diagnosis of PAD
+
