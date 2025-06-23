@@ -350,9 +350,167 @@ function Component(){
 ```
 ## `Regular variable` vs `States` vs `Refs`
 
-| Features             | Variables                | States                                | Refs                                                                 |
-| -------------------- | ------------------------ | ------------------------------------- | -------------------------------------------------------------------- |
-| Survives re-renders? | Nope                     | Yep                                   | Yep                                                                  |
-| Triggers re-renders? | Nope                     | Yep                                   | Nope                                                                 |
-| Mutable              | Yep (direct mutation)    | Yep(setter function)                  | Yep (using .current)                                                 |
-| When to use?         | To store temporary logic | to store data that changes UI         | to store something across re-renders but doesn't trigger re-renders  |
+| Features             | Variables                | States                        | Refs                                                                |
+| -------------------- | ------------------------ | ----------------------------- | ------------------------------------------------------------------- |
+| Survives re-renders? | Nope                     | Yep                           | Yep                                                                 |
+| Triggers re-renders? | Nope                     | Yep                           | Nope                                                                |
+| Mutable              | Yep (direct mutation)    | Yep(setter function)          | Yep (using .current)                                                |
+| When to use?         | To store temporary logic | to store data that changes UI | to store something across re-renders but doesn't trigger re-renders |
+***
+### the progress bar?
+Just a useful bar that shows the progress.
+```jsx
+<progress max={value} value={someVal} />
+```
+# Styles within jsx
+
+in the css file
+```css
+.main{
+	/* all the styles here */
+}
+```
+
+in the jsx file
+```jsx
+import styles from "./Component.module.css"
+
+export default function Component(){
+	return (
+		<main className={styles.main}>
+		</main>
+	)
+}
+```
+***
+# React-Router-dom
+ ## Single Page Applications
+ 
+Basic import and setup
+```jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+function App(){
+	return(
+			<BrowserRouter>
+				<Routes>
+					<Route path='login' element={<Login />} />
+					<Route path='signup' element={<SignUp />} />
+					<Route path='*' element={<PageNotFound />} />
+				</Routes>
+			</BrowserRouter>	
+	)
+}
+```
+
+- Nested Routes can be created by
+```jsx
+import { Outlet } from 'react-router-dom'
+
+<Route path='app' element={<App />}>
+	<Route path='dev' element={<p>THis is a dev</p>} />
+	<Route path='build' element={<p>THis is a build </p>} />
+	// include an index route if there's no match from child routes
+	<Route index element={<HomePage />} />
+</Route>
+
+// inside the <App />
+function App(){
+	//all code here
+	<Outlet />
+	//all code here
+}
+```
+- the children routes specify what component to display using the `element` property
+- the `<Outlet />` specifies where to display that component
+
+To move between pages
+```jsx
+// THe wrong way
+<a href="/login"> Login </a>
+
+// The Right way
+import { Link } from 'react-router-dom'
+<Link to="/login"> Login </Link>
+
+// for nested routes globally
+<Link to="/app/login"> Login </Link>
+```
+- using the anchor tag would do a hard page refresh which isn't optimal. 
+- The `Link` component from the `react-router-dom` library changes only the DOM element not the whole page
+
+For NavBar links, `react-router-dom` gives us `<NavLink />`. It just adds upon the basic `<Link />` with `className = 'active'`  for the currently selected page.
+```jsx
+import { NavLink } from 'react-router-dom';
+<NavLink to='/login'> Login </NavLink>
+```
+## To Store data within the URL
+
+- Let's say we have a component called `<City />`
+```jsx
+import { Link } from 'react-router-dom'
+
+export default function City(){
+	// Lots of map related code
+	
+	<Link to={`/countries/cities/${id}`}>MayBel</Link>
+}
+```
+- so basically, it just re-routes to `Maybel`'s id when we click it,
+
+- now, we defined that path using `<Route>`
+```jsx
+export default function App(){
+	<BrowserRouter>
+		<Routes>
+			<Route ... />
+			
+			<Route path='/countries' ...>
+				<Route ... />
+				<Route path='cities/:id' element={<City />} />
+				<Route ... />
+			</Route>
+			
+		</Routes>
+	</BrowserRouter>
+}
+```
+
+- To use the params from the URL within `<City />` component
+```jsx
+import { useParams } from 'react-router-dom'
+
+const { id } = useParams();
+```
+
+- To use searchParams from the url
+```jsx 
+import { useSearchParams } from 'react-router-dom'
+
+const [searchParams, setSearchParams] = useSearchParams();
+
+const lat = searchParams.get('lat')
+const lng = searchParams.get('lng')
+
+// to change
+setStateParams({ lat: ..., lng: ...})
+```
+
+# `useNavigate()` function
+
+## The Imperative approach
+### If we want to navigate to the child routes without `<Link />` or `<NavLink />`
+```jsx
+import { useNavigate } from 'react-router-dom'
+
+const navigate = useNavigate()
+
+<div onClick={() => navigate('/cities')} />
+```
+## The Declarative approach
+```jsx
+import { Navigate } from 'react-router-dom'
+
+<Navigate replace to="/cities" />
+```
+- `replace` keyword to make back button functional. 
