@@ -262,6 +262,20 @@ useEffect( () => {
 ```
 - so whenever there's a change in the quote, we will run the useEffect.
 - The cleanup function runs only when the component un-mounts meaning when the component is not rendered then the cleanup function kicks in.
+==*Every Variables that is used within the `useEffect` function logic must go inside the dependency array**Not Doing so would lead to Stale Closure**==
+#### What is Stale Closure?
+Stale closure occurs when the useEffect references outdated states or props.
+##### Example
+```jsx
+useEffect(() => {
+	document.title = `You have ${count} items`;
+},[])
+```
+- since count is not included within the dependency array, this is a stale closure
+- when count updates to a new value, this hook will still be referencing the old one. YAY!
+
+==But keep in mind about the reference value types. Even if you update an object with a same value as before, it still triggers a re-render because the references change.==
+
 ### ***3. useRef()***
 - It is used to **store mutable values** that **doesn't cause re-renders** but **persists for the full lifetime** of the component, unlike the regular variables
 - we commonly use this hook to reference DOM elements
@@ -356,6 +370,7 @@ function Component(){
 | Triggers re-renders? | Nope                     | Yep                           | Nope                                                                |
 | Mutable              | Yep (direct mutation)    | Yep(setter function)          | Yep (using .current)                                                |
 | When to use?         | To store temporary logic | to store data that changes UI | to store something across re-renders but doesn't trigger re-renders |
+# 5. [[#useContext hook]]
 ***
 ### the progress bar?
 Just a useful bar that shows the progress.
@@ -505,7 +520,7 @@ import { useNavigate } from 'react-router-dom'
 
 const navigate = useNavigate()
 
-<div onClick={() => navigate('/cities')} />
+<div onClick={() => navigate('/cities', { replace: true})} />
 ```
 ## The Declarative approach
 ```jsx
@@ -514,3 +529,556 @@ import { Navigate } from 'react-router-dom'
 <Navigate replace to="/cities" />
 ```
 - `replace` keyword to make back button functional. 
+
+***
+# Context API
+we have the problem of Props drilling, passing a prop to all the intermediary components just so we can have it to a children element.
+- Context API makes a widely used state globally available to all the components lest there be props drilling
+
+## useContext hook
+1. Create a context
+```jsx
+import { createContext } from 'react';
+
+const newContext = createContext();
+```
+
+2. Providing access to components
+```jsx
+<newContext.Provider value={ name: "adithya" }>
+	<App />
+</newContext.Provider>
+```
+
+3. Use the context within the components
+```jsx
+import { useContext } from 'react';
+
+function App(){
+	const context = useContext(newContext);
+	
+	return <div>Hello {context.name}</div>
+}
+```
+### A Better approach
+It would look a lot cleaner if we've used a wrapper component
+
+1. Create a separate `MyContext.js` file
+```jsx
+import { useContext, createContext, useState } from 'react';
+
+// Create Context
+const MyContext = createContext();
+
+// Create a Provider component
+function MyProvider({ children }){
+	const [name, setName] = useState("Adhi");
+
+	return(
+		<MyContext.Provider value={{ name,setName }}>
+			{ children }
+		</MyContext.Provider>
+	)
+}
+
+// this function keeps our context private
+function useName(){
+	const context = useContext(MyContext);
+	return context;
+}
+
+export { useName, MyProvider }
+```
+
+2. Within the `App.jsx` file
+```jsx
+import { MyProvider } from './contexts/MyContext.js'
+import Page from './components/page.js'
+
+function App(){
+	<MyProvider>
+		<Page />
+	</MyProvider>
+}
+
+export default App;
+```
+
+3. Inside the child `<Page />` Component
+```jsx
+import { useContext } from 'react';
+import { MyContext } from '../contexts/MyContext.js'
+
+export function Page(){
+	const { name, setName } = useContext(MyContext);
+	
+	// more of your logic <3
+}
+```
+
+***
+# Authentication
+We'll be using the Context API to achieve this
+
+- `./contexts/AuthContext.js`
+```jsx
+import { createContext, useContext, useReducer } from 'react'
+
+const AuthContext = createContext();
+
+const initialValues = {
+	user: null,
+	isAuthenticated: false,
+}
+function reducer(state, action){
+	switch(action.type){
+		case 'login':
+			return {
+				...state,
+				user: action.payload,
+				isAuthenticated: true
+			}
+		case 'logout':
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false,
+			}
+	}
+}
+
+const FAKE_USER = {
+	name: "maybel",
+	username: "duncun",
+	password: "12345678",
+	profile: 'https://cloud.google.com/hi.jpg'
+}
+
+function AuthProvider({ children }){
+
+	const [{ user, isAuthenticated }, dispatch] = useReducer(reducer, intitialValues)
+
+	function login(username, password){
+		if(username === FAKE_USER.username && password === FAKE_USER.password) dispatch({ type: "login", payload: FAKE_USER })
+	}
+	function logout(){
+	dispatch({ type: 'logout' })
+	}
+
+	return ( 
+		<AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+			{ children }
+		</AuthContext.Provider>
+	)
+}
+
+function useAuth(){
+	const auth = useContext(AuthContext);
+	if(auth === undefined) throw new Error("Someone tried to access AuthContext outside the AuthProvider!")
+	return auth;
+}
+
+export { AuthProvider, useAuth };
+```
+
+- To protect the routes that are only available to users
+```jsx
+import { useAuth } from './AuthProvider.js';
+import { useNavigate } from 'react';
+
+export function ProtectedRoute({ children }){
+	const { isAuthenticated } = useAuth();
+	const navigate = useNavigate();
+
+	useEffect(function(){
+		if(!isAuthenticated) 
+			navigate('/homePage', { replace: true })
+	},[navigate, isAuthenticated])
+
+	return children
+}
+```
+
+- in `App.jsx`
+```jsx
+import { AuthProvider } from './contexts/AuthProvider.js'
+import { ProtectedRoute } from './contexts/ProtectedRoute.js'
+
+function App(){
+		<HomePage/>
+		<AboutUs/>
+		<AuthProvider>
+			<ProtectedRoute>
+				<DashBoard />
+			</ProtectedRoute>
+		</AuthProvider>
+}
+```
+
+***
+# Optimizing React Apps
+
+we need to set somethings right, before we begin learning how to optimize apps.
+## When does a component gets re-rendered?
+only in these 3 scenarios,
+1. At state updates
+2. At a context change
+3. At a Parent re-render
+## What is a render?
+A render is when the component function gets called. It is an expensive action so we must try to reduce it wherever we can.
+## what is a wasted render?
+Its a render that doesn't produce any changes in the DOM
+- Not really a problem, because React is fast but when it happens too frequently, then things get outta hand.
+
+## 1. Performance optimization with `{ children }`
+### Scenario
+- Say we have a component called `Test` that
+	1. contains a state
+	2. houses a slow component that doesn't depend on the state ( takes a long time to render )
+so every time the state updates, `Test` re-renders, we also have our slow component re-rendering. 
+===**So we pass in the slow component as a children**===
+### Example
+- This is our current code
+```jsx
+function Test(){
+	const [count, setCount] = setState(0);
+
+	return(
+		//some code
+		<SlowComponent />
+	)
+}
+```
+
+- Our optimized code
+```jsx
+function Test({ children }){
+	const [count, setCount] = setState(0);
+
+	return(
+		//some code
+		{ children }
+	)
+}
+```
+
+inside our `App.jsx`
+```jsx
+function App(){
+	<Test>
+		<SlowComponent />
+	</Test>
+}
+```
+## Why tho?
+children elements are rendered outside the `<Test />` component and so when there's a state change within, the `<Test />` component just reuses the already created element passed via `{ children }`
+## 2. Memoization
+==**This'll work only for pure functions**==
+The idea is that we cache the resulting data for their respective inputs. If these inputs are encountered again, we'll just use the cache data instead of recalculating the whole thing
+
+we can memoize 
+- components with `memo`
+- objects with `useMemo`
+- functions with `useCallback` 
+
+Use memo only if we have a component that is big and re-renders frequently.
+
+1. `memo` - Memoizing Components
+```jsx
+import { memo } from 'react';
+
+const Memoed = memo(
+	function Component(){
+		//body
+	}
+)
+```
+- we have memoized the `<Component />` but even now it might still get re-rendered because
+	there was a new object or function passed as prop each time the parent re-rendered.
+### Example
+```jsx
+function App(){
+	const archiveProps = { title: 'Post' };
+	
+	<Archive archiveProps={archiveProps} />
+}
+
+// or with a function
+
+function App(){
+	function something(){}
+	
+	<Archive something={something} />
+}
+```
+Since objects and functions are reference types, each re-render from the parent creates a new reference and `memo` sees them as a **new prop => triggers re-render!**
+
+==So, we memoize those objects and functions too :) simple==
+
+2. `useMemo` - Memoizing values 
+```jsx
+function App(){
+
+	const archiveProps = useMemo(() => {
+		return { title: 'Props' }
+	}, [])
+
+	<Archive archiveProps={archiveProps} />
+}
+```
+
+- if the object was dependent on an external variable
+```jsx
+function App(){
+
+	const archiveProps = useMemo(() => {
+		return { title: `Props - ${name}` }
+	}, [name])
+
+	<Archive archiveProps={archiveProps} />
+}
+```
+
+ - if its a function
+```jsx
+function App(){
+	const someFunc = useCallback( () => {
+	function someFunc(){}}, [])
+
+	<Archive someFunc={someFunc} />
+}
+```
+
+1. If the function is not dependent on any reactive values within the component. *Move em out of the component*.
+	- avoids unnecessary re-creation of the function at every re-render.
+2. If the function is not called within the component but needed in useEffect dependency. *Move em inside the useEffect*
+3. If the function cannot 
+	- be moved out cause it uses reactive values from within the component
+	- be moved in useEffect because it is called within the component but need in useEffect's dependency array
+==Memoize it.==
+***
+# Lazy Loading
+The whole react app is bundled in one JS file which is then shipped off to the client device. This affects the performance if the file is really huge, so in comes the Lazy Part!
+
+1. Import your components using LazyLoading
+```jsx
+import { lazy } from 'react';
+
+const HomePage = lazy(() => import('./components/HomePage'));
+```
+
+2. Wrap the routes with Suspense
+```jsx
+import { Suspense } from 'react';
+
+<Suspense fallback={<SpinnerFullPage />}>
+	<Routes>
+		<Route path="/" element={<HomePage />} />
+	</Routes>
+</Suspense>
+```
+
+***
+# Redux - Advanced UI state management
+Its very similar to the [[#**4. useReducer()**]] hook but its really a scalable approach
+## The Classical approach (deprecated)
+
+1. `accountReducer.js` 
+```js
+//initial states
+const initialState = {
+	balance = 0
+}
+
+//reducers
+function accountReducer(state = inititalState, action){
+	switch(action.type){
+		case 'account/deposit':
+			return {
+				...state,
+				balance: state.balance + action.payload
+			}
+		case 'account/withdraw':
+			return {
+				...state,
+				balance: state.balance - action.payload
+			}
+		default:
+			return state;
+	}
+}
+
+//action creators
+function deposit(amount){
+	return {
+		type: 'account/deposit', 
+		payload: amount
+	}
+}
+function withdraw(amount){
+	return {
+		type: 'account/withdraw',
+		payload: amount
+	}
+}
+
+//exports
+export { accountReducer, deposit, withdraw }
+```
+
+2. `bankReducer.js`
+```jsx
+//initalstates
+const initialState = {
+	isAccountOpen: false
+}
+
+//reducers
+function bankReducer(state = inititalState, action){
+	switch(action.types){
+		case 'bank/openAccount':
+			return {
+				...state,
+				isAccountOpen: true
+			}
+		case 'bank/closeAccount':
+			return {
+				...state,
+				isAccountOpen: false
+			}
+		default:
+			return state;
+	}
+}
+
+//action creators
+function openAccount(){
+	return { type: 'bank/openAccount' }
+}
+function closeAccount(){
+	return { type: 'bank/closeAccount' }
+}
+
+//exports
+export { openAccount, closeAccount }
+```
+
+3. `store.js`
+```js
+import { createStore, combineReducers } from 'redux';
+import { accountReducer } from './accountReducer';
+import { bankReducer } from './bankReducer';
+
+const rootReducer = combineReducer({
+	account: accountReducer,
+	bank: bankReducer,
+})
+
+const store = createStore(rootReducer);
+export default store;
+```
+
+4. usage within `App.jsx`
+```js
+import { useSelector, useDispatch } from 'react-redux'
+import { deposit, withdraw } from './accountReducer'
+import { openAccount, closeAccount } from './bankReducer'
+
+const balance = useSelector( state => state.account.balance )
+const isAccountOpen = useSelector( state => state.bank.isAccountOpen )
+
+const dispatch = useDispatch();
+
+dispatch(openAccount())
+dispatch(deposit(1000))
+dispatch(deposit(500))
+dispatch(closeAccount())
+```
+## The Toolkit's way
+
+1. `accountSlice.js`
+```jsx
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+	balance: 0,
+}
+
+const accountSlice = createSlice({
+	name: 'account',
+	initialState,
+	reducer: {
+		deposit(state, action){
+			state.balance += action.payload
+		},
+		withdraw(state, action){
+			state.balance -= action.payload
+		}
+	}
+})
+
+export const { deposit, withdraw } = accountSlice.actions;
+export default accountSlice.reducer;
+```
+
+2. `bankSlice.js`
+```jsx
+import { createSlice } from "@reduxjs/toolkit"
+
+const inititalState = {
+	isAccountOpen: false,
+}
+const bankSlice = createSlice({
+	name: 'bank',
+	inititalState,
+	reducer: {
+		openAccount(state, action){
+			state.isAccountOpen = true
+		},
+		closeAccount(state, action){
+			state.isAccountOpen = false
+		}
+	}
+})
+
+export const { openAccount, closeAccount } = bankSlice.actions;
+export default bankSlice.reducer;
+```
+
+- the `action` functions can only take one `payload` argument, if we need more than one then we need to use `prepare()`
+```jsx
+const someSlice = createSlice({
+	name: "theSlice",
+	initialState,
+	reducer: {
+		actionOne: {
+			prepare(argOne, argTwo){
+				return { payload: { argOne, argTwo } }
+			},
+			reducer: {
+				someAction(state, action){
+					action.payload.argOne;
+					action.payload.argTwo;
+				}
+			}
+		}
+	}
+})
+```
+- or we can just pass `{ argOne, argTwo }` as payload argument at use. This counts as one argument instead of `( argOne, argTwo )`
+3. 
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+
+import { accountReducer } from './accountSlice ';
+import { bankReducer } from './bankReducer';
+
+configureStore({
+	reducer: {
+		account: accountReducer,
+		bank: bankReducer 
+	},
+});
+
+export default store;
+```
