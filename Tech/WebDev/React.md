@@ -398,139 +398,6 @@ export default function Component(){
 }
 ```
 ***
-# React-Router-dom
- ## Single Page Applications
- 
-Basic import and setup
-```jsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-function App(){
-	return(
-			<BrowserRouter>
-				<Routes>
-					<Route path='login' element={<Login />} />
-					<Route path='signup' element={<SignUp />} />
-					<Route path='*' element={<PageNotFound />} />
-				</Routes>
-			</BrowserRouter>	
-	)
-}
-```
-
-- Nested Routes can be created by
-```jsx
-import { Outlet } from 'react-router-dom'
-
-<Route path='app' element={<App />}>
-	<Route path='dev' element={<p>THis is a dev</p>} />
-	<Route path='build' element={<p>THis is a build </p>} />
-	// include an index route if there's no match from child routes
-	<Route index element={<HomePage />} />
-</Route>
-
-// inside the <App />
-function App(){
-	//all code here
-	<Outlet />
-	//all code here
-}
-```
-- the children routes specify what component to display using the `element` property
-- the `<Outlet />` specifies where to display that component
-
-To move between pages
-```jsx
-// THe wrong way
-<a href="/login"> Login </a>
-
-// The Right way
-import { Link } from 'react-router-dom'
-<Link to="/login"> Login </Link>
-
-// for nested routes globally
-<Link to="/app/login"> Login </Link>
-```
-- using the anchor tag would do a hard page refresh which isn't optimal. 
-- The `Link` component from the `react-router-dom` library changes only the DOM element not the whole page
-
-For NavBar links, `react-router-dom` gives us `<NavLink />`. It just adds upon the basic `<Link />` with `className = 'active'`  for the currently selected page.
-```jsx
-import { NavLink } from 'react-router-dom';
-<NavLink to='/login'> Login </NavLink>
-```
-## To Store data within the URL
-
-- Let's say we have a component called `<City />`
-```jsx
-import { Link } from 'react-router-dom'
-
-export default function City(){
-	// Lots of map related code
-	
-	<Link to={`/countries/cities/${id}`}>MayBel</Link>
-}
-```
-- so basically, it just re-routes to `Maybel`'s id when we click it,
-
-- now, we defined that path using `<Route>`
-```jsx
-export default function App(){
-	<BrowserRouter>
-		<Routes>
-			<Route ... />
-			
-			<Route path='/countries' ...>
-				<Route ... />
-				<Route path='cities/:id' element={<City />} />
-				<Route ... />
-			</Route>
-			
-		</Routes>
-	</BrowserRouter>
-}
-```
-
-- To use the params from the URL within `<City />` component
-```jsx
-import { useParams } from 'react-router-dom'
-
-const { id } = useParams();
-```
-
-- To use searchParams from the url
-```jsx 
-import { useSearchParams } from 'react-router-dom'
-
-const [searchParams, setSearchParams] = useSearchParams();
-
-const lat = searchParams.get('lat')
-const lng = searchParams.get('lng')
-
-// to change
-setStateParams({ lat: ..., lng: ...})
-```
-
-# `useNavigate()` function
-
-## The Imperative approach
-### If we want to navigate to the child routes without `<Link />` or `<NavLink />`
-```jsx
-import { useNavigate } from 'react-router-dom'
-
-const navigate = useNavigate()
-
-<div onClick={() => navigate('/cities', { replace: true})} />
-```
-## The Declarative approach
-```jsx
-import { Navigate } from 'react-router-dom'
-
-<Navigate replace to="/cities" />
-```
-- `replace` keyword to make back button functional. 
-
-***
 # Context API
 we have the problem of Props drilling, passing a prop to all the intermediary components just so we can have it to a children element.
 - Context API makes a widely used state globally available to all the components lest there be props drilling
@@ -563,7 +430,7 @@ function App(){
 ### A Better approach
 It would look a lot cleaner if we've used a wrapper component
 
-1. Create a separate `MyContext.js` file
+1. Create a separate `MyContext.jsx` file
 ```jsx
 import { useContext, createContext, useState } from 'react';
 
@@ -715,6 +582,12 @@ function App(){
 }
 ```
 
+***
+# Global UI states vs remote states
+## Global UI states
+These are the states that reside locally in the application, controlling the UI behavior across components.
+## Global remote states
+These are the data fetched or transferred to the server (using an API). They usually reside in the servers.
 ***
 # Optimizing React Apps
 
@@ -1081,4 +954,258 @@ configureStore({
 });
 
 export default store;
+```
+
+***
+# Temporary API mountpoint
+
+1. Install `json-server`
+```sh
+npm install json-server --save-dev
+```
+
+2. add to `package.json`
+```json
+scripts: {
+	...
+	"server": "json-server --watch ./data/questions.json --port 6000"
+}
+```
+
+3. run server
+```bash
+npm run server
+```
+***
+# React-Router-dom
+ ## Single Page Applications
+ 
+Basic import and setup
+```jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+function App(){
+	return(
+			<BrowserRouter>
+				<Routes>
+					<Route path='login' element={<Login />} />
+					<Route path='signup' element={<SignUp />} />
+					<Route path='*' element={<PageNotFound />} />
+				</Routes>
+			</BrowserRouter>	
+	)
+}
+```
+
+- Nested Routes can be created by
+```jsx
+import { Outlet } from 'react-router-dom'
+
+<Route path='app' element={<App />}>
+	<Route path='dev' element={<p>THis is a dev</p>} />
+	<Route path='build' element={<p>THis is a build </p>} />
+	// include an index route if there's no match from child routes
+	<Route index element={<HomePage />} />
+</Route>
+
+// inside the <App />
+function App(){
+	//all code here
+	<Outlet />
+	//all code here
+}
+```
+- the children routes specify what component to display using the `element` property
+- the `<Outlet />` specifies where to display that component
+
+To move between pages
+```jsx
+// THe wrong way
+<a href="/login"> Login </a>
+
+// The Right way
+import { Link } from 'react-router-dom'
+<Link to="/login"> Login </Link>
+
+// for nested routes globally
+<Link to="/app/login"> Login </Link>
+```
+- using the anchor tag would do a hard page refresh which isn't optimal. 
+- The `Link` component from the `react-router-dom` library changes only the DOM element not the whole page
+
+For NavBar links, `react-router-dom` gives us `<NavLink />`. It just adds upon the basic `<Link />` with `className = 'active'`  for the currently selected page.
+```jsx
+import { NavLink } from 'react-router-dom';
+<NavLink to='/login'> Login </NavLink>
+```
+## To Store data within the URL
+
+- Let's say we have a component called `<City />`
+```jsx
+import { Link } from 'react-router-dom'
+
+export default function City(){
+	// Lots of map related code
+	
+	<Link to={`/countries/cities/${id}`}>MayBel</Link>
+}
+```
+- so basically, it just re-routes to `Maybel`'s id when we click it,
+
+- now, we defined that path using `<Route>`
+```jsx
+export default function App(){
+	<BrowserRouter>
+		<Routes>
+			<Route ... />
+			
+			<Route path='/countries' ...>
+				<Route ... />
+				<Route path='cities/:id' element={<City />} />
+				<Route ... />
+			</Route>
+			
+		</Routes>
+	</BrowserRouter>
+}
+```
+
+- To use the params from the URL within `<City />` component
+```jsx
+import { useParams } from 'react-router-dom'
+
+const { id } = useParams();
+```
+
+- To use searchParams from the url
+```jsx 
+import { useSearchParams } from 'react-router-dom'
+
+const [searchParams, setSearchParams] = useSearchParams();
+
+const lat = searchParams.get('lat')
+const lng = searchParams.get('lng')
+
+// to change
+setStateParams({ lat: ..., lng: ...})
+```
+
+# `useNavigate()` function
+
+## The Imperative approach
+### If we want to navigate to the child routes without `<Link />` or `<NavLink />`
+```jsx
+import { useNavigate } from 'react-router-dom'
+
+const navigate = useNavigate()
+
+<div onClick={() => navigate('/cities', { replace: true})} />
+```
+## The Declarative approach
+```jsx
+import { Navigate } from 'react-router-dom'
+
+<Navigate replace to="/cities" />
+```
+- `replace` keyword to make back button functional. 
+
+## React Router
+# A sample project structure
+```
+-- Project
+|
+|- /src
+|  |-- /features   // for main pages of the site
+|  |  |-- /cart
+|  |  |-- /order
+|  |  |-- /menu
+|  |  |-- /user
+|  |  |
+|  |-- /services   // for api management
+|  |-- /ui         // for misc ui elements, like navbar, etc
+|  |-- /utils      // for helper functions
+```
+
+### A New way of declaring routes!
+Inside `App.jsx`
+```jsx
+import { RouterProvider, createRouterProvider } from "react-router-dom";
+
+const router = createRouterProvider([
+	{
+		element: <AppLayout />,
+		children: [
+			{
+				path: '/',
+				element: <Home />,
+				errorElement: <ErrorPage />
+			},
+			{
+				path: '/menu',
+				element: <Menu />
+			}
+		]
+	}
+])
+
+function App(){
+	return <RouterProvider router={router} />
+}
+
+//inside <ErrorPage />
+import { useRouteError } from 'react-router-dom';
+const message = useRouteError().data
+```
+## To fetch data from API using React Loader
+
+1. `services/apiQuestions.js`
+```js
+async function getQuestions(){
+	try{
+		const response = await fetch(api-url);
+		const data = await response.json();
+		return data;
+	} catch(error){
+		console.log(error);
+		return -1;
+	}
+}
+
+export { getQuestions };
+```
+
+2. `features/GamePlay.jsx` - inside the component that needs the data.
+```jsx
+import { useLoaderData } from 'react-router-dom';
+import { getQuestions } from '../services/apiQuestions'
+
+function GamePlay(){
+	return <div></div>
+}
+
+export async function loader(){
+	const questions = await getQuestions();
+	return questions;
+}
+
+export default GamePlay;
+```
+
+3. `App.jsx`
+```jsx
+import { RouterProvider, createRouterProvider } from 'react-router-dom';
+import { loader as questionsLoader } from './features/GamePlay'
+import GamePlay from './features/GamePlay'
+
+const router = [
+	{
+		path: '/gameplay',
+		element: <GamePlay />,
+		loader: questionsLoader
+	}
+]
+
+function App(){
+	return <RouterProvider router={router} />
+}
 ```

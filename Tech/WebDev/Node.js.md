@@ -105,12 +105,12 @@ app.get('/about', (req, res) => {
 	res.send("This is the about page");
 })
 app.get('/contact', (req, res) => {
-	res.get("This is the contact page");
+	res.send("This is the contact page");
 })
 
 //post requests
 app.post('/cats', (req, res) => {
-	res.get("Something");
+	res.send("Something");
 })
 
 //path params
