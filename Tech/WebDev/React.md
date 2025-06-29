@@ -760,7 +760,7 @@ Its very similar to the [[#**4. useReducer()**]] hook but its really a scalable 
 ```js
 //initial states
 const initialState = {
-	balance = 0
+	balance: 0
 }
 
 //reducers
@@ -842,7 +842,7 @@ import { createStore, combineReducers } from 'redux';
 import { accountReducer } from './accountReducer';
 import { bankReducer } from './bankReducer';
 
-const rootReducer = combineReducer({
+const rootReducer = combineReducers({
 	account: accountReducer,
 	bank: bankReducer,
 })
@@ -880,7 +880,7 @@ const initialState = {
 const accountSlice = createSlice({
 	name: 'account',
 	initialState,
-	reducer: {
+	reducers: {
 		deposit(state, action){
 			state.balance += action.payload
 		},
@@ -891,20 +891,20 @@ const accountSlice = createSlice({
 })
 
 export const { deposit, withdraw } = accountSlice.actions;
-export default accountSlice.reducer;
+export default accountSlice.reducers;
 ```
 
 2. `bankSlice.js`
 ```jsx
 import { createSlice } from "@reduxjs/toolkit"
 
-const inititalState = {
+const initialState = {
 	isAccountOpen: false,
 }
 const bankSlice = createSlice({
 	name: 'bank',
 	inititalState,
-	reducer: {
+	reducers: {
 		openAccount(state, action){
 			state.isAccountOpen = true
 		},
@@ -915,7 +915,7 @@ const bankSlice = createSlice({
 })
 
 export const { openAccount, closeAccount } = bankSlice.actions;
-export default bankSlice.reducer;
+export default bankSlice.reducers;
 ```
 
 - the `action` functions can only take one `payload` argument, if we need more than one then we need to use `prepare()`
@@ -923,7 +923,7 @@ export default bankSlice.reducer;
 const someSlice = createSlice({
 	name: "theSlice",
 	initialState,
-	reducer: {
+	reducers: {
 		actionOne: {
 			prepare(argOne, argTwo){
 				return { payload: { argOne, argTwo } }
@@ -946,8 +946,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { accountReducer } from './accountSlice ';
 import { bankReducer } from './bankReducer';
 
-configureStore({
-	reducer: {
+const store = configureStore({
+	reducers: {
 		account: accountReducer,
 		bank: bankReducer 
 	},
@@ -955,7 +955,46 @@ configureStore({
 
 export default store;
 ```
-
+## CreateAsyncThunks
+```js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'  
+import { getData } from '../services/apiRequests.js'  
+  
+export const fetchData = createAsyncThunk('api/fetchdata', async () => {  
+  const data = await getData()  
+  return data  
+})  
+  
+const initialState = {  
+  payload: '',  
+  status: 'idle', // idle, loading, succeeded, failed  
+  action: '',  
+  error: '',  
+}  
+  
+const apiSlice = createSlice({  
+  name: 'api',  
+  initialState,  
+  reducers: {},  
+  extraReducers: builder => {  
+    builder  
+      .addCase(fetchData.pending, state => {  // always use {}, wont work without it
+        state.status = 'loading'  
+      })  
+      .addCase(fetchData.fulfilled, (state, action) => {  
+        state.status = 'succeeded'  
+        state.payload = action.payload.payload  
+        state.action = action.payload.action  
+      })  
+      .addCase(fetchData.rejected, (state, action) => {  
+        state.status = 'failed'  
+        state.error = 'Failed to fetch the API data'  
+      })  
+  },  
+})  
+  
+export default apiSlice.reducer
+```
 ***
 # Temporary API mountpoint
 
@@ -1156,7 +1195,6 @@ function App(){
 import { useRouteError } from 'react-router-dom';
 const message = useRouteError().data
 ```
-## To fetch data from API using React Loader
 
 1. `services/apiQuestions.js`
 ```js
@@ -1208,4 +1246,704 @@ const router = [
 function App(){
 	return <RouterProvider router={router} />
 }
+```
+
+***
+# Supabase
+- an awesome opensource database
+1. create a `supabase.js`
+```jsx
+//npm install @supabase/supabase-js
+
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient(SupabaseURL, SupabaseKey)
+
+export default supabase;
+```
+
+2. quering databases
+```jsx
+//select
+const { data, error } = await supabase
+	.from('users')
+	.select('*');
+
+//insert
+const { data, error } = await supabase
+	.from('users')
+	.insert([{ user: "someone", isOnline: false}])
+
+//update
+const { data, error } = await supabase
+	.from('users')
+	.update({ done: true})
+	.eq({'id': 1});
+
+//delete
+const { data, error } = await supabase
+	.from('todos')
+	.delete()
+	.eq('id',1)
+
+//uploads
+const { data, error } = await supabase
+	.storage
+	.from('avatars')
+	.upload('public/avatar1.png', file)
+
+```
+***
+# React Query
+- Its a data fetching and caching library for react 
+
+1. Initial
+```jsx
+//npm i react-query react-query-dev-tools
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevTools } from '@tanstack/react-query-dev-tools'
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			staleTime: 60;
+		}
+	}
+})
+
+<QueryClientProvider client={queryClient} >
+	<ReactQueryDevTools initialIsOpen={false} />
+	<App />
+</QueryClientProvider>
+```
+
+2. Fetching data
+```jsx
+import { useQuery } from '@tanstack/react-query'
+
+const { data, status } = useQuery({
+	queryKey: ['users'],
+	queryFn: fetchUsers, // must return a promise
+});
+```
+- `queryKey`: unique id for caching
+- `queryFn`: async function that returns data
+
+3. Re-fetching
+```jsx
+const query = useQuery({ ... })
+query.refetch()
+```
+
+4. Mutation
+```jsx
+
+const queryClient = useQueryClient(); // a speacial hook that gives you access to the query client from where ever you are!
+
+const { isLoading: someAlias, mutate } = useMutation({
+	mutationFn: (id) => someFunc(id),
+	// or mutationFun: someFunc --> if the params are same
+	onSuccess: () => {
+		toast.success("You're done for")
+		queryClient.invalidateQueries({
+			queryKey: ['users']
+		});
+		reset();
+		
+	onError: error => alert(error)
+})
+```
+
+***
+# React hot toast
+- its a notification pop up library. use it as an alternative to `alert()`
+
+1.  Add the `<Toaster />` component to the `<App />`
+```jsx
+// npm i react-hot-toast
+
+<Toaster position="top-center"
+		gutter={12}
+		containerStyle={{margin: "8px"}}
+		toastOptions={{
+			success: {
+				duration: 3000
+			},
+			error: {
+				duration: 5000
+			},
+			style: {
+				fontSize: '16px',
+				maxWidth: '500px',
+				padding: '16px 24px',
+				backgroundColor: red;
+			}
+		}}
+/>
+
+toast.success("success")
+toast.error("error")
+```
+
+***
+# React hook forms
+
+1. initialize
+```jsx
+
+//npm install react-hook-form
+import { useForm } from 'react-hook-form';
+
+const { register, handleSubmit, formState: { errors }} = useForm();
+
+function onSubmit(data){
+	console.log(data)
+}
+function onError(error){
+	console.log(error)
+}
+
+// the { errors } and the OnError function has the same error data.
+
+<form onSubmit={handleSubmit(onSubmit,onError)}>
+	<input id='name' {
+		...register('name'), 
+		{
+			required: "This field is required",
+		}
+	} />
+	<input id='num' {
+		...register('num'),
+		{
+			required: "This field is required",
+			// make it optional on a condition
+			required: isCondition ? "req" : false
+			min: {
+				value: 1,
+				message: "Should atleast be 1"
+			}
+			// or a validate function
+			validate: (value) => value > 100 || "should be atleas 100"
+		}
+	}
+	//optionally show a text near the input if there's an error
+	{errors?.num?.message && <p>{errors.num.message}</p>}
+</form>
+```
+- we're calling the `handleSubmit(onSubmit)` at `onSubmit` property. 
+	- It allows the form hook to get all the data from the form,
+	- validates them if there's any rules
+	- prevents default browser submission
+	- and then finally passes the data to your `onSubmit()` function call 
+
+- disable the input and buttons while submitting
+```jsx
+<input disabled={isCreating} />
+<button disabled={isCreating}> Submitting </button
+```
+- `isCreating` is returned from the `useMutation()` function
+### retrieving uploaded files
+```jsx
+function uploadImg(data){
+	const url = "https://something"
+	const imageName = `${Math.random()}-${data.image.name}.replaceAll('/','')`
+	const imageUrl = `${url}/storage/v1/object/public/bucket-name/${imageName}`
+
+	const { data, error } = await supabase
+		.from('bucket-name')
+		.insert([{ ...data, image: imageUrl }])
+	if(error) throw new Error('youre done for')
+
+	const { error: StorageError } = await supabase
+		.from('bucket-name')
+		.upload(imageName, data.image)
+
+	if(StorageError){
+		await supabase
+			.from("bucket-name")
+			.delete()
+			.eq("id", data.id);
+		console.log("Image was not uploaded successfully")
+		throw new Error("You're done for.")
+	}
+```
+
+***
+# Advanced React Patterns
+## 1. Render props pattern
+In this pattern, the component receives a function as a prop (usually called children or render), that it calls to determine what to render.
+1. The Usual implementation would be
+```jsx
+function ObjectList(title, items){
+	return(
+		<div>
+			<h1>{title}</h1>
+			{ items.map(obj => <ObjectItem name={obj.name} price={obj.price} /> )}
+		</div>
+	)
+}
+function ToyList(title, items){
+	return(
+		<div>
+			<h1>{title}</h1>
+			{ items.map(toy => <ToysItem name={toy.name} price={toy.price} /> )} 
+		</div>
+	)
+}
+
+function App(){
+	return(
+		<div>
+			<ObjectList title={"Objects"} items={["one","two","three"]} />
+			<ToysList title={"Toys"} items={["one","two","three"]} />
+		</div>
+	)
+}
+```
+
+2. But the same implementation in through render props would be
+```jsx
+function List(title, items, render){
+	return(
+		<div>
+			<h1>{title}</h1>
+			<h2>Items</h2>
+			{items.map(render)}
+		</div>
+	)
+}
+
+function App(){
+	return(
+		<div>
+			<ObjectList 
+				title={"Objects"} 
+				items={["one","two","three"]} 
+				render={obj => <ObjectItem name={obj.name} price={obj.price} /> }
+			/>
+			<ToysList
+				title={"Toys"} 
+				items={["one","two","three"]} 
+				render={toy => <ToysList name={toy.name} price={toy.price} /> }
+			/>
+		</div>
+	)
+}
+```
+- much more re-usability!
+## 2. Higher Order function Pattern
+This pattern takes a component as the input, adds more functionality to it and returns the enhanced component!
+
+1. Definition
+```jsx
+function withToggles(WrappedComponent){
+	return function Toggle(props){
+		const [toggle, setToggle] = useState(false)
+
+		return (
+			<div>
+			{ toggle && <WrappedComponent x{...props} /> }
+			<button onClick={ () => setToggle(prev => !prev) } >
+				{ toggle ? "Hide" : "Show" }
+			</button>
+			</div>
+		)
+	}
+}
+```
+
+2. Usage
+```jsx
+const ToggleList = withToggles(List);
+
+<ToggleList title="Something" />
+```
+- the props given here will be automatically passed to the `WrappedComponent` that's passed.
+## 3. Compound Component Pattern
+
+1. Definition
+```jsx
+import { useContext, createContext, useState } from 'react'
+
+// 1. Create a context
+const CounterContext = createContext();
+
+// 2. Create a parent component
+function Counter({ children }){
+	const [count, setCount] = useState(0);
+	const increase = () => setCount(c => c + 1);
+	const decrease = () => setCount(c => c - 1);
+
+	return(
+		<CounterContext.Provider value={{ count, increase, decrease }}>
+			<span>{ children }</span>
+		</CounterContext.Provider>
+	)
+}
+
+// 3. Create a child component
+function Count(){
+	const { count } = useContext(CounterContext);
+	return <span>{ count }</span>
+}
+function Label({ children }){
+	return <span>{ children }</span>	
+}
+function Increase({ icon }){
+	const { increase } = useContext(CounterContext);
+	return <button onClick={ increase }>{ icon }</button>
+}
+function Decrease({ icon }){
+	const { decrease } = useContext(CounterContext);
+	return <button onClick={ decrease }>{ icon }</button>
+}
+
+// 4. Add the children, Since functions are basically objects in js, we can do this.
+Counter.Count = Count;
+Counter.Label = Label;
+Counter.Increase = Increase;
+Counter.Decrease = Decrease;
+
+export default Counter;
+```
+
+2. Usage
+```jsx
+// so instead of this
+<Counter
+iconIncrease="+"
+iconDecrease="-"
+label="My NOT so flexible counter"
+hideLabel={false}
+hideIncrease={false}
+hideDecrease={false}
+positionCount="top"
+/>
+
+// we can do this
+<Counter>
+<Counter.Label>My super flexible counter</Counter.Label>
+<Counter.Decrease icon="-" />
+<Counter.Increase icon="+" />
+<Counter.Count />
+
+</Counter>
+```
+
+***
+# Environment keys 
+
+1. Create a `.env` file at the root folder
+```
+VITE_VARNAME=""
+```
+
+2. Usage with your app
+```jsx
+const VARNAME = import.meta.env.VARNAME;
+```
+
+***
+## Authentication and Authorization
+## Register
+1. in `apiAuth.js` file
+```jsx
+async function registerApi({ email, password }) {  
+  const { data, error } = await supabase.auth.signUp({ email, password })  
+  if (error) throw new Error(`Error signing up: ${error.message}`)  
+  return data  
+}
+```
+
+2. create a `useRegister.js`
+```jsx
+import { useMutation, useQueryClient } from 'react-query'  
+import { registerApi } from '../../services/apiAuth.js'  
+import toast from 'react-hot-toast'  
+import { useNavigate } from 'react-router-dom'  
+  
+function useRegister() {  
+  const navigate = useNavigate()  
+  const queryClient = useQueryClient()  
+  
+  const { mutate: register, isLoading } = useMutation({  
+    mutationFn: registerApi,  
+    onSuccess: data => {  
+      queryClient.setQueryData(['user'], data.user)  
+      toast.success('Registeration successful')  
+      navigate('/profile', { replace: true })  
+    },  
+    onError: () => {  
+      toast.error('Registeration failed')  
+    },  
+  })  
+  
+  return { register, isLoading }  
+}  
+  
+export { useRegister }
+```
+
+3. use in signup
+```jsx
+import { useRegister } from './useRegister.js'  
+  
+const SignUp = () => {  
+  const { register } = useRegister()  
+  
+  return (  
+    <div>  
+      This is the SignUp page.  
+      <button  
+        onClick={() =>  
+          register({ email: 'ad@gmak.com', password: 'adfdfdf34343f@' })  
+        }  
+      >  
+        Register  
+      </button>  
+    </div>  )  
+}  
+  
+export default SignUp
+```
+## Login
+1. create an `apiAuth.js` file
+```jsx
+import supabase from './supabase'  
+  
+async function loginApi(email, password) {  
+  let { data, error } = await supabase.auth.signInWithPassword({  
+    email,  
+    password,  
+  })  
+  
+  if (error) throw new Error(`Error signing in: ${error.message}`)  
+  
+  return data  
+}  
+  
+export { loginApi }
+```
+
+2. create a custom hook `useLogin.js`
+```jsx
+import { loginApi } from '../../services/apiAuth.js'  
+import { useMutation, useQueryClient } from 'react-query'  
+import { useNavigate } from 'react-router-dom'  
+import toast from 'react-hot-toast'  
+  
+function useLogin() {  
+  const navigate = useNavigate()  
+  const queryClient = useQueryClient()  
+  
+  const { mutate: login, isLoading } = useMutation({  
+    mutationFn: ({ email, password }) => loginApi(email, password),  
+    onSuccess: user => {  
+      queryClient.setQueriesData(['user'], user)  
+      toast.success('Login successful')  
+      navigate('/profile', { replace: true })  
+    },  
+    onError: () => {  
+      toast.error('Login failed')  
+    },  
+  })  
+  
+  return { login, isLoading }  
+}  
+  
+export { useLogin }
+```
+
+3. use it in the app
+```jsx
+import { useState } from 'react'  
+import { useLogin } from './useLogin.js'  
+  
+const Login = () => {  
+  const [email, setEmail] = useState('')  
+  const [password, setPassword] = useState('')  
+  const { login, isLoading } = useLogin()  
+  
+  function handleSubmit(e) {  
+    e.preventDefault()  
+  
+    if (!email || !password) return alert('Please fill in all fields')  
+    login({ email, password })  
+  }  
+  
+  return (  
+    <form onSubmit={handleSubmit}>  
+      <input        
+        type="email"  
+        placeholder="Email"  
+        onChange={e => setEmail(e.target.value)}  
+        disabled={isLoading}  
+      />  
+      <input        
+        type="password"  
+        placeholder="Password"  
+        onChange={e => setPassword(e.target.value)}  
+        disabled={isLoading}  
+      />  
+      <button disabled={isLoading}>{ isLoading ? "Loading" : "Login" }</button>  
+    </form>  )  
+}  
+  
+export default Login
+```
+## Logout
+1. inside `apiAuth.js`
+```jsx
+async function logoutApi() {  
+  const { error } = await supabase.auth.signOut()  
+  if (error) throw new Error(`Error signing out: ${error.message}`)  
+}
+```
+
+2. create a `useLogout.js`
+```jsx
+import { useMutation, useQueryClient } from 'react-query'  
+import { logoutApi } from '../../services/apiAuth.js'  
+import toast from 'react-hot-toast'  
+import { useNavigate } from 'react-router-dom'  
+  
+function useLogout() {  
+  const navigate = useNavigate()  
+  const queryClient = useQueryClient()  
+  const { isLoading, mutate: logout } = useMutation({  
+    mutationFn: logoutApi,  
+    onSuccess: () => {  
+      queryClient.removeQueries('user')  
+      toast.success('Logout successful')  
+      navigate('/', { replace: true })  
+    },  
+    onError: error => {  
+      toast.error(`Logout failed ${error.message}`)  
+    },  
+  })  
+  
+  return { isLoading, logout }  
+}  
+  
+export { useLogout }
+```
+
+3. usage in app
+```jsx
+const Profile = () => {  
+  const { isLoading, logout } = useLogout()  
+  if (isLoading) return <Loading />  
+  
+  return (  
+    <div>  
+      This is the Profile page.  
+      <button onClick={logout}>Logout</button>  
+      <Outlet />    
+    </div>)  
+}
+```
+
+## Authorization - Protecting routes 
+
+### The Basic way
+1. inside `apiAuth.js`
+```jsx
+async function getCurrentUser(){
+	// we check if we have the user object in the session
+	const { data: session, sessionError } = await supabase.auth.getSession()  
+	if (!sessionError) throw new Error(`Error getting a session`)  
+
+	// if so, then we fetch the user from online for up-to-date results
+	const { data, userError } = await supabase.auth.getUser()
+	if (userError) throw new Error(`Error getting a user`)  
+
+	// we return the info
+	return data?.user
+
+}
+```
+
+2. create an `useUser` hook
+```jsx
+import { getCurrentUser } from '../../services/apiAuth.js'  
+import { useQuery } from 'react-query'  
+  
+function useUser() {  
+  const { data: user, isLoading } = useQuery({  
+    queryKey: ['user'],  
+    queryFn: getCurrentUser,  
+  })  
+  return { isLoading, isAuthenticated: user?.role === 'authenticated' }  
+}  
+  
+export { useUser }
+```
+
+3. Create a `<ProtectedRoute />` component to wrap all the routes that needs securing. wrap em.
+```jsx
+import { useUser } from '../features/login/useUser.js'  
+import { Outlet } from 'react-router-dom'  
+  
+function ProtectedRoute({ children }) {  
+  const { isLoading, isAuthenticated } = useUser()  
+  
+  if (isLoading) return <div>Loading...</div>  
+  if (!isAuthenticated && !isLoading)  
+    return <div>You must be logged in to view this page.</div>  
+  
+  console.log(isAuthenticated)  
+  if (isAuthenticated) return <Outlet />  
+}  
+  
+export default ProtectedRoute
+```
+### The Optimized way 
+this way uses a provider and the `onAuthStateChange()` function from `supabase`
+
+- do the `<ProtectedRoute />` this way
+```jsx
+import { useEffect, useState } from 'react'  
+import { Outlet } from 'react-router-dom'  
+import supabase from '../services/supabase.js'  
+  
+const ProtectedRoute = () => {  
+  const [user, setUser] = useState(null)  
+  const [isLoading, setIsLoading] = useState(true)  
+  
+  useEffect(() => {  
+    const { data: user } = supabase.auth.getUser()  
+    setUser(user)  
+    setIsLoading(false)  
+  
+    const { data } = supabase.auth.onAuthStateChange((event, session) =>  
+      setUser(session?.user ?? null)  
+    )  
+  
+    return () => data.subscription.unsubscribe()  
+  }, [])  
+  
+  if (isLoading) return <div>Loading...</div>  
+  if (!isLoading && !user)  
+    return <div>You must be logged in to access this page.</div>  
+  
+  if (user) return <Outlet />  
+}  
+  
+export default ProtectedRoute
+```
+
+***
+# Error boundaries
+
+```jsx
+// npm install react-error-boundary
+
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorPage from './Errorpage.jsx'
+
+<ErrorPage 
+	FallbackComponent={ErrorFallback} 
+	onReset={() => window.location.replace('/')}
+>
+	<App />
+</ErrorPage>
 ```
