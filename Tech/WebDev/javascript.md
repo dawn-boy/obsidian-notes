@@ -1,4 +1,4 @@
-0# datatypes
+# datatypes
 ==Not like C, variables can store any datatype values;==
 - number (All the numbers, decimals included are considered within this one category) [** is exponent.]
 - string

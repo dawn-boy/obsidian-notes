@@ -1393,7 +1393,7 @@ toast.error("error")
 //npm install react-hook-form
 import { useForm } from 'react-hook-form';
 
-const { register, handleSubmit, formState: { errors }} = useForm();
+const { register, handleSubmit, formState: { errors }} = useForm(); // we de-structuring errors from formState!
 
 function onSubmit(data){
 	console.log(data)
@@ -1406,10 +1406,10 @@ function onError(error){
 
 <form onSubmit={handleSubmit(onSubmit,onError)}>
 	<input id='name' {
-		...register('name'), 
+		...register('name', 
 		{
 			required: "This field is required",
-		}
+		})
 	} />
 	<input id='num' {
 		...register('num'),
@@ -1441,6 +1441,85 @@ function onError(error){
 <button disabled={isCreating}> Submitting </button
 ```
 - `isCreating` is returned from the `useMutation()` function
+
+## Forms hook + Compount Components usage
+```jsx
+import { useFormContext } from 'react-hook-form'  
+import capitalize from '../../helpers/capitalize.js'  
+  
+function Form({ children, ...props }) {  
+  return <form {...props}>{children}</form>  
+}  
+  
+Form.LabeledInput = function LabeledInput({  
+  name,  
+  label = capitalize(name),  
+  type,  
+  rules = { required: `${label} is a required field ` },  
+}) {  
+  const {  
+    register,  
+    formState: { errors },  
+  } = useFormContext()  
+  const error = errors?.[name]  
+  return (  
+    <>  
+      <label htmlFor={name}>{label}</label>  
+      <input type={type} id={name} {...register(name, rules)} />  
+      {error && <span>{error?.message}</span>}  
+    </>  
+  )  
+}  
+  
+export default Form
+```
+
+usage
+```jsx
+import Form from './Form.jsx'  
+import { useForm, FormProvider } from 'react-hook-form'  
+  
+function onSubmit(data) {  
+  console.log(data)  
+}  
+function onError(error) {}  
+  
+function Login() {  
+  const methods = useForm()  
+  const { handleSubmit, watch } = methods  
+  return (  
+    <div>  
+      <FormProvider {...methods}>  
+        <Form onSubmit={handleSubmit(onSubmit, onError)}>  
+          <Form.LabeledInput name="username" />  
+          <Form.LabeledInput name="email" type="email" />  
+          <Form.LabeledInput            name="password"  
+            type="password"  
+            rules={{  
+              required: 'Password is a required field',  
+              minLength: {  
+                value: 5,  
+                message:  
+                  '5 is my favorite number, so plweese use at least 5 characters',  
+              },  
+            }}  
+          />  
+          <Form.LabeledInput            name="confirm-password"  
+            label="Confirm Password"  
+            type="password"  
+            rules={{  
+              required: 'Confirm Password is a required field',  
+              validate: value =>  
+                value === watch('password') || "Your passwords don't match",  
+            }}  
+          />  
+          <button type="submit">Login</button>  
+        </Form>      </FormProvider>    </div>  )  
+}  
+  
+export default Login
+```
+- the useFormContext hook can only be used if your function is a component, not in any regular functions
 ### retrieving uploaded files
 ```jsx
 function uploadImg(data){
@@ -1664,9 +1743,11 @@ import { useNavigate } from 'react-router-dom'
 function useRegister() {  
   const navigate = useNavigate()  
   const queryClient = useQueryClient()  
-  
+
+  // for async functions, use mutateAsync instead of mutate in params, it returns the promise as expected then
   const { mutate: register, isLoading } = useMutation({  
     mutationFn: registerApi,  
+	onMutate: () => navigate('/loading', { replace: true }),
     onSuccess: data => {  
       queryClient.setQueryData(['user'], data.user)  
       toast.success('Registeration successful')  
@@ -1946,4 +2027,112 @@ import ErrorPage from './Errorpage.jsx'
 >
 	<App />
 </ErrorPage>
+```
+
+***
+# React-Query continuation
+## A realtime data updates setup
+### 1. Initial fetch with `useQuery`
+#### Supabase fetch function
+```jsx
+export async function fetchTeam(teamId){
+	const {data, error} = await supabase
+		.from('teams')
+		.select('
+			id,
+			name,
+			team_members (id, name, status)
+		')
+		.eq('id', teamId)
+		.single()
+	if (error) throw error
+	return {
+		id: data.id,
+		name: data.name,
+		members: data.team_members
+	}
+}
+```
+
+#### Integrating supabase fetch with useQuery
+```jsx
+function TeamPage(teamId){
+	const {data: teamData, isLoading, error } = useQuery(
+		['team',teamId],
+		() => fetchTeam(teamId)
+	)
+
+	if(isLoading) return <p>Loading</p>
+	if(error) return <p>Error</p>
+}
+```
+
+### 2. Subscribe to supabase for realtime updates
+#### useEffect for managing listeners
+```jsx
+//team name changes
+useEffect(() => {
+	const queryClient = useQueryClient()
+	const channel = supabase.channel(`team:${teamId}`)
+
+	channel.on('postgres_changes',{
+		event: 'UPDATE',
+		schema: 'public',
+		table: 'teams',
+		filter: `id=eq.${teamId}`
+	}, payload => {
+		queryClient.setQueryData(['team',teamId], old => {
+		...old,
+		name: payload.new.name
+		})
+	})
+
+// member changes
+
+	channel.on('postgres_changes', {
+		event: '*',
+		schema: 'public',
+		table: 'team_members',
+		filter: `team_id=eq.${teamId}`
+	}, payload => {
+		queryClient.setQueryData(['teamId', teamId], old => {...old, members: patchMembers(old.members, payload)})
+
+	})
+	channel.subscribe()
+
+	return () => supabase.removeChannel(channel)
+}, [teamId])
+
+function patchMembers(oldMembers, payload){
+	const { eventType, new: newMember, old: oldMember } = payload
+
+	switch(eventType){
+		case 'INSERT':
+			return [...oldMembers, newMember]
+		case 'UPDATE':
+			return oldMembers.map(m => m.id === newMember.id ? m)
+		case 'DELETE':
+			return oldMembers.filter(m => m.id !== oldMember.id)
+		default:
+			return oldMembers
+	}
+}},[])
+```
+- at filter, we're saying for `id` use `eq.teamid` filter
+### 3. "Ready" with `useMutation`
+```jsx
+function setReady(userId){
+	const { error } = await supabase
+		.from('team_members')
+		.update({status: 'ready'})
+		.eq('id', userId)
+
+	if(error) throw error
+}
+```
+
+```jsx
+import { mutate: isLoading: isSubmitting } = useMutation(() => setReady(currentUserId))
+
+<button onClick={() => mutate()} />
 ```
