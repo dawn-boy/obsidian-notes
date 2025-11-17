@@ -1,0 +1,4 @@
+- Values will be stored in a continuous order
+- the memory address is incremented based on the size of each elements.
+	- Integers takes up `4 bytes`, so memory addresses would be like `$0, $4, $8`
+	- 
