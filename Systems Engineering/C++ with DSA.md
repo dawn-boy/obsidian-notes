@@ -34,10 +34,10 @@ int main(){
 }
 ```
 
-# `Vector` The Dynamic Array
+# 1. Vector (The Dynamic Array)
 - A regular array, the number of elements that can be store is fixed at declaration. 
 - But a `vector` expands its size as new items are being added!
-#### 1. Why use a Vector?
+#### Why use a Vector?
 - **Contiguous Memory:** All items sit right next to each other in your RAM. This makes it incredibly fast for the computer to read.
 - **Automatic Growth:** You don't have to worry about the size; you just `push_back` data.
 
@@ -106,7 +106,7 @@ When using a pointer, we use `->` instead of `.` to access the struct attributes
     std::cout << destPtr->name << std::endl;
 ```
 ***
-## 1. Build `std::vector`
+## Build `std::vector`
 Since we have to manage our memory manually. we have to use `new` and `delete` keywords.
 
 We need,
@@ -286,4 +286,118 @@ STL vector took: 0.0213556
 ```
 
 ==Our performed better because `std::vector` implements a lot of safety checks that my `DynamicArray` ignores.==
+
+***
+# 2. Linked Lists
+- We learnt that Dynamic arrays are contiguous in memory, meaning they are storing one after another. But ==**Linked lists are polar opposites**==
+In a Linked List, All the items are scattered throughout the main memory.
+Each Item (node) has two parts:
+- The Data: The data itself
+- The Pointer: A link to where the next item is hidden
+### Why even use LinkedLists if vectors are fast?
+ Instant Insertion
+	If you want to insert a new element in the middle of 1 million items vector. You have to slide every element over to make room.
+### Singly linked lists Code
+```c++
+#include <iostream>
+
+template <typename T>
+struct Node{
+    T data;
+    Node* next;
+};
+
+template <typename T>
+class LinkedList{
+private:
+    Node<T>* head;
+public:
+    LinkedList(){
+        head = nullptr;
+    }
+
+    void push_front(const T value){
+        Node<T>* node = new Node<T>{value, nullptr};
+        node->next = head;
+        head = node;
+    }
+
+    void push_back(const T value){
+        Node<T>* node = new Node<T>{value, nullptr};
+
+        if(head == nullptr) {
+            head->next = node;
+            return;
+        }
+
+        Node<T>* temp = head;
+        while(temp->next != nullptr) temp = temp->next;
+        temp->next = node;
+    }
+    void push_middle(const T value, const T addAfter){
+        Node<T>* temp = head;
+        while(temp->next != nullptr){
+            if(temp->data == addAfter){
+                Node<T>* newNode = new Node<T>{value, temp->next};
+                temp->next = newNode;
+                return;
+            }
+            temp = temp->next;
+        }
+    }
+    void remove(const T value){
+        // 1. The Whole list is empty
+        if(head == nullptr) return;
+
+        // 2. the node to delete is HEAD
+        if(head->data == value){
+            Node<T>* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+
+        // 3. searching for the node 
+        Node<T>* current = head;
+        Node<T>* prev = nullptr;
+        while(current != nullptr && current->data != value){
+            prev = current;
+            current = current->next;
+        }
+
+
+        // if nothing is found
+        if(current == nullptr) {
+            std::cout << "Element " << value << " was not found in the linked List." << std::endl;
+            return;
+        }
+
+        // if found
+        prev->next = current->next;
+        delete current;
+    }
+
+    void show() const {
+        Node<T>* temp;
+        temp = head;
+        while(temp != nullptr){
+            std::cout << temp->data << ", " << temp->next << std::endl;
+            temp = temp->next;
+        }
+    }
+};
+
+int main(){
+
+    LinkedList<int> list;
+    list.push_front(40);
+    list.push_front(80);
+    list.push_back(400);
+    list.push_middle(34,40);
+    list.remove(40);
+    list.show();
+
+    return 0;
+}
+```
 
