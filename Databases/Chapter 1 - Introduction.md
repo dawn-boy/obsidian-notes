@@ -11,6 +11,8 @@ A Database must be
 	- simplicity
 	- evolvability
 ***
+## Reliability
+Reliability means making systems work correctly, even when faults occur. Faults can be in hardware, software, and humans. Fault-tolerance techniques can hide certain types of faults from the end user. 
 ## Scalability
 To first understand scalability, we need to find our load parameters. These parameters differs depending on the architecture of our system. It might be
 - requests per second
@@ -68,3 +70,6 @@ However the downside of this approach is that, posting a new tweet now requires 
 ## ==in the example of twitter, the distribution of followers per user is a key load parameter for considering scalability.==
 
 Twitter is now moving to a hybrid approach where most users use the second approach but a small sub-section of users with stupidely large followers count are excepted from this fan-out. Tweets from these account are fetched separately and merged with home timelines when need like in approach 1.
+
+## Maintainability
+Maintainability has many facets, but in essence it’s about making life better for the engineering and operations teams who need to work with the system. Good abstrac‐ tions can help reduce complexity and make the system easier to modify and adapt for new use cases. Good operability means having good visibility into the system’s health, and having effective ways of managing it. 
